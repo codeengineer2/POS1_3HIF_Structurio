@@ -11,14 +11,14 @@
     <Grid Background="white">
         <DatePicker HorizontalAlignment="Left" Margin="340,100,0,0" VerticalAlignment="Top"/>
         <Button Content="CheckIN" HorizontalAlignment="Left" Margin="170,150,0,0" VerticalAlignment="Top" Height="29" Width="74" Click="Button_Click"/>
-        <Button Content="CheckOUT" HorizontalAlignment="Right" Margin="0,150,177,0" VerticalAlignment="Top" Height="29" Width="83"/>
+        <Button Content="CheckOUT" HorizontalAlignment="Right" Margin="0,150,177,0" VerticalAlignment="Top" Height="29" Width="83" Click="Button_Click_1"/>
         <ListView x:Name="times" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="150,220,150,14" Height="150">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Date" Width="100"/>
-                    <GridViewColumn Header="CheckIN" Width="150" x:Name="Checkin"/>
-                    <GridViewColumn Header="CheckOUT" Width="150"/>
-                    <GridViewColumn Header="Duration" Width="90"/>
+                    <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Header="CheckIN" Width="150" x:Name="Checkin" DisplayMemberBinding="{Binding CheckIN}"/>
+                    <GridViewColumn Header="CheckOUT" Width="150" DisplayMemberBinding="{Binding CheckOUT}"/>
+                    <GridViewColumn Header="Duration" Width="90" DisplayMemberBinding="{Binding Duration}"/>
                 </GridView>
             </ListView.View>
         </ListView>
