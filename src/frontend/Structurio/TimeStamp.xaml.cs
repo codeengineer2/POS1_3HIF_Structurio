@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,20 +21,67 @@ namespace Structurio
     /// </summary>
     public partial class TimeStamp : Page
     {
+        public ObservableCollection<Timecheckin> entries = new ObservableCollection<Timecheckin>();
+        public int timeindex = 0;
         public TimeStamp()
         {
             InitializeComponent();
+            times.ItemsSource = entries;
         }
+        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Checking(object sender, RoutedEventArgs e)
         {
-            // Get the current date and time
             DateTime now = DateTime.Now;
 
-            // Format the date and time as a string
-            string formattedDate = now.ToString("yyyy-MM-dd HH:mm:ss");
-
             
+
+
+            if (entries.Count== 0 || entries[entries.Count - 1].CheckOUT != DateTime.MinValue)
+            {
+                entries.Add(new Timecheckin
+                {
+                    CheckIN = now,
+                    CheckOUT = DateTime.MinValue,
+                    Duration = "0:00"
+
+                }) ;  
+
+            }
+           
+            
+        }
+
+        private void Checkout(object sender, RoutedEventArgs e)
+        {
+            if (entries.Count > 0 && entries[entries.Count-1].CheckOUT == DateTime.MinValue)
+            {
+                DateTime now = DateTime.Now;
+
+                entries[entries.Count-1].CheckOUT = now;
+                entries[entries.Count-1].Duration = (now - entries[entries.Count - 1].CheckIN).ToString(@"hh\:mm");
+
+                // List Refresh auslösen
+                times.Items.Refresh();
+            }
+
+
+
+        }
+
+        private void Dataändern(object sender, RoutedEventArgs e)
+        {
+            Window aender = new edittime(entries, timeindex, times);
+            
+            aender.ShowDialog();
+        }
+
+        private void changed_clicktime(object sender, SelectionChangedEventArgs e)
+        {
+            if (times.SelectedIndex <= entries.Count)
+            {
+                timeindex = times.SelectedIndex;
+            }
         }
     }
 }
