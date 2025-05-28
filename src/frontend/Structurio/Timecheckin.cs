@@ -8,9 +8,8 @@ namespace Structurio
 {
     public class Timecheckin
     {
-        public DateOnly Date { get; set; }
-        public TimeOnly CheckIN { get; set; }
-        public TimeOnly CheckOUT { get; set; }
+        public DateTime CheckIN { get; set; }
+        public DateTime CheckOUT { get; set; }
         public string Duration { get; set; }
     }
 }

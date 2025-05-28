@@ -21,46 +21,45 @@ namespace Structurio
     /// </summary>
     public partial class TimeStamp : Page
     {
-        ObservableCollection<Timecheckin> entries = new ObservableCollection<Timecheckin>();
+        public ObservableCollection<Timecheckin> entries = new ObservableCollection<Timecheckin>();
+        public int timeindex = 0;
         public TimeStamp()
         {
             InitializeComponent();
             times.ItemsSource = entries;
         }
+        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Checking(object sender, RoutedEventArgs e)
         {
             DateTime now = DateTime.Now;
 
-            DateOnly dateOnly = DateOnly.FromDateTime(now);
-            TimeOnly timeOnly = TimeOnly.FromDateTime(now);
+            
 
-           if (entries.Count== 0 || entries[entries.Count - 1].CheckOUT != null)
+
+            if (entries.Count== 0 || entries[entries.Count - 1].CheckOUT != DateTime.MinValue)
             {
                 entries.Add(new Timecheckin
                 {
-                    Date = dateOnly,
-                    CheckIN = timeOnly,
-                    CheckOUT = TimeOnly.MinValue,
+                    CheckIN = now,
+                    CheckOUT = DateTime.MinValue,
                     Duration = "0:00"
 
-                }) ;
+                }) ;  
+
             }
            
             
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Checkout(object sender, RoutedEventArgs e)
         {
-            if (entries.Count > 0 && entries[entries.Count-1].CheckOUT == TimeOnly.MinValue)
+            if (entries.Count > 0 && entries[entries.Count-1].CheckOUT == DateTime.MinValue)
             {
                 DateTime now = DateTime.Now;
 
-                DateOnly dateOnly = DateOnly.FromDateTime(now);
-                TimeOnly timeOnly = TimeOnly.FromDateTime(now);
-
-                entries[entries.Count-1].CheckOUT = timeOnly;
-
+                entries[entries.Count-1].CheckOUT = now;
+                entries[entries.Count-1].Duration = (now - entries[entries.Count - 1].CheckIN).ToString(@"hh\:mm");
 
                 // List Refresh auslösen
                 times.Items.Refresh();
@@ -68,6 +67,21 @@ namespace Structurio
 
 
 
+        }
+
+        private void Dataändern(object sender, RoutedEventArgs e)
+        {
+            Window aender = new edittime(entries, timeindex, times);
+            
+            aender.ShowDialog();
+        }
+
+        private void changed_clicktime(object sender, SelectionChangedEventArgs e)
+        {
+            if (times.SelectedIndex <= entries.Count)
+            {
+                timeindex = times.SelectedIndex;
+            }
         }
     }
 }

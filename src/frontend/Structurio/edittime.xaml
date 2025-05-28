@@ -1,0 +1,24 @@
+﻿<Window x:Class="Structurio.edittime"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Structurio"
+        mc:Ignorable="d"
+        Title="edittime" Height="450" Width="800">
+    <Grid>
+        <DatePicker Margin="157,67,497,326" x:Name="datein"/>
+        <TextBlock Text="CheckIN:" Margin="32,67,661,321" FontSize="20"/>
+        <TextBox HorizontalAlignment="Left" Margin="314,69,0,0" x:Name="timein" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="136" Height="35"/>
+
+
+        <TextBlock x:Name="CheckoutBox" Text="CheckOUT: " FontSize="20" Margin="29,118,644,273" RenderTransformOrigin="0.836,1.307"/>
+        <TextBox HorizontalAlignment="Left" x:Name="timeout" Margin="314,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="138" Height="34"/>
+
+        <DatePicker Margin="158,118,499,277" x:Name="dateout"/>
+
+
+        <Button Content="Speichern" Margin="213,247,213,118" Click="Save_Click"/>
+
+    </Grid>
+</Window>
