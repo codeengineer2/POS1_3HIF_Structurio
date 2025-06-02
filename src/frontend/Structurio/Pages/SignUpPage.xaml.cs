@@ -24,5 +24,26 @@ namespace Structurio.Pages
         {
             InitializeComponent();
         }
+
+        private void firstNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void lastNameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void BirthDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void emailBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
     }
 }

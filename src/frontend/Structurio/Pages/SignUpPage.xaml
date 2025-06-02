@@ -6,9 +6,29 @@
       xmlns:local="clr-namespace:Structurio.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SignUpPage">
+      Title="SignUpPage"
+      Background="#FFFFFFFF">
 
     <Grid>
-        
+        <StackPanel Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Registrieren" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,30"/>
+
+            <TextBlock Text="Vorname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <TextBox x:Name="firstNameBox" Height="34" FontSize="14" Padding="10,6" TextChanged="firstNameBox_TextChanged_1" />
+            <TextBlock x:Name="firstNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Nachname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <TextBox x:Name="lastNameBox" Height="34" FontSize="14"  Padding="10,6" TextChanged="lastNameBox_TextChanged"/>
+            <TextBlock x:Name="lastNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Geburtsdatum" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <DatePicker x:Name="birthDatePicker" Height="34" Margin="0,0,0,2" SelectedDateChanged="birthDatePicker_SelectedDateChanged"/>
+            <TextBlock x:Name="birthDateInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+
+            <TextBlock Text="E-Mail" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <TextBox x:Name="emailBox" Height="34" FontSize="14" Padding="10,6" TextChanged="emailBox_TextChanged"/>
+            <TextBlock x:Name="emailInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+        </StackPanel>
     </Grid>
+    
 </Page>
