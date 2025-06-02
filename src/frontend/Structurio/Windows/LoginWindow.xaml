@@ -1,0 +1,23 @@
+﻿<Window x:Class="Structurio.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Structurio.Windows"
+        mc:Ignorable="d"
+        Title="Structurio - Login"
+        Height="600" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Icon="/Assets/logo.ico"
+        Background="#FFFFFFFF">
+
+    <Grid>
+        <Frame x:Name="loginFrame" NavigationUIVisibility="Hidden"/>
+
+        <Grid x:Name="loadingGrid" Background="#AAFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" IsHitTestVisible="True" Cursor="Wait">
+            <Canvas x:Name="loadingAnimationCanvas" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
+        </Grid>
+    </Grid>
+    
+</Window>
