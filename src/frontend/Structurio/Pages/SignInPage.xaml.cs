@@ -29,5 +29,15 @@ namespace Structurio.Pages
         {
 
         }
+
+        private void togglePasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void login_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

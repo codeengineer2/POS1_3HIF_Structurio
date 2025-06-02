@@ -12,12 +12,39 @@
     <Grid>
         <StackPanel Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Anmelden" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,30"/>
-            <TextBlock Text="E-Mail" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
-            <TextBox x:Name="emailBox" Height="34" FontSize="14" Padding="10,6" BorderBrush="#CCC" BorderThickness="1" Margin="0,0,0,2" TextChanged="emailBox_TextChanged"/>
-            <TextBlock x:Name="emailInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,14"/>
-            <TextBlock Text="Passwort" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
             
+            <TextBlock Text="E-Mail" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            
+            <TextBox x:Name="emailBox" Height="34" FontSize="14" Padding="10,6" BorderBrush="#CCC" BorderThickness="1" Margin="0,0,0,2" TextChanged="emailBox_TextChanged"/>
+            
+            <TextBlock x:Name="emailInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,14"/>
+            
+            <TextBlock Text="Passwort" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
 
+
+            <Grid Height="34" Margin="0,0,0,2">
+                <TextBox x:Name="passwordTextBox" FontSize="14" BorderBrush="#CCC" BorderThickness="1" Padding="10,6,34,6" VerticalContentAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}"/>
+                <PasswordBox x:Name="passwordBox" FontSize="14"  BorderBrush="#CCC" BorderThickness="1" Padding="10,6,34,6" VerticalContentAlignment="Center" Visibility="Visible" ContextMenu="{x:Null}"/>
+                <Button x:Name="togglePasswordButton" Background="Transparent" Width="34" Height="34" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Cursor="Hand" Click="togglePasswordButton_Click"/>
+                <Image x:Name="eyeImage" Width="16" Height="16" Source="/Assets/login_eye_open.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
+            </Grid>
+
+            <TextBlock x:Name="passwordInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,4"/>
+
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,20">
+                <Hyperlink Click="forgotPassword_Click">
+                    Passwort vergessen?
+                </Hyperlink>
+            </TextBlock>
+
+            <Button Content="Anmelden" Height="38" FontWeight="SemiBold" Foreground="White" Margin="0,0,0,24" Click="login_Click"/>
+
+            <TextBlock Foreground="Gray" HorizontalAlignment="Center">
+                Noch kein Konto?
+                <Hyperlink Click="GoToSignUp_Click">
+                    Jetzt registrieren
+                </Hyperlink>
+            </TextBlock>
         </StackPanel>
     </Grid>
     
