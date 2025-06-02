@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="Controls\" />
     <Folder Include="Classes\" />
+    <Folder Include="Styles\" />
   </ItemGroup>
 
 </Project>

@@ -38,6 +38,18 @@ namespace Structurio.Windows
             loginFrame.Navigate (new SignUpPage());
         }
 
+        // todo -> make spinning animation
+
+        public async void ShowSpinningAnimation()
+        {
+            // here -> load spinning animation
+            await Task.Delay(5000);
+            ResetSpinningAnimation();
+
+            new MainWindow().Show();
+            this.Close();
+        }
+
         public void ResetSpinningAnimation()
         {
             loadingAnimationCanvas.Children.Clear();

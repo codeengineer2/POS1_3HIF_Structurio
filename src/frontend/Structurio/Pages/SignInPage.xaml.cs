@@ -24,5 +24,10 @@ namespace Structurio.Pages
         {
             InitializeComponent();
         }
+
+        private void emailBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
