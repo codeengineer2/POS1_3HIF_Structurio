@@ -31,11 +31,14 @@ namespace Structurio
             Index = index;
             Entries = entries;
             DataContext = this;
-            MessageBox.Show(entries[index] + "liste, index: " + index);
-            timein.Text = Entries[index].CheckIN.ToString("hh:mm tt");
-            timeout.Text = Entries[index].CheckOUT.ToString("hh:mm tt");
-            datein.DisplayDate = Entries[index].CheckIN;
-            dateout.DisplayDate = Entries[index].CheckOUT;
+            datein.SelectedDate = Entries[index].CheckIN.Date;
+            dateout.SelectedDate = Entries[index].CheckOUT.Date;
+
+            hourin.SelectedIndex = Entries[index].CheckIN.Hour - 1;
+            
+
+            hourout.SelectedIndex = Entries[index].CheckOUT.Hour - 1;
+      
             Times =times;
         }
 
@@ -43,28 +46,54 @@ namespace Structurio
         {
             try
             {
-               
                 if (!datein.SelectedDate.HasValue || !dateout.SelectedDate.HasValue)
                 {
                     MessageBox.Show("Bitte für Ein- und Ausstempel-Datum ein Datum wählen.");
                     return;
                 }
 
-                var inTime = DateTime.ParseExact(timein.Text, "hh:mm tt", CultureInfo.InvariantCulture);
-                var outTime = DateTime.ParseExact(timeout.Text, "hh:mm tt", CultureInfo.InvariantCulture);
+                if (hourin.SelectedItem == null || hourout.SelectedItem == null)
+                {
+                    MessageBox.Show("Bitte mindestens die Stunden für Ein- und Ausstempel-Zeiten auswählen.");
+                    return;
+                }
 
-                Entries[Index].CheckIN = datein.SelectedDate.Value.Date + inTime.TimeOfDay;
-                Entries[Index].CheckOUT = dateout.SelectedDate.Value.Date + outTime.TimeOfDay;
+                int hourIn = int.Parse((hourin.SelectedItem as ComboBoxItem).Content.ToString());
+                int hourOut = int.Parse((hourout.SelectedItem as ComboBoxItem).Content.ToString());
 
-                Entries[Index].Duration = (Entries[Index].CheckOUT - Entries[Index].CheckIN)
-                                          .ToString(@"hh\:mm");
+                int minIn, minOut;
+                if (minin.SelectedItem != null)
+                    minIn = int.Parse((minin.SelectedItem as ComboBoxItem).Content.ToString());
+                else
+                    minIn = Entries[Index].CheckIN.Minute;
+
+                if (minout.SelectedItem != null)
+                    minOut = int.Parse((minout.SelectedItem as ComboBoxItem).Content.ToString());
+                else
+                    minOut = Entries[Index].CheckOUT.Minute;
+
+                DateTime checkIn = datein.SelectedDate.Value.Date + new TimeSpan(hourIn, minIn, 0);
+                DateTime checkOut = dateout.SelectedDate.Value.Date + new TimeSpan(hourOut, minOut, 0);
+
+                if (checkOut < checkIn)
+                {
+                    MessageBox.Show("CheckOUT darf nicht vor CheckIN liegen.");
+                    return;
+                }
+
+                Entries[Index].CheckIN = checkIn;
+                Entries[Index].CheckOUT = checkOut;
+                TimeSpan duration = checkOut - checkIn;
+                int totalHours = (int)duration.TotalHours;
+                int minutes = duration.Minutes;
+                Entries[Index].Duration = $"{totalHours:D2}:{minutes:D2}";
 
                 Times.Items.Refresh();
                 Close();
             }
-            catch (FormatException)
+            catch (Exception ex)
             {
-                MessageBox.Show("Uhrzeit bitte im Format 01:02 PM eingeben.");
+                MessageBox.Show("Fehler beim Speichern der Zeitdaten: " + ex.Message);
             }
 
         }

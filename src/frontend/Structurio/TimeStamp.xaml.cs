@@ -60,7 +60,6 @@ namespace Structurio
 
                 entries[entries.Count-1].CheckOUT = now;
                 entries[entries.Count-1].Duration = (now - entries[entries.Count - 1].CheckIN).ToString(@"hh\:mm");
-
                 // List Refresh auslösen
                 times.Items.Refresh();
             }

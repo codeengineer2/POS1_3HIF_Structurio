@@ -7,15 +7,92 @@
         mc:Ignorable="d"
         Title="edittime" Height="450" Width="800">
     <Grid>
-        <DatePicker Margin="157,67,497,326" x:Name="datein"/>
+        <DatePicker Margin="152,67,497,324" x:Name="datein"/>
         <TextBlock Text="CheckIN:" Margin="32,67,661,321" FontSize="20"/>
-        <TextBox HorizontalAlignment="Left" Margin="314,69,0,0" x:Name="timein" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="136" Height="35"/>
-
-
+        
+        <ComboBox HorizontalAlignment="Left" Margin="317,71,0,0" x:Name="hourin" VerticalAlignment="Top" Width="61" Height="35">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="388,70,0,0" x:Name="minin" VerticalAlignment="Top" Width="61" Height="35">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem Content="35"/>
+            <ComboBoxItem Content="40"/>
+            <ComboBoxItem Content="45"/>
+            <ComboBoxItem Content="50"/>
+            <ComboBoxItem Content="55"/>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="317,118,0,0" x:Name="hourout" VerticalAlignment="Top" Width="61" Height="35">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+            <ComboBoxItem Content="9"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="11"/>
+            <ComboBoxItem Content="12"/>
+            <ComboBoxItem Content="13"/>
+            <ComboBoxItem Content="14"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="16"/>
+            <ComboBoxItem Content="17"/>
+            <ComboBoxItem Content="18"/>
+            <ComboBoxItem Content="19"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="21"/>
+            <ComboBoxItem Content="22"/>
+            <ComboBoxItem Content="23"/>
+            <ComboBoxItem Content="24"/>
+        </ComboBox>
+        <ComboBox HorizontalAlignment="Left" Margin="389,120,0,0" x:Name="minout" VerticalAlignment="Top" Width="61" Height="35">
+            <ComboBoxItem Content="0"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="10"/>
+            <ComboBoxItem Content="15"/>
+            <ComboBoxItem Content="20"/>
+            <ComboBoxItem Content="25"/>
+            <ComboBoxItem Content="30"/>
+            <ComboBoxItem Content="35"/>
+            <ComboBoxItem Content="40"/>
+            <ComboBoxItem Content="45"/>
+            <ComboBoxItem Content="50"/>
+            <ComboBoxItem Content="55"/>
+        </ComboBox>
         <TextBlock x:Name="CheckoutBox" Text="CheckOUT: " FontSize="20" Margin="29,118,644,273" RenderTransformOrigin="0.836,1.307"/>
-        <TextBox HorizontalAlignment="Left" x:Name="timeout" Margin="314,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="138" Height="34"/>
 
-        <DatePicker Margin="158,118,499,277" x:Name="dateout"/>
+        <DatePicker Margin="152,118,499,275" x:Name="dateout"/>
 
 
         <Button Content="Speichern" Margin="213,247,213,118" Click="Save_Click"/>
