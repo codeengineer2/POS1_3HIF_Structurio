@@ -8,43 +8,51 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SignUpPage"
       Background="#FFFFFFFF">
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/SignUpPageStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <StackPanel Width="320" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Registrieren" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,30"/>
+            <TextBlock Text="Registrieren" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,30" Style="{StaticResource TitleText}"/>
 
-            <TextBlock Text="Vorname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
-            <TextBox x:Name="firstNameBox" Height="34" FontSize="14" Padding="10,6" TextChanged="firstNameBox_TextChanged" />
-            <TextBlock x:Name="firstNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+            <TextBlock Text="Vorname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="firstNameBox" Height="34" FontSize="14" Padding="10,6" TextChanged="firstNameBox_TextChanged" Style="{StaticResource InputBox}"/>
+            <TextBlock x:Name="firstNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10" Style="{StaticResource InfoText}"/>
 
-            <TextBlock Text="Nachname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
-            <TextBox x:Name="lastNameBox" Height="34" FontSize="14"  Padding="10,6" TextChanged="lastNameBox_TextChanged"/>
-            <TextBlock x:Name="lastNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+            <TextBlock Text="Nachname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="lastNameBox" Height="34" FontSize="14"  Padding="10,6" TextChanged="lastNameBox_TextChanged" Style="{StaticResource InputBox}"/>
+            <TextBlock x:Name="lastNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10" Style="{StaticResource InfoText}"/>
 
-            <TextBlock Text="Geburtsdatum" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <TextBlock Text="Geburtsdatum" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2" Style="{StaticResource FieldLabel}"/>
             <DatePicker x:Name="birthDatePicker" Height="34" Margin="0,0,0,2" SelectedDateChanged="birthDatePicker_SelectedDateChanged"/>
-            <TextBlock x:Name="birthDateInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+            <TextBlock x:Name="birthDateInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10" Style="{StaticResource InfoText}"/>
 
-            <TextBlock Text="E-Mail" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
-            <TextBox x:Name="emailBox" Height="34" FontSize="14" Padding="10,6" TextChanged="emailBox_TextChanged"/>
-            <TextBlock x:Name="emailInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+            <TextBlock Text="E-Mail" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2" Style="{StaticResource FieldLabel}"/>
+            <TextBox x:Name="emailBox" Height="34" FontSize="14" Padding="10,6" TextChanged="emailBox_TextChanged" Style="{StaticResource InputBox}" />
+            <TextBlock x:Name="emailInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10" Style="{StaticResource InfoText}"/>
 
-            <TextBlock Text="Passwort" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <TextBlock Text="Passwort" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2" Style="{StaticResource FieldLabel}"/>
             <Grid Height="34" Margin="0,0,0,2">
-                <TextBox x:Name="passwordTextBox" FontSize="14" Padding="10,6,34,6" BorderBrush="#CCC" BorderThickness="1" VerticalContentAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}"/>
-                <PasswordBox x:Name="passwordBox" FontSize="14" Padding="10,6,34,6" BorderBrush="#CCC" BorderThickness="1" VerticalContentAlignment="Center" Visibility="Visible" ContextMenu="{x:Null}" PasswordChanged="passwordBox_PasswordChanged"/>
+                <TextBox x:Name="passwordTextBox" FontSize="14" Padding="10,6,34,6" BorderBrush="#CCC" BorderThickness="1" VerticalContentAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}" Style="{StaticResource PasswordTextBoxStyle}"/>
+                <PasswordBox x:Name="passwordBox" FontSize="14" Padding="10,6,34,6" BorderBrush="#CCC" BorderThickness="1" VerticalContentAlignment="Center" Visibility="Visible" ContextMenu="{x:Null}" PasswordChanged="passwordBox_PasswordChanged" Style="{StaticResource PasswordBoxStyle}"/>
 
-                <Button x:Name="togglePasswordButton" Width="34" Height="34" Background="Transparent" BorderThickness="0" Margin="0,0,4,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="TogglePasswordVisibility_Click">
+                <Button x:Name="togglePasswordButton" Width="34" Height="34" Background="Transparent" BorderThickness="0" Margin="0,0,4,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="TogglePasswordVisibility_Click" Style="{StaticResource TogglePasswordButtonStyle}">
                     <Image x:Name="eyeImage" Width="16" Height="16" Source="/Assets/login_eye_open.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
                 </Button>
             </Grid>
 
-            <TextBlock x:Name="passwordInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,16"/>
-            <Button Height="38" Content="Registrieren" Foreground="White" FontWeight="SemiBold" Margin="0,10" Click="register_Click"/>
+            <TextBlock x:Name="passwordInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,16" Style="{StaticResource InfoText}" />
+            <Button Height="38" Content="Registrieren" Foreground="White" FontWeight="SemiBold" Margin="0,10" Click="register_Click" Style="{StaticResource SubmitButtonStyle}"/>
 
             <TextBlock Foreground="Gray" HorizontalAlignment="Center">
                 Bereits registriert?
-                <Hyperlink Click="GoToSignInPage_Click">
+                <Hyperlink Click="GoToSignInPage_Click" Style="{StaticResource LinkStyle}">
                     Anmelden
                 </Hyperlink>
             </TextBlock>

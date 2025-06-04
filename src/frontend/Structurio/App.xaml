@@ -1,14 +1,9 @@
-﻿    <Application x:Class="Structurio.App"
+﻿<Application x:Class="Structurio.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Structurio"
              StartupUri="MainWindow.xaml"> <!-- /Windows/LoginWindow.xaml -->
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/PasswordResetPageStyles.xaml"/>
-                <ResourceDictionary Source="/Styles/SignInPageStyles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>
