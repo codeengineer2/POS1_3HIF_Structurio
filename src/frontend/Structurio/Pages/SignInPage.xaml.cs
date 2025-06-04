@@ -39,5 +39,16 @@ namespace Structurio.Pages
         {
 
         }
+
+        private void forgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GoToSignUp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

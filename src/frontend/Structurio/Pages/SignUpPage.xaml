@@ -28,6 +28,26 @@
             <TextBlock Text="E-Mail" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
             <TextBox x:Name="emailBox" Height="34" FontSize="14" Padding="10,6" TextChanged="emailBox_TextChanged"/>
             <TextBlock x:Name="emailInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Passwort" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
+            <Grid Height="34" Margin="0,0,0,2">
+                <TextBox x:Name="passwordTextBox" FontSize="14" Padding="10,6,34,6" BorderBrush="#CCC" BorderThickness="1" VerticalContentAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}"/>
+                <PasswordBox x:Name="passwordBox" FontSize="14" Padding="10,6,34,6" BorderBrush="#CCC" BorderThickness="1" VerticalContentAlignment="Center" Visibility="Visible" ContextMenu="{x:Null}" PasswordChanged="passwordBox_PasswordChanged"/>
+
+                <Button x:Name="togglePasswordButton" Width="34" Height="34" Background="Transparent" BorderThickness="0" Margin="0,0,4,0" HorizontalAlignment="Right" VerticalAlignment="Center" Click="TogglePasswordVisibility_Click">
+                    <Image x:Name="eyeImage" Width="16" Height="16" Source="/Assets/login_eye_open.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
+                </Button>
+            </Grid>
+
+            <TextBlock x:Name="passwordInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,16"/>
+            <Button Height="38" Content="Registrieren" Foreground="White" FontWeight="SemiBold" Margin="0,10" Click="register_Click"/>
+
+            <TextBlock Foreground="Gray" HorizontalAlignment="Center">
+                Bereits registriert?
+                <Hyperlink Click="GoToSignInPage_Click">
+                    Anmelden
+                </Hyperlink>
+            </TextBlock>
         </StackPanel>
     </Grid>
     

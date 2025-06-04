@@ -45,5 +45,9 @@ namespace Structurio.Pages
 
         }
 
+        private void register_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
