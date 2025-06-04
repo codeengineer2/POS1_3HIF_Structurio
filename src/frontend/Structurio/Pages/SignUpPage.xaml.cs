@@ -35,7 +35,7 @@ namespace Structurio.Pages
 
         }
 
-        private void BirthDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void birthDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
@@ -45,7 +45,22 @@ namespace Structurio.Pages
 
         }
 
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TogglePasswordVisibility_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void register_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void GoToSignInPage_Click(object sender, RoutedEventArgs e)
         {
 
         }

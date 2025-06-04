@@ -14,7 +14,7 @@
             <TextBlock Text="Registrieren" FontSize="26" FontWeight="SemiBold" Margin="0,0,0,30"/>
 
             <TextBlock Text="Vorname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
-            <TextBox x:Name="firstNameBox" Height="34" FontSize="14" Padding="10,6" TextChanged="firstNameBox_TextChanged_1" />
+            <TextBox x:Name="firstNameBox" Height="34" FontSize="14" Padding="10,6" TextChanged="firstNameBox_TextChanged" />
             <TextBlock x:Name="firstNameInfo" Text="* erforderlich" FontSize="11" Foreground="Gray" Margin="0,0,0,10"/>
 
             <TextBlock Text="Nachname" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,2"/>
