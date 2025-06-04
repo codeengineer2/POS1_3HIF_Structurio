@@ -70,11 +70,15 @@ namespace Structurio
 
         private void Dataändern(object sender, RoutedEventArgs e)
         {
-            Window aender = new edittime(entries, timeindex, times);
-            
-            aender.ShowDialog();
-        }
+            if(times.SelectedValue is not null)
+            {
+                Window aender = new edittime(entries, timeindex, times);
 
+                aender.ShowDialog();
+            }
+            
+        }
+            
         private void changed_clicktime(object sender, SelectionChangedEventArgs e)
         {
             if (times.SelectedIndex <= entries.Count)
