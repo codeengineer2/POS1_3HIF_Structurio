@@ -60,7 +60,6 @@ namespace Structurio
 
                 entries[entries.Count-1].CheckOUT = now;
                 entries[entries.Count-1].Duration = (now - entries[entries.Count - 1].CheckIN).ToString(@"hh\:mm");
-
                 // List Refresh auslösen
                 times.Items.Refresh();
             }
@@ -71,11 +70,15 @@ namespace Structurio
 
         private void Dataändern(object sender, RoutedEventArgs e)
         {
-            Window aender = new edittime(entries, timeindex, times);
-            
-            aender.ShowDialog();
-        }
+            if(times.SelectedValue is not null)
+            {
+                Window aender = new edittime(entries, timeindex, times);
 
+                aender.ShowDialog();
+            }
+            
+        }
+            
         private void changed_clicktime(object sender, SelectionChangedEventArgs e)
         {
             if (times.SelectedIndex <= entries.Count)
