@@ -1,123 +1,36 @@
 openapi: 3.0.3
 info:
-  description: "API zur Verwaltung von Projekten, Benutzern und Aufgaben in Structurio"
-  title: Structurio API
+  title: Structurio Auth API
   version: 1.0.0
+  description: Nur Check-Email Endpoint
 servers:
-- description: Lokaler Entwicklungsserver
-  url: http://localhost:8080
+  - url: http://localhost:8080
+
 paths:
-  /projects:
-    get:
-      operationId: projects_get
-      responses:
-        "200":
-          description: Erfolgreich abgerufen
-      summary: Liste aller Projekte
-      x-openapi-router-controller: openapi_server.controllers.default_controller
+  /auth/check-email:
     post:
-      operationId: projects_post
+      summary: Prüfe ob E-Mail existiert
+      operationId: auth_check_email_post
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Project'
-        required: true
-      responses:
-        "201":
-          description: Projekt erstellt
-      summary: Neues Projekt erstellen
-      x-openapi-router-controller: openapi_server.controllers.default_controller
-  /projects/{projectId}:
-    delete:
-      operationId: projects_project_id_delete
-      parameters:
-      - explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "204":
-          description: Erfolgreich gelöscht
-      summary: Projekt löschen
-      x-openapi-router-controller: openapi_server.controllers.default_controller
-    get:
-      operationId: projects_project_id_get
-      parameters:
-      - explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          type: string
-        style: simple
+              $ref: '#/components/schemas/EmailRequest'
       responses:
         "200":
-          description: Erfolgreich
-      summary: Einzelnes Projekt abrufen
-      x-openapi-router-controller: openapi_server.controllers.default_controller
-    put:
-      operationId: projects_project_id_put
-      parameters:
-      - explode: false
-        in: path
-        name: projectId
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Project'
-        required: true
-      responses:
-        "200":
-          description: Projekt aktualisiert
-      summary: Projekt aktualisieren
-      x-openapi-router-controller: openapi_server.controllers.default_controller
+          description: E-Mail gefunden
+        "404":
+          description: E-Mail nicht vorhanden
+      x-openapi-router-controller: openapi_server.controllers.user_controller
+
 components:
   schemas:
-    Project:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        description: description
-        id: id
-        title: title
-        status: active
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        id:
-          title: id
-          type: string
-        title:
-          title: title
-          type: string
-        status:
-          enum:
-          - active
-          - completed
-          - archived
-          title: status
-          type: string
-        description:
-          title: description
-          type: string
-        createdAt:
-          format: date-time
-          title: createdAt
-          type: string
-        updatedAt:
-          format: date-time
-          title: updatedAt
-          type: string
-      required:
-      - id
-      - status
-      - title
-      title: Project
+    EmailRequest:
       type: object
+      required: [email]
+      properties:
+        email:
+          type: string
+          format: email
+          example: max@example.com

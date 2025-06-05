@@ -34,4 +34,3 @@ setup(
     API zur Verwaltung von Projekten, Benutzern und Aufgaben in Structurio
     """
 )
-
