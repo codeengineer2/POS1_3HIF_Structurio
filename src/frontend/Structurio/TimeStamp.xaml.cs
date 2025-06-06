@@ -86,5 +86,11 @@ namespace Structurio
                 timeindex = times.SelectedIndex;
             }
         }
+
+        private void ButtonCosts_Click(object sender, RoutedEventArgs e)
+        {
+            Costs costsWindow = new Costs();
+            costsWindow.Show();
+        }
     }
 }
