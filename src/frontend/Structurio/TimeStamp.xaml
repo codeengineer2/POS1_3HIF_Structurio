@@ -25,6 +25,7 @@
         <TextBlock HorizontalAlignment="Left" Margin="320,150,0,0" TextWrapping="Wrap" FontSize="20" Text="Hello Maximilian" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="354,24,0,0" TextWrapping="Wrap" Text="TimeStamp" VerticalAlignment="Top" FontSize="20"/>
         <Button Content="Button" HorizontalAlignment="Left" Margin="677,213,0,0" VerticalAlignment="Top" Height="33" Width="69" Click="Dataändern"/>
+        <Button Content="ButtonCosts" HorizontalAlignment="Left" Margin="677,274,0,0" VerticalAlignment="Top" Height="33" Width="69" Click="ButtonCosts_Click"/>
 
     </Grid>
 </Page>

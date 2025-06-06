@@ -62,3 +62,48 @@ def auth_login_post(body):
             "birthdate": str(birthdate)
         }
     }, 200
+
+def auth_register_post(body):
+    surname = body.get("surname") if isinstance(body, dict) else body.surname
+    lastname = body.get("lastname") if isinstance(body, dict) else body.lastname
+    email = body.get("email") if isinstance(body, dict) else body.email
+    password = body.get("password") if isinstance(body, dict) else body.password
+    birthdate = body.get("birthdate") if isinstance(body, dict) else body.birthdate
+
+    conn = get_connection()
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            """
+            INSERT INTO users (surname, lastname, email, password, birthdate)
+            VALUES (%s, %s, %s, %s, %s)
+            RETURNING uid
+            """,
+            (surname, lastname, email, password, birthdate)
+        )
+        uid = cur.fetchone()[0]
+        conn.commit()
+
+        return {
+            "success": True,
+            "user": {
+                "uid": uid,
+                "surname": surname,
+                "lastname": lastname,
+                "email": email,
+                "password": password,
+                "birthdate": str(birthdate)
+            }
+        }, 201
+
+    except psycopg2.errors.UniqueViolation:
+        conn.rollback()
+        return {
+            "success": False,
+            "code": "EMAIL_EXISTS",
+            "message": "Diese E-Mail ist bereits registriert"
+        }, 409
+
+    finally:
+        cur.close()
+        conn.close()
