@@ -5,19 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Structurio"
         mc:Ignorable="d"
-        
-        Title="MainWindow" Height="450" Width="800">
-    
-    <Grid>
-        <Frame x:Name="MainFrame"
-               Margin="0"
-               NavigationUIVisibility="Hidden"
-               Width="800"
-               Height="450"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Source="TimeStamp.xaml" />
+        Title="Structurio - Main" 
+        Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/logo.ico"
+        Background="#FFFFFFFF">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/MainWindowStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#FFFFFFFF" Padding="20" BorderBrush="#DDD" BorderThickness="0,0,1,0">
+            
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Bottom" Margin="6,10,0,0">
+                    <Button Style="{StaticResource MenuFlatButtonStyle}" Click="logout_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="⏻" FontSize="16" Margin="0,0,6,0"/>
+                            <TextBlock Text="Logout"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Border Padding="10,4" CornerRadius="10" BorderBrush="#DDD" BorderThickness="1" Margin="-5,20,0,-10">
+                        <TextBlock Text="Initial release • Build 0.8.0" FontSize="11" Foreground="Gray"/>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Top">
+                    <Border CornerRadius="10" BorderBrush="#DDD" BorderThickness="1" Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Style="{StaticResource ProfileImageButtonStyle}" Click="settings_Click"/>
+
+                            <TextBlock x:Name="TimeText" Text="00:00:00" FontSize="14" Foreground="#FF000000" VerticalAlignment="Center" Margin="20,0,0,0" />
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel x:Name="SidebarMenuPanel">
+                        <ToggleButton x:Name="ProjectsButton" Content="📁  Projects" Style="{StaticResource MenuToggleButtonStyle}" Checked="projects_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Frame x:Name="MainFrame" Grid.Column="1" Background="#FFFFFFFF" NavigationUIVisibility="Hidden"/>
     </Grid>
-    
 </Window>

@@ -21,7 +21,14 @@ namespace Structurio
             InitializeComponent();
         }
 
+        private void logout_Click(object sender, RoutedEventArgs e)
+        {
 
-        
+        }
+
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
