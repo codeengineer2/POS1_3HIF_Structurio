@@ -46,17 +46,17 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                             <Button Style="{StaticResource ProfileImageButtonStyle}" Click="settings_Click"/>
 
-                            <TextBlock x:Name="TimeText" Text="00:00:00" FontSize="14" Foreground="#FF000000" VerticalAlignment="Center" Margin="20,0,0,0" />
+                            <TextBlock x:Name="timeText" Text="00:00:00" FontSize="14" Foreground="#FF000000" VerticalAlignment="Center" Margin="20,0,0,0" />
                         </StackPanel>
                     </Border>
 
                     <StackPanel x:Name="SidebarMenuPanel">
-                        <ToggleButton x:Name="ProjectsButton" Content="📁  Projects" Style="{StaticResource MenuToggleButtonStyle}" Checked="projects_Click"/>
+                        <ToggleButton x:Name="projectsButton" Content="📁  Projects" Style="{StaticResource MenuToggleButtonStyle}" Checked="projects_Click"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
         </Border>
 
-        <Frame x:Name="MainFrame" Grid.Column="1" Background="#FFFFFFFF" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="mainFrame" Grid.Column="1" Background="#FFFFFFFF" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
