@@ -137,11 +137,11 @@ namespace Structurio.Pages
                 return;
             }
 
-            loginWindow.ShowSpinningAnimation();
+            loginWindow.SpinningAnimation();
             await Task.Delay(5000);
             loginWindow.ResetSpinningAnimation();
 
-            if (emailBox.Text == "a" && password == "b")
+            if (emailBox.Text == "a" && password == "b") // test daten
             {
                 new MainWindow().Show();
                 loginWindow.Close();

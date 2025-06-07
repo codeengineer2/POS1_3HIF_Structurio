@@ -30,8 +30,8 @@
 
 
             <Grid Height="34" Margin="0,0,0,2">
-                <TextBox x:Name="passwordTextBox" FontSize="14" BorderBrush="#CCC" BorderThickness="1" Padding="10,6,34,6" VerticalContentAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}"/>
-                <PasswordBox x:Name="passwordBox" FontSize="14"  BorderBrush="#CCC" BorderThickness="1" Padding="10,6,34,6" VerticalContentAlignment="Center" Visibility="Visible" ContextMenu="{x:Null}"/>
+                <TextBox x:Name="passwordTextBox" FontSize="14" BorderBrush="#CCC" BorderThickness="1" Padding="10,6,34,6" VerticalContentAlignment="Center" Visibility="Collapsed" ContextMenu="{x:Null}" TextChanged="passwordTextBox_TextChanged"/>
+                <PasswordBox x:Name="passwordBox" FontSize="14"  BorderBrush="#CCC" BorderThickness="1" Padding="10,6,34,6" VerticalContentAlignment="Center" Visibility="Visible" ContextMenu="{x:Null}" PasswordChanged="passwordBox_PasswordChanged"/>
                 <Button x:Name="togglePasswordButton" Background="Transparent" Width="34" Height="34" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,4,0" Cursor="Hand" Click="togglePasswordButton_Click" Style="{StaticResource PasswordToggleStyle}">
                     <Image x:Name="eyeImage" Width="16" Height="16" Source="/Assets/login_eye_open.png" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"/>
                 </Button>
