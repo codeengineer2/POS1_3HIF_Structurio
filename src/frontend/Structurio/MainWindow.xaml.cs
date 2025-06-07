@@ -23,7 +23,7 @@ namespace Structurio
     {
         private DateTime starTime;
         private DispatcherTimer timer;
-        public Frame MainFramePublic;
+        public Frame MainFramePublic;   
 
         public MainWindow()
         {
@@ -31,8 +31,8 @@ namespace Structurio
             StartTimer();
             this.MainFramePublic = this.mainFrame;
             this.projectsButton.IsChecked = true;
-            Window costs = new Costs();
-            costs.Show();
+            // Window costs = new Costs();
+            // costs.Show();
         }
 
         private void StartTimer()
