@@ -25,12 +25,12 @@ namespace Structurio.Windows
         public LoginWindow()
         {
             InitializeComponent();
-            loginFrame.Navigate(new SignInPage());
+            loginFrame.Navigate(new SignInPage(this));
         }
 
         public void GoToSignInPage()
         {
-            loginFrame.Navigate(new SignInPage());
+            loginFrame.Navigate(new SignInPage(this));
         }
 
         public void GoToSignUpPage()

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Windows;
 
 namespace Structurio.Pages
 {
@@ -20,35 +21,82 @@ namespace Structurio.Pages
     /// </summary>
     public partial class SignInPage : Page
     {
-        public SignInPage()
+        private LoginWindow loginWindow;
+        private bool isPasswordVisible = false;
+
+        public SignInPage(LoginWindow loginWindow)
         {
             InitializeComponent();
+            this.loginWindow = loginWindow;
+
+            // blockiert copy/paste
+            CommandManager.AddPreviewExecutedHandler(passwordBox, BlockCopyPasteCommand);
+            CommandManager.AddPreviewExecutedHandler(passwordTextBox, BlockCopyPasteCommand);
         }
 
+        private void BlockCopyPasteCommand(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void forgotPassword_Click(object sender, RoutedEventArgs e)
+        {
+            loginWindow.loginFrame.Navigate(new PasswordResetPage(loginWindow));
+        }
+
+        private void GoToSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            loginWindow.GoToSignUpPage();
+        }
         private void emailBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            emailBox.Background = Brushes.White;
+            emailInfo.Text = "* erforderlich";
+            emailInfo.Foreground = Brushes.Gray;
+        }
 
+        private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            passwordBox.Background = Brushes.White;
+            passwordInfo.Text = "* erforderlich";
+            passwordInfo.Foreground = Brushes.Gray;
+        }
+
+        private void passwordTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            passwordTextBox.Background = Brushes.White;
+            passwordInfo.Text = "* erforderlich";
+            passwordInfo.Foreground = Brushes.Gray;
         }
 
         private void togglePasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            isPasswordVisible = !isPasswordVisible;
 
+            if (isPasswordVisible)
+            {
+                passwordTextBox.Text = passwordBox.Password;
+                passwordBox.Visibility = Visibility.Collapsed;
+                passwordTextBox.Visibility = Visibility.Visible;
+
+                eyeImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/login_eye_closed.png"));
+            }
+            else
+            {
+                passwordBox.Password = passwordTextBox.Text;
+                passwordBox.Visibility = Visibility.Visible;
+                passwordTextBox.Visibility = Visibility.Collapsed;
+
+                eyeImage.Source = new BitmapImage(new Uri("pack://application:,,,/Assets/login_eye_open.png"));
+            }
         }
 
         private void login_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
-        private void forgotPassword_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void GoToSignUp_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }
