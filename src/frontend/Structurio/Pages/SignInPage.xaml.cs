@@ -94,9 +94,76 @@ namespace Structurio.Pages
             }
         }
 
-        private void login_Click(object sender, RoutedEventArgs e)
+        private async void login_Click(object sender, RoutedEventArgs e)
         {
+            emailBox.Background = Brushes.White;
+            passwordBox.Background = Brushes.White;
+            passwordTextBox.Background = Brushes.White;
+            emailInfo.Text = "* erforderlich";
+            passwordInfo.Text = "* erforderlich";
+            emailInfo.Foreground = Brushes.Gray;
+            passwordInfo.Foreground = Brushes.Gray;
 
+            bool inputsOk = true;
+
+            if (string.IsNullOrWhiteSpace(emailBox.Text))
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "Bitte ausfüllen!";
+                emailInfo.Foreground = Brushes.DarkRed;
+                inputsOk = false;
+            }
+
+            string password = isPasswordVisible ? passwordTextBox.Text : passwordBox.Password;
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                if (isPasswordVisible)
+                {
+                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+                else
+                {
+                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+
+                passwordInfo.Text = "Bitte ausfüllen!";
+                passwordInfo.Foreground = Brushes.DarkRed;
+                inputsOk = false;
+            }
+
+            if (!inputsOk)
+            {
+                return;
+            }
+
+            loginWindow.ShowSpinningAnimation();
+            await Task.Delay(5000);
+            loginWindow.ResetSpinningAnimation();
+
+            if (emailBox.Text == "a" && password == "b")
+            {
+                new MainWindow().Show();
+                loginWindow.Close();
+            }
+            else
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+
+                if (isPasswordVisible)
+                {
+                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+                else
+                {
+                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+
+                emailInfo.Text = "Falsche Zugangsdaten!";
+                passwordInfo.Text = "Falsche Zugangsdaten!";
+                emailInfo.Foreground = Brushes.DarkRed;
+                passwordInfo.Foreground = Brushes.DarkRed;
+            }
         }
     }
 }
