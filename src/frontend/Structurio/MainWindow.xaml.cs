@@ -21,7 +21,7 @@ namespace Structurio
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DateTime starTime;
+        private DateTime startTime;
         private DispatcherTimer timer;
         public Frame MainFramePublic;   
 
@@ -37,8 +37,21 @@ namespace Structurio
 
         private void StartTimer()
         {
-            // startTime = DateTime.Now;
-            // startet Timer
+            startTime = DateTime.Now;
+
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+
+            timer.Tick += timer_Tick;
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            var elapsed = DateTime.Now - startTime;
+            timeText.Text = $"{elapsed:hh\\:mm\\:ss}";
         }
 
         private void UncheckAllMenuItems(object sender)
