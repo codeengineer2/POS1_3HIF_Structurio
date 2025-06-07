@@ -35,7 +35,7 @@ namespace Structurio.Windows
 
         public void GoToSignUpPage()
         {
-            loginFrame.Navigate (new SignUpPage());
+            loginFrame.Navigate (new SignUpPage(this));
         }
 
         public void SpinningAnimation() 

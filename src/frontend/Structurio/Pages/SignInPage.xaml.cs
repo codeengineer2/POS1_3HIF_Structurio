@@ -104,14 +104,14 @@ namespace Structurio.Pages
             emailInfo.Foreground = Brushes.Gray;
             passwordInfo.Foreground = Brushes.Gray;
 
-            bool inputsOk = true;
+            bool valid = true;
 
             if (string.IsNullOrWhiteSpace(emailBox.Text))
             {
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Bitte ausfüllen!";
                 emailInfo.Foreground = Brushes.DarkRed;
-                inputsOk = false;
+                valid = false;
             }
 
             string password = isPasswordVisible ? passwordTextBox.Text : passwordBox.Password;
@@ -129,10 +129,10 @@ namespace Structurio.Pages
 
                 passwordInfo.Text = "Bitte ausfüllen!";
                 passwordInfo.Foreground = Brushes.DarkRed;
-                inputsOk = false;
+                valid = false;
             }
 
-            if (!inputsOk)
+            if (!valid)
             {
                 return;
             }
