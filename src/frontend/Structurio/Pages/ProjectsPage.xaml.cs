@@ -17,20 +17,17 @@ using Structurio.Controls;
 
 namespace Structurio.Pages
 {
-    /// <summary>
-    /// Interaktionslogik für ProjectsPage.xaml
-    /// </summary>
     public partial class ProjectsPage : Page
     {
-        private List<Project> allProjectsBackend;
-        private List<ProjectCard> allProjectsFrontend;
         private MainWindow mainWindow;
+        private List<Project> allProjects;
+        private List<ProjectCard> allProjectCards;
 
         public ProjectsPage(MainWindow mainWindow, List<Project> projects)
         {
             InitializeComponent();
-            mainWindow = mainWindow;
-            allProjectsBackend = projects;
+            this.mainWindow = mainWindow;
+            this.allProjects = projects ?? new List<Project>();
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)

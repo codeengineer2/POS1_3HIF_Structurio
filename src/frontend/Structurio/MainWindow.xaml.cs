@@ -26,8 +26,8 @@ namespace Structurio
         private DispatcherTimer timer;
         public Frame MainFramePublic;
 
-        private User currentUser = null;
-        private List<Project> userProjects = null;
+        private User currentUser;
+        private List<Project> userProjects;
 
         public MainWindow(User user, List<Project> projects)
         {
@@ -48,13 +48,38 @@ namespace Structurio
             InitializeComponent();
             StartTimer();
             this.MainFramePublic = this.mainFrame;
-            mainFrame.Navigate(new ProjectsPage(this, userProjects));
+
+            // testdaten von chatgpt
+            var testProjects = new List<Project>
+            {
+                new Project
+                {
+                    Id = 1,
+                    Name = "HTL",
+                    Description = "Redesign der Schulwebseite",
+                    Color = "#FF5733",
+                    OwnerUid = 1,
+                    Board = new Board()
+                },
+                new Project
+                {
+                    Id = 2,
+                    Name = "AM",
+                    Description = "Projekt zur Matura-Präsentation",
+                    Color = "#3498DB",
+                    OwnerUid = 1,
+                    Board = new Board()
+                }
+            };
+
+            mainFrame.Navigate(new ProjectsPage(this, testProjects));
             this.projectsButton.IsChecked = true;
             currentUser = null;
-            userProjects = null;
+            userProjects = testProjects;
             // Window costs = new Costs();
             // costs.Show();
         }
+
 
         private void StartTimer()
         {
