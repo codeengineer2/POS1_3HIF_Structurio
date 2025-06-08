@@ -20,9 +20,30 @@ namespace Structurio.Controls
     /// </summary>
     public partial class ProjectCard : UserControl
     {
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public SolidColorBrush Color { get; set; }
+        public event EventHandler Clicked;
+
         public ProjectCard()
         {
             InitializeComponent();
+            DataContext = this;
+        }
+    
+        private void ProjectCard_Click(object sender, MouseButtonEventArgs e)
+        {
+            Clicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ProjectCard_MouseEnter(object sender, MouseEventArgs e)
+        {
+            outerBorder.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
+        }
+
+        private void ProjectCard_MouseLeave(object sender, MouseEventArgs e)
+        {
+            outerBorder.Background = Brushes.White;
         }
     }
 }
