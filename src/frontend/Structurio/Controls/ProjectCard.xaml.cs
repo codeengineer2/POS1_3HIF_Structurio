@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Classes;
 
 namespace Structurio.Controls
 {
@@ -20,10 +21,27 @@ namespace Structurio.Controls
     /// </summary>
     public partial class ProjectCard : UserControl
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public SolidColorBrush Color { get; set; }
+        public Project Project
+        {
+            get => (Project)GetValue(ProjectProperty);
+            set => SetValue(ProjectProperty, value);
+        }
+        public static readonly DependencyProperty ProjectProperty = DependencyProperty.Register("Project", typeof(Project), typeof(ProjectCard), new PropertyMetadata(null));
         public event EventHandler Clicked;
+        public Brush CardColor
+        {
+            get
+            {
+                try
+                {
+                    return new SolidColorBrush((Color)ColorConverter.ConvertFromString(Project?.Color ?? "#888"));
+                }
+                catch
+                {
+                    return Brushes.Gray;
+                }
+            }
+        }
 
         public ProjectCard()
         {

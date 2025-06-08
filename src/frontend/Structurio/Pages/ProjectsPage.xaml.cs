@@ -21,13 +21,40 @@ namespace Structurio.Pages
     {
         private MainWindow mainWindow;
         private List<Project> allProjects;
-        private List<ProjectCard> allProjectCards;
+        private List<ProjectCard> allProjectCards = new ();
 
         public ProjectsPage(MainWindow mainWindow, List<Project> projects)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
             this.allProjects = projects ?? new List<Project>();
+
+            LoadProjects();
+            RenderProjects(allProjectCards);
+        }
+
+        private void LoadProjects()
+        {
+
+            foreach (var project in allProjects)
+            {
+                var card = new ProjectCard
+                {
+                    Project = project
+                };
+
+                allProjectCards.Add(card);
+            }
+        }
+
+        private void RenderProjects(IEnumerable<ProjectCard> cards)
+        {
+            projectsWrapPanel.Children.Clear();
+
+            foreach (var card in cards)
+            {
+                projectsWrapPanel.Children.Add(card);
+            }
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)

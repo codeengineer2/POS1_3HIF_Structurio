@@ -14,11 +14,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Border Width="60" Height="60" Background="{Binding Color}" CornerRadius="8" Padding="5" VerticalAlignment="Top" Margin="0,0,12,0">
-                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <Border Width="60" Height="60" Background="{Binding CardColor}" CornerRadius="8" Padding="5" VerticalAlignment="Top" Margin="0,0,12,0">
+                    <TextBlock Text="{Binding Project.Name}" FontSize="16" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
             </Border>
 
-            <TextBlock Grid.Column="1" Text="{Binding Description}" FontSize="12" Foreground="Black" VerticalAlignment="Top" Margin="-5,23,0,0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
+            <TextBlock Grid.Column="1" Text="{Binding Project.Description}" FontSize="12" Foreground="Black" VerticalAlignment="Top" Margin="-5,23,0,0" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" MaxWidth="200"/>
         </Grid>
     </Border>
 
