@@ -20,7 +20,7 @@
             <Border DockPanel.Dock="Top" Background="White" Padding="6" BorderBrush="#DDD" BorderThickness="0,0,0,1">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
 
-                    <ToggleButton Margin="0,0,20,0" IsChecked="False" Click="back_Click">
+                    <ToggleButton Margin="0,0,20,0" IsChecked="False" Click="back_Click" Style="{StaticResource MenuToggleButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="←" FontSize="14" VerticalAlignment="Center" Margin="0,0,5,0"/>
                             <TextBlock Text="Zurück" FontSize="14" VerticalAlignment="Center"/>
@@ -33,7 +33,7 @@
 
                     <TextBlock Text="General" FontSize="16" VerticalAlignment="Center" Margin="0,0,70,0"/>
 
-                    <ToggleButton IsChecked="True">
+                    <ToggleButton IsChecked="True" Style="{StaticResource MenuToggleButtonStyle}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="📂" FontSize="12" VerticalAlignment="Center" Margin="0,0,5,0"/>
                             <TextBlock Text="Kanban" FontSize="14" VerticalAlignment="Center"/>
