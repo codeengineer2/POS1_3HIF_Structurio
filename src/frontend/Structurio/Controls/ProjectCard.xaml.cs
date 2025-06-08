@@ -38,7 +38,7 @@ namespace Structurio.Controls
 
         private void ProjectCard_MouseEnter(object sender, MouseEventArgs e)
         {
-            outerBorder.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
+            outerBorder.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(245, 245, 245));
         }
 
         private void ProjectCard_MouseLeave(object sender, MouseEventArgs e)

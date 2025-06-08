@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Structurio.Windows;
 using Structurio.Classes;
 using Structurio.Services;
+using Structurio.Interfaces;
 
 namespace Structurio.Pages
 {
@@ -25,15 +26,17 @@ namespace Structurio.Pages
     {
         private LoginWindow loginWindow;
         private bool isPasswordVisible = false;
+        private IApiService api;
 
-        public SignUpPage(LoginWindow loginWindow)
+        public SignUpPage(LoginWindow loginWindow, IApiService api)
         {
             InitializeComponent();
             this.loginWindow = loginWindow;
+            this.api = api;
 
             // blockiert copy/paste
             CommandManager.AddPreviewExecutedHandler(passwordBox, BlockCopyPasteCommand);
-            CommandManager.AddPreviewExecutedHandler(passwordTextBox, BlockCopyPasteCommand);   
+            CommandManager.AddPreviewExecutedHandler(passwordTextBox, BlockCopyPasteCommand);
         }
         private void BlockCopyPasteCommand(object sender, ExecutedRoutedEventArgs e)
         {
@@ -174,17 +177,20 @@ namespace Structurio.Pages
             };
 
             loginWindow.ShowSpinningAnimation();
-            bool success = await ApiService.RegisterAsync(request);
+            bool success = await api.RegisterAsync(request);
             loginWindow.ResetSpinningAnimation();
 
             if (success)
             {
-                new MainWindow().Show();
-                loginWindow.Close();
-            }
-            else
-            {
-                MessageBox.Show("Error!");
+                var loginResult = await api.LoginAsync(request.Email, request.Password);
+                if (loginResult != null && loginResult.Success)
+                {
+                    loginWindow.GoToMainWindow(loginResult.User, loginResult.Projects);
+                }
+                else
+                {
+                    MessageBox.Show("Error!");
+                }
             }
         }
     }

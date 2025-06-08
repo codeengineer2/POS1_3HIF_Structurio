@@ -26,8 +26,8 @@ namespace Structurio
         private DispatcherTimer timer;
         public Frame MainFramePublic;
 
-        private User currentUser;
-        private List<Project> userProjects;
+        private User currentUser = null;
+        private List<Project> userProjects = null;
 
         public MainWindow(User user, List<Project> projects)
         {
@@ -38,6 +38,20 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
             currentUser = user;
             userProjects = projects;
+            // Window costs = new Costs();
+            // costs.Show();
+        }
+
+        // übergangs lösung
+        public MainWindow()
+        {
+            InitializeComponent();
+            StartTimer();
+            this.MainFramePublic = this.mainFrame;
+            mainFrame.Navigate(new ProjectsPage(this, userProjects));
+            this.projectsButton.IsChecked = true;
+            currentUser = null;
+            userProjects = null;
             // Window costs = new Costs();
             // costs.Show();
         }

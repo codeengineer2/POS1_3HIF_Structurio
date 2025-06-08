@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Structurio.Windows;
 using Structurio.Classes;
 using Structurio.Services;
+using Structurio.Interfaces;
 
 namespace Structurio.Pages
 {
@@ -25,11 +26,13 @@ namespace Structurio.Pages
     {
         private LoginWindow loginWindow;
         private bool isPasswordVisible = false;
+        private IApiService api;
 
-        public SignInPage(LoginWindow loginWindow)
+        public SignInPage(LoginWindow loginWindow, IApiService api)
         {
             InitializeComponent();
             this.loginWindow = loginWindow;
+            this.api = api;
 
             // blockiert copy/paste
             CommandManager.AddPreviewExecutedHandler(passwordBox, BlockCopyPasteCommand);
@@ -140,7 +143,7 @@ namespace Structurio.Pages
             }
 
             loginWindow.SpinningAnimation();
-            var result = await ApiService.LoginAsync(emailBox.Text.Trim(), password);
+            var result = await api.LoginAsync(emailBox.Text.Trim(), password);
             loginWindow.ResetSpinningAnimation();
 
             if (result != null && result.Success)

@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Structurio.Pages;
 using Structurio.Classes;
+using Structurio.Interfaces;
+using Structurio.Services;
 
 namespace Structurio.Windows
 {
@@ -22,10 +24,12 @@ namespace Structurio.Windows
     /// </summary>
     public partial class LoginWindow : Window
     {
+        private IApiService api = new ApiService();
+
         public LoginWindow()
         {
             InitializeComponent();
-            loginFrame.Navigate(new SignInPage(this));
+            loginFrame.Navigate(new SignInPage(this, api));
         }
 
         public void GoToMainWindow(User user, List<Project> projects)
@@ -42,15 +46,15 @@ namespace Structurio.Windows
 
         public void GoToSignInPage()
         {
-            loginFrame.Navigate(new SignInPage(this));
+            loginFrame.Navigate(new SignInPage(this, api));
         }
 
         public void GoToSignUpPage()
         {
-            loginFrame.Navigate (new SignUpPage(this));
+            loginFrame.Navigate(new SignUpPage(this, api));
         }
 
-        public void SpinningAnimation() 
+        public void SpinningAnimation()
         {
             loadingGrid.Visibility = Visibility.Visible;
             loadingAnimationCanvas.Children.Clear();
@@ -97,9 +101,6 @@ namespace Structurio.Windows
             SpinningAnimation();
             await Task.Delay(5000);
             ResetSpinningAnimation();
-
-            new MainWindow().Show();
-            this.Close();
         }
 
         public void ResetSpinningAnimation()
