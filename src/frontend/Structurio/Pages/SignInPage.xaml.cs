@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Windows;
+using Structurio.Classes;
+using Structurio.Services;
 
 namespace Structurio.Pages
 {
@@ -138,13 +140,14 @@ namespace Structurio.Pages
             }
 
             loginWindow.SpinningAnimation();
-            await Task.Delay(5000);
+            var result = await ApiService.LoginAsync(emailBox.Text.Trim(), password);
             loginWindow.ResetSpinningAnimation();
 
-            if (emailBox.Text == "a" && password == "b") // test daten
+            if (result != null && result.Success)
             {
                 new MainWindow().Show();
                 loginWindow.Close();
+                // hier passiert die action
             }
             else
             {
