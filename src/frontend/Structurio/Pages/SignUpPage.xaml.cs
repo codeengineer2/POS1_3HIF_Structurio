@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Windows;
+using Structurio.Classes;
+using Structurio.Services;
 
 namespace Structurio.Pages
 {
@@ -104,7 +106,7 @@ namespace Structurio.Pages
             }
         }
 
-        private void register_Click(object sender, RoutedEventArgs e)
+        private async void register_Click(object sender, RoutedEventArgs e)
         {
             bool valid = true;
 
@@ -162,7 +164,28 @@ namespace Structurio.Pages
                 return;
             }
 
+            var request = new RegisterRequest
+            {
+                Firstname = firstNameBox.Text.Trim(),
+                Lastname = lastNameBox.Text.Trim(),
+                Email = emailBox.Text.Trim(),
+                Password = password,
+                Birthdate = birthDatePicker.SelectedDate?.ToString("yyyy-MM-dd") ?? ""
+            };
+
             loginWindow.ShowSpinningAnimation();
+            bool success = await ApiService.RegisterAsync(request);
+            loginWindow.ResetSpinningAnimation();
+
+            if (success)
+            {
+                new MainWindow().Show();
+                loginWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error!");
+            }
         }
     }
 }
