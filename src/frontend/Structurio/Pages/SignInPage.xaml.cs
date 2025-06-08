@@ -145,9 +145,7 @@ namespace Structurio.Pages
 
             if (result != null && result.Success)
             {
-                new MainWindow().Show();
-                loginWindow.Close();
-                // hier passiert die action
+                loginWindow.GoToMainWindow(result.User, result.Projects);
             }
             else
             {

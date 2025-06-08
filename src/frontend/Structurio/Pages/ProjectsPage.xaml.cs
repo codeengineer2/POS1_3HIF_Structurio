@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Classes;
 using Structurio.Controls;
 
 namespace Structurio.Pages
@@ -21,9 +22,15 @@ namespace Structurio.Pages
     /// </summary>
     public partial class ProjectsPage : Page
     {
-        public ProjectsPage()
+        private List<Project> allProjectsBackend;
+        private List<ProjectCard> allProjectsFrontend;
+        private MainWindow mainWindow;
+
+        public ProjectsPage(MainWindow mainWindow, List<Project> projects)
         {
             InitializeComponent();
+            mainWindow = mainWindow;
+            allProjectsBackend = projects;
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)

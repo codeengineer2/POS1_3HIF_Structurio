@@ -28,6 +28,13 @@ namespace Structurio.Windows
             loginFrame.Navigate(new SignInPage(this));
         }
 
+        public void GoToMainWindow(User user, List<Project> projects)
+        {
+            var mainWindow = new MainWindow(user, projects);
+            mainWindow.Show();
+            this.Close();
+        }
+
         public void GoToPasswordResetPage()
         {
             loginFrame.Navigate(new PasswordResetPage(this));

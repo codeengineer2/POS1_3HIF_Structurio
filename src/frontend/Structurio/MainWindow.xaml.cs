@@ -13,6 +13,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Structurio.Pages;
 using Structurio.Windows;
+using Structurio.Classes;
 
 namespace Structurio
 {
@@ -23,14 +24,20 @@ namespace Structurio
     {
         private DateTime startTime;
         private DispatcherTimer timer;
-        public Frame MainFramePublic;   
+        public Frame MainFramePublic;
 
-        public MainWindow()
+        private User currentUser;
+        private List<Project> userProjects;
+
+        public MainWindow(User user, List<Project> projects)
         {
             InitializeComponent();
             StartTimer();
             this.MainFramePublic = this.mainFrame;
+            mainFrame.Navigate(new ProjectsPage(this, projects));
             this.projectsButton.IsChecked = true;
+            currentUser = user;
+            userProjects = projects;
             // Window costs = new Costs();
             // costs.Show();
         }
@@ -68,6 +75,7 @@ namespace Structurio
         private void projects_Click(object sender, RoutedEventArgs e)
         {
             UncheckAllMenuItems(sender);
+            mainFrame.Navigate(new ProjectsPage(this, this.userProjects));
         }
 
         private void settings_Click(object sender, RoutedEventArgs e)
