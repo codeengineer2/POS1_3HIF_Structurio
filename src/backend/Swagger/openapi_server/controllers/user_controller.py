@@ -34,13 +34,13 @@ def auth_login_post(body):
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT uid, birthdate, password
+        SELECT uid, firstname, lastname, email, birthdate
         FROM users
-        WHERE email = %s AND password = %s
+        WHERE email = %s AND password_hash = %s
     """, (email, password))
-    user = cur.fetchone()
+    user_row = cur.fetchone()
 
-    if not user:
+    if not user_row:
         cur.close()
         conn.close()
         return {
@@ -49,7 +49,39 @@ def auth_login_post(body):
             "message": "E-Mail oder Passwort ungültig"
         }, 401
 
-    uid, birthdate, stored_password = user
+    uid, firstname, lastname, email, birthdate = user_row
+
+    cur.execute("""
+        SELECT pid, name, description, color FROM projects
+        WHERE owner_uid = %s
+    """, (uid,))
+    
+    projects = []
+    
+    for pid, name, description, color in cur.fetchall():
+        cur.execute("SELECT bid FROM boards WHERE pid = %s", (pid,))
+        board_row = cur.fetchone()
+        board_id = board_row[0] if board_row else None
+        board_obj = {"id": board_id, "project_id": pid, "columns": []}
+
+        cur.execute("SELECT cid, name FROM columns WHERE bid = %s", (board_id,))
+        
+        for cid, cname in cur.fetchall():
+            cur.execute("SELECT iid, description FROM issues WHERE cid = %s", (cid,))
+            issues = [{"id": iid, "description": desc, "column_id": cid} for iid, desc in cur.fetchall()]
+            board_obj["columns"].append({
+                "id": cid, "name": cname, "board_id": board_id, "issues": issues
+            })
+
+        projects.append({
+            "pid": pid,
+            "name": name,
+            "description": description,
+            "color": color,
+            "owner_uid": uid,
+            "board": board_obj
+        })
+
     cur.close()
     conn.close()
 
@@ -57,14 +89,16 @@ def auth_login_post(body):
         "success": True,
         "user": {
             "uid": uid,
+            "firstname": firstname,
+            "lastname": lastname,
             "email": email,
-            "password": stored_password,
             "birthdate": str(birthdate)
-        }
+        },
+        "projects": projects
     }, 200
 
 def auth_register_post(body):
-    surname = body.get("surname") if isinstance(body, dict) else body.surname
+    firstname = body.get("firstname") if isinstance(body, dict) else body.firstname
     lastname = body.get("lastname") if isinstance(body, dict) else body.lastname
     email = body.get("email") if isinstance(body, dict) else body.email
     password = body.get("password") if isinstance(body, dict) else body.password
@@ -72,14 +106,15 @@ def auth_register_post(body):
 
     conn = get_connection()
     cur = conn.cursor()
+    
     try:
         cur.execute(
             """
-            INSERT INTO users (surname, lastname, email, password, birthdate)
+            INSERT INTO users (firstname, lastname, email, password_hash, birthdate)
             VALUES (%s, %s, %s, %s, %s)
             RETURNING uid
             """,
-            (surname, lastname, email, password, birthdate)
+            (firstname, lastname, email, password, birthdate)
         )
         uid = cur.fetchone()[0]
         conn.commit()
@@ -88,10 +123,9 @@ def auth_register_post(body):
             "success": True,
             "user": {
                 "uid": uid,
-                "surname": surname,
+                "firstname": firstname,
                 "lastname": lastname,
                 "email": email,
-                "password": password,
                 "birthdate": str(birthdate)
             }
         }, 201

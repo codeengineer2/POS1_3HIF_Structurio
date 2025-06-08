@@ -2,7 +2,8 @@ openapi: 3.0.3
 info:
   title: Structurio Auth API
   version: 1.0.0
-  description: Nur Check-Email,Try-Login,Register Endpoints
+  description: Nur Check-Email, Try-Login, Register Endpoints
+
 servers:
   - url: http://localhost:8080
 
@@ -20,6 +21,10 @@ paths:
       responses:
         "200":
           description: Existenzprüfung durchgeführt
+        "404":
+          description: E-Mail nicht gefunden
+        "500":
+          description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.user_controller
 
   /auth/login:
@@ -37,6 +42,8 @@ paths:
           description: Login erfolgreich
         "401":
           description: Fehlerhafte Daten
+        "500":
+          description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.user_controller
 
   /auth/register:
@@ -53,15 +60,17 @@ paths:
         "201":
           description: Erfolgreich registriert
         "409":
-          description: E-Mail existiert schon
+          description: E-Mail existiert bereits
+        "400":
+          description: Ungültige Eingabedaten
+        "500":
+          description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.user_controller
-
 
   /timestamps:
     get:
       summary: Alle Zeitstempel abrufen
       operationId: get_all_timestamps
-
       responses:
         "200":
           description: Liste aller Zeitstempel
@@ -71,6 +80,8 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Timestamp'
+        "500":
+          description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.timestamp_controller
 
     post:
@@ -91,7 +102,8 @@ paths:
                 $ref: '#/components/schemas/Timestamp'
         "400":
           description: Ungültige Eingabedaten
-      
+        "500":
+          description: Interner Serverfehler
 
   /timestamps/{zid}:
     parameters:
@@ -114,7 +126,8 @@ paths:
                 $ref: '#/components/schemas/Timestamp'
         "404":
           description: Zeitstempel nicht gefunden
-   
+        "500":
+          description: Interner Serverfehler
 
     put:
       summary: Bestehenden Zeitstempel aktualisieren
@@ -136,8 +149,8 @@ paths:
           description: Ungültige Eingabedaten
         "404":
           description: Zeitstempel nicht gefunden
-   
-
+        "500":
+          description: Interner Serverfehler
 
 components:
   schemas:
@@ -162,54 +175,63 @@ components:
           type: string
           format: password
           example: pass123
-     
 
+    RegisterRequest:
+      type: object
+      required: [firstname, lastname, email, password, birthdate]
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+          format: email
+          example: max@example.com
+        password:
+          type: string
+          format: password
+          example: pass123
+        birthdate:
+          type: string
+          format: date
+          example: 2005-04-01
 
     Timestamp:
       type: object
       properties:
         zid:
           type: integer
-          description: Eindeutige ID des Zeitstempels
           example: 3
         uid:
           type: integer
-          description: ID des Benutzers (User-Foreign Key)
           example: 2
         pid:
           type: integer
-          description: ID des Projekts (Project-Foreign Key)
           example: 5
         checkin:
           type: string
           format: time
-          description: Check‐In‐Uhrzeit
           example: "07:30:00"
         checkout:
           type: string
           format: time
-          description: Check‐Out‐Uhrzeit
           example: "15:30:00"
         datum_out:
           type: string
           format: date
-          description: Datum für Check‐Out
           example: "2025-05-04"
         datum_in:
           type: string
-          description: Datum für Check‐In (Textfeld)
           example: "2025-05-03"
         duration:
           type: string
-          description: Berechnete Dauer (z. B. "8h")
           example: "8h"
         user:
           type: string
-          description: Benutzername (optional, relational befüllt)
           example: "max"
         project:
           type: string
-          description: Projektname (optional, relational befüllt)
           example: "project-alpha"
       required:
         - zid
@@ -234,54 +256,25 @@ components:
       properties:
         uid:
           type: integer
-          description: ID des Benutzers (User-Foreign Key)
           example: 2
         pid:
           type: integer
-          description: ID des Projekts (Project-Foreign Key)
           example: 5
         checkin:
           type: string
           format: time
-          description: Check‐In‐Uhrzeit
           example: "07:30:00"
         checkout:
           type: string
           format: time
-          description: Check‐Out‐Uhrzeit
           example: "15:30:00"
         datum_out:
           type: string
           format: date
-          description: Datum für Check‐Out
           example: "2025-05-04"
         datum_in:
           type: string
-          description: Datum für Check‐In
           example: "2025-05-03"
         duration:
           type: string
-          description: Berechnete Dauer (z. B. "8h")
           example: "8h"
-          example: pass123
-
-    RegisterRequest:
-      type: object
-      required: [surname, lastname, email, password, birthdate]
-      properties:
-        surname:
-          type: string
-        lastname:
-          type: string
-        email:
-          type: string
-          format: email
-          example: max@example.com
-        password:
-          type: string
-          format: password
-          example: pass123
-        birthdate:
-          type: string
-          format: date
-          example: 2005-04-01
