@@ -33,6 +33,16 @@ namespace Structurio.Pages
             RenderProjects(allProjectCards);
         }
 
+        private void AddCardToPanel(ProjectCard card)
+        {
+            card.Clicked += (sender, args) =>
+            {
+                mainWindow.MainFramePublic.Navigate(new ProjectDetailPage());
+            };
+
+            projectsWrapPanel.Children.Add(card);
+        }
+
         private void LoadProjects()
         {
 
@@ -45,6 +55,8 @@ namespace Structurio.Pages
 
                 allProjectCards.Add(card);
             }
+
+            RenderProjects(allProjectCards);
         }
 
         private void RenderProjects(IEnumerable<ProjectCard> cards)
@@ -53,7 +65,7 @@ namespace Structurio.Pages
 
             foreach (var card in cards)
             {
-                projectsWrapPanel.Children.Add(card);
+                AddCardToPanel(card);
             }
         }
 
