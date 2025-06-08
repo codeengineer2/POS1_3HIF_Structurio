@@ -59,7 +59,12 @@ namespace Structurio.Pages
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;
 
+            var query = searchBox.Text.ToLower();
+            var filtered = allProjectCards.Where(p => p.Project.Name.ToLower().Contains(query));
+
+            RenderProjects(filtered);
         }
     }
 }
