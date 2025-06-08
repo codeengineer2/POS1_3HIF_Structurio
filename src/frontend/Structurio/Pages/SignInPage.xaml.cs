@@ -44,7 +44,7 @@ namespace Structurio.Pages
 
         private void forgotPassword_Click(object sender, RoutedEventArgs e)
         {
-            loginWindow.loginFrame.Navigate(new PasswordResetPage(loginWindow));
+            loginWindow.GoToPasswordResetPage();
         }
 
         private void GoToSignUp_Click(object sender, RoutedEventArgs e)

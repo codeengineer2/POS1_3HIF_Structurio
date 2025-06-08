@@ -13,7 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Structurio.Pages;
-
+using Structurio.Classes;
 
 namespace Structurio.Windows
 {
@@ -26,6 +26,11 @@ namespace Structurio.Windows
         {
             InitializeComponent();
             loginFrame.Navigate(new SignInPage(this));
+        }
+
+        public void GoToPasswordResetPage()
+        {
+            loginFrame.Navigate(new PasswordResetPage(this));
         }
 
         public void GoToSignInPage()
