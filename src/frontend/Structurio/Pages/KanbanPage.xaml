@@ -60,14 +60,14 @@
                                     </ItemsControl>
                                 </ScrollViewer>
 
-                                <Button Grid.Row="3" Content="➕ Item hinzufügen" HorizontalAlignment="Stretch" Margin="0,20,0,0" Click="addItem_Click"/>
+                                <Button Grid.Row="3" Content="➕ Item hinzufügen" HorizontalAlignment="Stretch" Margin="0,20,0,0" Click="addItem_Click" Style="{StaticResource MenuButtonStyle}"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Center" Margin="20,0,0,0" Click="addColumn_Click"/>
+            <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Center" Margin="20,0,0,0" Click="addColumn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
         </StackPanel>
     </ScrollViewer>
     
