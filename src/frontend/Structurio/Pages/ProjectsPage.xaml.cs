@@ -37,7 +37,8 @@ namespace Structurio.Pages
         {
             card.Clicked += (sender, args) =>
             {
-                mainWindow.MainFramePublic.Navigate(new ProjectDetailPage());
+                var detailPage = new ProjectDetailPage(card.Project);
+                mainWindow.MainFramePublic.Navigate(detailPage);
             };
 
             projectsWrapPanel.Children.Add(card);

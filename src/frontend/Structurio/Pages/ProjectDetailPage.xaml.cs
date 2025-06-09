@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using Structurio.Classes;
 
 namespace Structurio.Pages
 {
@@ -20,14 +22,21 @@ namespace Structurio.Pages
     /// </summary>
     public partial class ProjectDetailPage : Page
     {
-        public ProjectDetailPage()
+        private Project project;
+
+        public ProjectDetailPage(Project project)
         {
             InitializeComponent();
+            this.project = project;
+
+            nameText.Text = project.Name.ToUpper();
+            var brush = (SolidColorBrush)new BrushConverter().ConvertFromString(project.Color);
+            (nameText.Parent as Border).Background = brush;
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.GoBack();
         }
     }
 }
