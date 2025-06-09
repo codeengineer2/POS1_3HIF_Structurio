@@ -42,17 +42,34 @@ namespace Structurio.Pages
 
         private void addItem_Click(object sender, RoutedEventArgs e)
         {
-
+            // todo
         }
 
         private void addColumn_Click(object sender, RoutedEventArgs e)
         {
+            int number = Columns.Count + 1;
+            var column = new Column
+            {
+                Name = $"Spalte {number}",
+                Issues = new List<Issue>()
+            };
 
+            project.Board.Columns.Add(column);
+            Columns.Add(new ColumnWrapper(column));
         }
 
         private void titleBox_LostFocus(object sender, RoutedEventArgs e)
         {
-
+            if (sender is TextBox textBox && textBox.DataContext is ColumnWrapper column)
+            {
+                if (string.IsNullOrWhiteSpace(textBox.Text))
+                {
+                    int index = Columns.IndexOf(column) + 1;
+                    column.Name = $"Spalte {index}";
+                    textBox.Text = column.Name;
+                    Keyboard.ClearFocus();
+                }
+            }
         }
     }
 }

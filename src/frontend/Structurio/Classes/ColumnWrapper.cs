@@ -14,7 +14,7 @@ namespace Structurio.Classes
         {
             get
             {
-                return this.    Original.Name;
+                return this.Original.Name;
             }
             set
             {

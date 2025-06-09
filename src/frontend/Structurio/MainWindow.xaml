@@ -32,7 +32,7 @@
                     <Button Style="{StaticResource MenuFlatButtonStyle}" Click="logout_Click">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="⏻" FontSize="16" Margin="0,0,6,0"/>
-                            <TextBlock Text="Logout"/>
+                            <TextBlock Text="Abmelden"/>
                         </StackPanel>
                     </Button>
 
@@ -51,7 +51,7 @@
                     </Border>
 
                     <StackPanel x:Name="SidebarMenuPanel">
-                        <ToggleButton x:Name="projectsButton" Content="📁  Projects" Style="{StaticResource MenuToggleButtonStyle}" Checked="projects_Click"/>
+                        <ToggleButton x:Name="projectsButton" Content="📁  Projekte" Style="{StaticResource MenuToggleButtonStyle}" Checked="projects_Click"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
