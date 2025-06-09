@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Classes;
 using Structurio.Controls;
+using Structurio.Windows;
 
 namespace Structurio.Pages
 {
@@ -42,7 +43,22 @@ namespace Structurio.Pages
 
         private void addItem_Click(object sender, RoutedEventArgs e)
         {
-            // todo
+            if (sender is Button btn && btn.DataContext is ColumnWrapper column)
+            {
+                var window = new AddIssueWindow { Owner = Window.GetWindow(this) };
+                if (window.ShowDialog() == true)
+                {
+                    var issue = new Issue
+                    {
+                        Id = issueCounter++,
+                        Description = window.IssueDescription,
+                        ColumnId = column.Original.Id
+                    };
+
+                    column.Original.Issues.Add(issue);
+                    column.Items.Add(issue);
+                }
+            }
         }
 
         private void addColumn_Click(object sender, RoutedEventArgs e)
