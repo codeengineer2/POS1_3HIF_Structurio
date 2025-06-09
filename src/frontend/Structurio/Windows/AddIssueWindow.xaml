@@ -37,7 +37,7 @@
         <TextBox Grid.Row="2" x:Name="descriptionBox" Height="100" Background="White" FontSize="14" Padding="10" BorderBrush="#CCC" BorderThickness="1" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="descriptionBox_TextChanged"/>
         <TextBlock Grid.Row="3" x:Name="descriptionInfo" Text="* erforderlich" Foreground="Gray" FontSize="11" Margin="4,4,0,0"/>
 
-        <Button Grid.Row="4" Content="Hinzufügen" Height="36" Foreground="White" FontWeight="SemiBold" Margin="0,20,0,0" Cursor="Hand" Click="Add_Click"/>
+        <Button Grid.Row="4" Content="Hinzufügen" Height="36" Foreground="White" FontWeight="SemiBold" Margin="0,20,0,0" Cursor="Hand" Click="Add_Click" Style="{StaticResource AddIssueButtonStyle}"/>
     </Grid>
     
 </Window>
