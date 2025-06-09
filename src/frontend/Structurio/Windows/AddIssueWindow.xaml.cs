@@ -19,6 +19,8 @@ namespace Structurio.Windows
     /// </summary>
     public partial class AddIssueWindow : Window
     {
+        public string IssueDescription { get; private set; }
+
         public AddIssueWindow()
         {
             InitializeComponent();
