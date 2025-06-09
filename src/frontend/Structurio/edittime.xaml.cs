@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,26 +24,30 @@ namespace Structurio
     {
         public int Index;
         ListView Times;
-        public ObservableCollection<Timecheckin> Entries { get; set; }
-
-        public edittime(ObservableCollection<Timecheckin> entries, int index, ListView times)
+        private readonly ObservableCollection<Timecheckin> entries;
+        private readonly HttpClient httpClient;
+        private readonly int uid = 1;
+        private readonly int pid = 1;
+        public edittime(ObservableCollection<Timecheckin> entry, int index, ListView times, HttpClient httpClient)
         {
             InitializeComponent();
             Index = index;
-            Entries = entries;
+            entries = entry;
             DataContext = this;
-            datein.SelectedDate = Entries[index].CheckIN.Date;
-            dateout.SelectedDate = Entries[index].CheckOUT.Date;
+            datein.SelectedDate = entries[index].CheckIN.Date;
+            dateout.SelectedDate = entries[index].CheckOUT.Date;
 
-            hourin.SelectedIndex = Entries[index].CheckIN.Hour - 1;
+            hourin.SelectedIndex = entries[index].CheckIN.Hour - 1;
             
 
-            hourout.SelectedIndex = Entries[index].CheckOUT.Hour - 1;
+            hourout.SelectedIndex = entries[index].CheckOUT.Hour - 1;
       
             Times =times;
+            this.httpClient = httpClient;
+
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -65,12 +70,12 @@ namespace Structurio
                 if (minin.SelectedItem != null)
                     minIn = int.Parse((minin.SelectedItem as ComboBoxItem).Content.ToString());
                 else
-                    minIn = Entries[Index].CheckIN.Minute;
+                    minIn = entries[Index].CheckIN.Minute;
 
                 if (minout.SelectedItem != null)
                     minOut = int.Parse((minout.SelectedItem as ComboBoxItem).Content.ToString());
                 else
-                    minOut = Entries[Index].CheckOUT.Minute;
+                    minOut = entries[Index].CheckOUT.Minute;
 
                 DateTime checkIn = datein.SelectedDate.Value.Date + new TimeSpan(hourIn, minIn, 0);
                 DateTime checkOut = dateout.SelectedDate.Value.Date + new TimeSpan(hourOut, minOut, 0);
@@ -81,14 +86,23 @@ namespace Structurio
                     return;
                 }
 
-                Entries[Index].CheckIN = checkIn;
-                Entries[Index].CheckOUT = checkOut;
+                entries[Index].CheckIN = checkIn;
+                entries[Index].CheckOUT = checkOut;
                 TimeSpan duration = checkOut - checkIn;
                 int totalHours = (int)duration.TotalHours;
                 int minutes = duration.Minutes;
-                Entries[Index].Duration = $"{totalHours:D2}:{minutes:D2}";
+                entries[Index].Duration = $"{totalHours:D2}:{minutes:D2}";
 
                 Times.Items.Refresh();
+                await Put_timestamp.UpdateAsync(
+                    httpClient,
+                    uid,
+                    pid,
+                    entries[Index].Zid,
+                    checkIn,
+                    checkOut,
+                    $"{totalHours:D2}:{minutes:D2}");
+
                 Close();
             }
             catch (Exception ex)

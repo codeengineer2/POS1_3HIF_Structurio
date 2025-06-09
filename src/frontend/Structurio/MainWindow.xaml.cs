@@ -31,8 +31,11 @@ namespace Structurio
             StartTimer();
             this.MainFramePublic = this.mainFrame;
             this.projectsButton.IsChecked = true;
-            Window costs = new Costs();
-            costs.Show();
+
+            Window timestamp = new TimeStamp();
+            timestamp.ShowDialog();
+
+
         }
 
         private void StartTimer()

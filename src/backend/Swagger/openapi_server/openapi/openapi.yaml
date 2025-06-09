@@ -57,25 +57,122 @@ paths:
       x-openapi-router-controller: openapi_server.controllers.user_controller
 
 
-  /timestamps:
+  /timestamps/{uid}/{pid}:
     get:
-      summary: Alle Zeitstempel abrufen
-      operationId: get_all_timestamps
-
+      summary: Alle Zeitstempel für einen Benutzer und ein Projekt abrufen
+      operationId: get_timestamps_by_user_project
+      parameters:
+        - name: uid
+          in: path
+          description: ID des Benutzers
+          required: true
+          schema:
+            type: integer
+        - name: pid
+          in: path
+          description: ID des Projekts
+          required: true
+          schema:
+            type: integer
       responses:
         "200":
-          description: Liste aller Zeitstempel
+          description: Liste der Zeitstempel (nur Datum und Uhrzeiten)
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Timestamp'
+                  type: object
+                  properties:
+                    datum_in:
+                      type: string
+                      format: date
+                      description: Datum des Check-ins
+                    checkin:
+                      type: string
+                      format: time
+                      description: Uhrzeit des Check-ins
+                    datum_out:
+                      type: string
+                      format: date
+                      description: Datum des Check-outs
+                    checkout:
+                      type: string
+                      format: time
+                      description: Uhrzeit des Check-outs
+                    duration:
+                      type: string
+                      description: Dauer im Format hh:mm
+                  required:
+                    - datum_in
+                    - checkin
+                    - datum_out
+                    - checkout
+                    - duration
       x-openapi-router-controller: openapi_server.controllers.timestamp_controller
 
+
+  
+
+  /timestamps/{uid}/{pid}/{zid}:
+    put:
+      summary: Check-out eines bestehenden Zeitstempels
+      operationId: update_timestamp
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: zid
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                datum_in:
+                  type: string
+                  format: date
+                checkin:
+                  type: string
+                  format: time
+                datum_out:
+                  type: string
+                  format: date
+                checkout:
+                  type: string
+                  format: time
+                duration:
+                  type: string
+              required:
+                - datum_in
+                - checkin
+                - datum_out
+                - checkout
+                - duration
+      responses:
+        "200":
+          description: Zeitstempel erfolgreich aktualisiert
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Timestamp'
+      x-openapi-router-controller: openapi_server.controllers.timestamp_controller
+  /timestamps:
     post:
-      summary: Neuen Zeitstempel anlegen
-      operationId: openapi_server.controllers.timestamp_controller.create_timestamp
+      summary: Neuen Zeitstempel (Check-in) anlegen
+      operationId: create_timestamp
       requestBody:
         required: true
         content:
@@ -84,61 +181,12 @@ paths:
               $ref: '#/components/schemas/TimestampRequest'
       responses:
         "201":
-          description: Zeitstempel erfolgreich erstellt
+          description: Zeitstempel angelegt
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Timestamp'
-        "400":
-          description: Ungültige Eingabedaten
-      
-
-  /timestamps/{zid}:
-    parameters:
-      - name: zid
-        in: path
-        description: ID des Zeitstempels
-        required: true
-        schema:
-          type: integer
-
-    get:
-      summary: Einzelnen Zeitstempel nach ID abrufen
-      operationId: openapi_server.controllers.timestamp_controller.get_timestamp_by_id
-      responses:
-        "200":
-          description: Zeitstempel gefunden
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Timestamp'
-        "404":
-          description: Zeitstempel nicht gefunden
-   
-
-    put:
-      summary: Bestehenden Zeitstempel aktualisieren
-      operationId: openapi_server.controllers.timestamp_controller.update_timestamp
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimestampRequest'
-      responses:
-        "200":
-          description: Zeitstempel erfolgreich aktualisiert
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Timestamp'
-        "400":
-          description: Ungültige Eingabedaten
-        "404":
-          description: Zeitstempel nicht gefunden
-   
-
-
+      x-openapi-router-controller: openapi_server.controllers.timestamp_controller
 components:
   schemas:
     EmailRequest:
@@ -162,108 +210,42 @@ components:
           type: string
           format: password
           example: pass123
-     
 
 
-    Timestamp:
-      type: object
-      properties:
-        zid:
-          type: integer
-          description: Eindeutige ID des Zeitstempels
-          example: 3
-        uid:
-          type: integer
-          description: ID des Benutzers (User-Foreign Key)
-          example: 2
-        pid:
-          type: integer
-          description: ID des Projekts (Project-Foreign Key)
-          example: 5
-        checkin:
-          type: string
-          format: time
-          description: Check‐In‐Uhrzeit
-          example: "07:30:00"
-        checkout:
-          type: string
-          format: time
-          description: Check‐Out‐Uhrzeit
-          example: "15:30:00"
-        datum_out:
-          type: string
-          format: date
-          description: Datum für Check‐Out
-          example: "2025-05-04"
-        datum_in:
-          type: string
-          description: Datum für Check‐In (Textfeld)
-          example: "2025-05-03"
-        duration:
-          type: string
-          description: Berechnete Dauer (z. B. "8h")
-          example: "8h"
-        user:
-          type: string
-          description: Benutzername (optional, relational befüllt)
-          example: "max"
-        project:
-          type: string
-          description: Projektname (optional, relational befüllt)
-          example: "project-alpha"
-      required:
-        - zid
-        - uid
-        - pid
-        - checkin
-        - checkout
-        - datum_out
-        - datum_in
-        - duration
 
     TimestampRequest:
       type: object
-      required:
-        - uid
-        - pid
-        - checkin
-        - checkout
-        - datum_out
-        - datum_in
-        - duration
+      required: [uid, pid, datum_in, checkin]
       properties:
         uid:
           type: integer
-          description: ID des Benutzers (User-Foreign Key)
-          example: 2
         pid:
           type: integer
-          description: ID des Projekts (Project-Foreign Key)
-          example: 5
+        datum_in:
+          type: string
+          format: date
         checkin:
           type: string
           format: time
-          description: Check‐In‐Uhrzeit
-          example: "07:30:00"
-        checkout:
-          type: string
-          format: time
-          description: Check‐Out‐Uhrzeit
-          example: "15:30:00"
         datum_out:
           type: string
           format: date
-          description: Datum für Check‐Out
-          example: "2025-05-04"
-        datum_in:
+          nullable: true
+        checkout:
           type: string
-          description: Datum für Check‐In
-          example: "2025-05-03"
+          format: time
+          nullable: true
         duration:
           type: string
-          description: Berechnete Dauer (z. B. "8h")
-          example: "8h"
-          example: pass123
+          nullable: true
+
+    Timestamp:
+      allOf:
+        - $ref: '#/components/schemas/TimestampRequest'
+        - type: object
+          properties:
+            zid:
+              type: integer
 
     RegisterRequest:
       type: object
