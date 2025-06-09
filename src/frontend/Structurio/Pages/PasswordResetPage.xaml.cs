@@ -1,7 +1,7 @@
-﻿using Structurio.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Classes;
+using Structurio.Windows;
+using Newtonsoft.Json;
 
 namespace Structurio.Pages
 {
@@ -34,7 +37,33 @@ namespace Structurio.Pages
             loginWindow.GoToSignInPage();
         }
 
-        private void send_Click(object sender, RoutedEventArgs e)
+        private void emailBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            emailBox.Background = Brushes.White;
+            emailInfo.Text = "* erforderlich";
+            emailInfo.Foreground = Brushes.Gray;
+        }
+
+        private async Task<bool> CheckEmailAsync(string email)
+        {
+            var mail = new { email };
+            var json = JsonConvert.SerializeObject(mail);
+
+            using var client = new HttpClient();
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync("http://localhost:8080/auth/check-email", content);
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private async void send_Click(object sender, RoutedEventArgs e)
         {
             emailBox.Background = Brushes.White;
             emailInfo.Text = "* erforderlich";
@@ -48,25 +77,22 @@ namespace Structurio.Pages
                 return;
             }
 
-            if (emailBox.Text.ToLower() != "a") // benutze 'a' für test email
-            {
-                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
-                emailInfo.Text = "Es existiert kein Konto mit dieser E-Mail!";
-                emailInfo.Foreground = Brushes.DarkRed;
-            }
-            else
+            loginWindow.SpinningAnimation();
+            bool exists = await CheckEmailAsync(emailBox.Text.Trim());
+            loginWindow.ResetSpinningAnimation();
+
+            if (exists)
             {
                 emailBox.Background = Brushes.LightGreen;
                 emailInfo.Text = "Rücksetzungs-Link wurde (simuliert) gesendet.";
                 emailInfo.Foreground = Brushes.Green;
             }
-        }
-
-        private void emailBox_TextChanged(object sender, RoutedEventArgs e)
-        {
-            emailBox.Background = Brushes.White;
-            emailInfo.Text = "* erforderlich";
-            emailInfo.Foreground = Brushes.Gray;
+            else
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "Es existiert kein Konto mit dieser E-Mail!";
+                emailInfo.Foreground = Brushes.DarkRed;
+            }
         }
     }
 }

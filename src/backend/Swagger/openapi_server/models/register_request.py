@@ -1,21 +1,24 @@
 from openapi_server.models.base_model import Model
 
 class RegisterRequest(Model):
-    def __init__(self, surname=None, lastname=None, email=None, password=None):
+    def __init__(self, firstname=None, lastname=None, email=None, password=None, birthdate=None):
         self.openapi_types = {
-            'surname': str,
+            'firstname': str,
             'lastname': str,
+            'birthdate': str,
             'email': str,
             'password': str
         }
         self.attribute_map = {
-            'surname': 'surname',
+            'firstname': 'firstname',
             'lastname': 'lastname',
+            'birthdate': 'birthdate',
             'email': 'email',
             'password': 'password'
         }
 
-        self.surname = surname
+        self.firstname = firstname
         self.lastname = lastname
+        self.birthdate = birthdate
         self.email = email
         self.password = password
