@@ -5,28 +5,211 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Structurio"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="TimeStamp">
-    
-    <Grid Background="white">
-        
-        <Button Content="CheckIN" HorizontalAlignment="Left" Margin="170,150,0,0" VerticalAlignment="Top" Height="29" Width="74" Click="Checking"/>
-        <Button Content="CheckOUT" HorizontalAlignment="Right" Margin="0,150,177,0" VerticalAlignment="Top" Height="29" Width="83" Click="Checkout"/>
-            <ListView x:Name="times" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="150,220,150,14" Height="150" SelectionChanged="changed_clicktime" Background="AliceBlue" Padding="1">
-                <ListView.View>
-                    <GridView>
-                        
-                        <GridViewColumn Header="CheckIN" Width="150" x:Name="Checkin" DisplayMemberBinding="{Binding CheckIN}"/>
-                        <GridViewColumn Header="CheckOUT" Width="150" DisplayMemberBinding="{Binding CheckOUT}"/>
-                        <GridViewColumn Header="Duration" Width="90" DisplayMemberBinding="{Binding Duration}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        
-        <TextBlock HorizontalAlignment="Left" Margin="320,150,0,0" TextWrapping="Wrap" FontSize="20" Text="Hello Maximilian" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="354,24,0,0" TextWrapping="Wrap" Text="TimeStamp" VerticalAlignment="Top" FontSize="20"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="677,213,0,0" VerticalAlignment="Top" Height="33" Width="69" Click="Dataändern"/>
-        <Button Content="ButtonCosts" HorizontalAlignment="Left" Margin="677,274,0,0" VerticalAlignment="Top" Height="33" Width="69" Click="ButtonCosts_Click"/>
+      MinHeight="500" MinWidth="700"
+      Title="TimeStamp"
+      Background="#F9F9F9">
 
+
+
+    <Window.Resources>
+        <Color x:Key="PrimaryColor">#424242</Color>
+        <Color x:Key="PrimaryDarkColor">#2F2F2F</Color>
+        <Color x:Key="PrimaryDarkerColor">#1F1F1F</Color>
+
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{StaticResource PrimaryDarkerColor}"/>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryDarkerBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="OutlinedButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F2F2F2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#E0E0E0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="BorderBrush" Value="#D6D6D6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="6" ShadowDepth="1" Opacity="0.12"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CardRowStyle" TargetType="DataGridRow">
+            <Setter Property="Margin" Value="0,6"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="MinHeight" Value="36"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="4" ShadowDepth="0" Opacity="0.06"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridRow">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <DataGridCellsPresenter/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F4F4F4"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#E6E6E6"/>
+                    <Setter Property="BorderBrush" Value="#B8B8B8"/>
+                </Trigger>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#FBFBFB"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="CardCellStyle" TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4,2"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#303030"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" LastChildFill="False" Margin="0,0,0,16">
+            <TextBlock Text="TimeStamp"
+                       FontSize="24"
+                       FontWeight="SemiBold"
+                       Foreground="#202020"/>
+        </DockPanel>
+
+        <Grid Grid.Row="1" x:Name="ContentGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,24">
+                <Button Content="Check IN" Width="160" Height="48" Click="Checking" Style="{StaticResource PrimaryButtonStyle}" Margin="0,0,24,0"/>
+                <Button Content="Check OUT" Width="160" Height="48" Click="Checkout" Style="{StaticResource PrimaryButtonStyle}"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" Style="{StaticResource CardStyle}" VerticalAlignment="Stretch">
+                    <DataGrid x:Name="times"
+                              CanUserAddRows="False"
+                              AutoGenerateColumns="False"
+                              AlternationCount="2"
+                              GridLinesVisibility="None"
+                              Background="Transparent"
+                              HeadersVisibility="Column"
+                              SelectionMode="Single"
+                              SelectionUnit="FullRow"
+                              BorderThickness="0"
+                              RowStyle="{StaticResource CardRowStyle}"
+                              CellStyle="{StaticResource CardCellStyle}"
+                              SelectionChanged="changed_clicktime">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Check IN" Width="*" Binding="{Binding CheckIN}"/>
+                            <DataGridTextColumn Header="Check OUT" Width="*" Binding="{Binding CheckOUT}"/>
+                            <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+            <Button Width="120" Height="40" Click="Dataändern" Style="{StaticResource OutlinedButtonStyle}" Margin="0,0,12,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE70F;" FontFamily="Segoe MDL2 Assets" FontSize="16" Margin="0,0,4,0"/>
+                    <TextBlock Text="Edit"/>
+                </StackPanel>
+            </Button>
+            <Button Width="120" Height="40" Click="ButtonCosts_Click" Style="{StaticResource OutlinedButtonStyle}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="16" Margin="0,0,4,0"/>
+                    <TextBlock Text="Costs"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

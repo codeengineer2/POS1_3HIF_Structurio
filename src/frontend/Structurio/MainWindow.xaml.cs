@@ -38,8 +38,7 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
             currentUser = user;
             userProjects = projects;
-            // Window costs = new Costs();
-            // costs.Show();
+         
         }
 
         // übergangs lösung
@@ -91,6 +90,8 @@ namespace Structurio
             userProjects = testProjects;
             // Window costs = new Costs();
             // costs.Show();
+            Window timestamp = new TimeStamp();
+            timestamp.ShowDialog();
         }
 
 

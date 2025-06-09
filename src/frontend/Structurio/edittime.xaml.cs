@@ -23,12 +23,12 @@ namespace Structurio
     public partial class edittime : Window
     {
         public int Index;
-        ListView Times;
+        DataGrid Times;
         private readonly ObservableCollection<Timecheckin> entries;
         private readonly HttpClient httpClient;
         private readonly int uid = 1;
         private readonly int pid = 1;
-        public edittime(ObservableCollection<Timecheckin> entry, int index, ListView times, HttpClient httpClient)
+        public edittime(ObservableCollection<Timecheckin> entry, int index, DataGrid times, HttpClient httpClient)
         {
             InitializeComponent();
             Index = index;
