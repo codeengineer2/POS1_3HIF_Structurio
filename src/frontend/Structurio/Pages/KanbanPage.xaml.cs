@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Classes;
 using Structurio.Controls;
 
 namespace Structurio.Pages
@@ -21,14 +23,21 @@ namespace Structurio.Pages
     /// </summary>
     public partial class KanbanPage : Page
     {
-        public KanbanPage()
+        private Project project;
+        public ObservableCollection<ColumnWrapper> Columns { get; set; } = new();
+        private int issueCounter = 1;
+
+        public KanbanPage(Project project)
         {
             InitializeComponent();
-        }
+            this.project = project;
 
-        private void addColumn_Click(object sender, RoutedEventArgs e)
-        {
+            foreach (var column in project.Board.Columns)
+            {
+                Columns.Add(new ColumnWrapper(column));
+            }
 
+            kanbanItemsControl.ItemsSource = Columns;
         }
 
         private void addItem_Click(object sender, RoutedEventArgs e)
@@ -36,8 +45,14 @@ namespace Structurio.Pages
 
         }
 
+        private void addColumn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void titleBox_LostFocus(object sender, RoutedEventArgs e)
         {
+
         }
     }
 }

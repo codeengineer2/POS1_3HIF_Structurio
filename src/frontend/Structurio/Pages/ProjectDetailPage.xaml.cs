@@ -32,6 +32,7 @@ namespace Structurio.Pages
             nameText.Text = project.Name.ToUpper();
             var brush = (SolidColorBrush)new BrushConverter().ConvertFromString(project.Color);
             (nameText.Parent as Border).Background = brush;
+            contentFrame.Navigate(new KanbanPage(project));
         }
 
         private void back_Click(object sender, RoutedEventArgs e)

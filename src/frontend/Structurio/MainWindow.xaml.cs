@@ -54,22 +54,35 @@ namespace Structurio
             {
                 new Project
                 {
-                    Id = 1,
-                    Name = "HTL",
-                    Description = "Redesign der Schulwebseite",
-                    Color = "#FF5733",
-                    OwnerUid = 1,
-                    Board = new Board()
-                },
-                new Project
-                {
-                    Id = 2,
-                    Name = "AM",
-                    Description = "Projekt zur Matura-Präsentation",
-                    Color = "#3498DB",
-                    OwnerUid = 1,
-                    Board = new Board()
-                }
+                        Id = 1,
+                        Name = "HTL",
+                        Description = "Redesign der Schulwebseite",
+                        Color = "#FF5733",
+                        OwnerUid = 1,
+                        Board = new Board
+                        {
+                            Id = 1,
+                            Columns = new List<Column>
+                            {
+                                new Column
+                                {
+                                    Id = 1,
+                                    Name = "Backlog",
+                                    Issues = new List<Issue>
+                                    {
+                                        new Issue { Id = 1, Description = "Erste Aufgabe", ColumnId = 1 },
+                                        new Issue { Id = 2, Description = "Zweite Aufgabe", ColumnId = 1 }
+                                    }
+                                },
+                                new Column
+                                {
+                                    Id = 2,
+                                    Name = "In Progress",
+                                    Issues = new List<Issue>()
+                                }
+                            }
+                        }
+                    }
             };
 
             mainFrame.Navigate(new ProjectsPage(this, testProjects));
