@@ -5,97 +5,151 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Structurio"
         mc:Ignorable="d"
-        Title="edittime" Height="450" Width="800">
-    <Grid>
-        <DatePicker Margin="152,67,497,324" x:Name="datein"/>
-        <TextBlock Text="CheckIN:" Margin="32,67,661,321" FontSize="20"/>
-        
-        <ComboBox HorizontalAlignment="Left" Margin="317,71,0,0" x:Name="hourin" VerticalAlignment="Top" Width="61" Height="35">
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2"/>
-            <ComboBoxItem Content="3"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="6"/>
-            <ComboBoxItem Content="7"/>
-            <ComboBoxItem Content="8"/>
-            <ComboBoxItem Content="9"/>
-            <ComboBoxItem Content="10"/>
-            <ComboBoxItem Content="11"/>
-            <ComboBoxItem Content="12"/>
-            <ComboBoxItem Content="13"/>
-            <ComboBoxItem Content="14"/>
-            <ComboBoxItem Content="15"/>
-            <ComboBoxItem Content="16"/>
-            <ComboBoxItem Content="17"/>
-            <ComboBoxItem Content="18"/>
-            <ComboBoxItem Content="19"/>
-            <ComboBoxItem Content="20"/>
-            <ComboBoxItem Content="21"/>
-            <ComboBoxItem Content="22"/>
-            <ComboBoxItem Content="23"/>
-            <ComboBoxItem Content="24"/>
-        </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Margin="388,70,0,0" x:Name="minin" VerticalAlignment="Top" Width="61" Height="35">
-            <ComboBoxItem Content="0"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="10"/>
-            <ComboBoxItem Content="15"/>
-            <ComboBoxItem Content="20"/>
-            <ComboBoxItem Content="25"/>
-            <ComboBoxItem Content="30"/>
-            <ComboBoxItem Content="35"/>
-            <ComboBoxItem Content="40"/>
-            <ComboBoxItem Content="45"/>
-            <ComboBoxItem Content="50"/>
-            <ComboBoxItem Content="55"/>
-        </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Margin="317,118,0,0" x:Name="hourout" VerticalAlignment="Top" Width="61" Height="35">
-            <ComboBoxItem Content="1"/>
-            <ComboBoxItem Content="2"/>
-            <ComboBoxItem Content="3"/>
-            <ComboBoxItem Content="4"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="6"/>
-            <ComboBoxItem Content="7"/>
-            <ComboBoxItem Content="8"/>
-            <ComboBoxItem Content="9"/>
-            <ComboBoxItem Content="10"/>
-            <ComboBoxItem Content="11"/>
-            <ComboBoxItem Content="12"/>
-            <ComboBoxItem Content="13"/>
-            <ComboBoxItem Content="14"/>
-            <ComboBoxItem Content="15"/>
-            <ComboBoxItem Content="16"/>
-            <ComboBoxItem Content="17"/>
-            <ComboBoxItem Content="18"/>
-            <ComboBoxItem Content="19"/>
-            <ComboBoxItem Content="20"/>
-            <ComboBoxItem Content="21"/>
-            <ComboBoxItem Content="22"/>
-            <ComboBoxItem Content="23"/>
-            <ComboBoxItem Content="24"/>
-        </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Margin="389,120,0,0" x:Name="minout" VerticalAlignment="Top" Width="61" Height="35">
-            <ComboBoxItem Content="0"/>
-            <ComboBoxItem Content="5"/>
-            <ComboBoxItem Content="10"/>
-            <ComboBoxItem Content="15"/>
-            <ComboBoxItem Content="20"/>
-            <ComboBoxItem Content="25"/>
-            <ComboBoxItem Content="30"/>
-            <ComboBoxItem Content="35"/>
-            <ComboBoxItem Content="40"/>
-            <ComboBoxItem Content="45"/>
-            <ComboBoxItem Content="50"/>
-            <ComboBoxItem Content="55"/>
-        </ComboBox>
-        <TextBlock x:Name="CheckoutBox" Text="CheckOUT: " FontSize="20" Margin="29,118,644,273" RenderTransformOrigin="0.836,1.307"/>
+        Title="edittime"
+   
+        Height="480" Width="620"
+        WindowStartupLocation="CenterOwner"
+        Background="#FAFAFA">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PrimaryColor">#424242</Color>
+            <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Padding" Value="12,6"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Cursor" Value="Hand"/>
+            </Style>
+            <Style x:Key="OutlinedButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
 
-        <DatePicker Margin="152,118,499,275" x:Name="dateout"/>
-
-
-        <Button Content="Speichern" Margin="213,247,213,118" Click="Save_Click"/>
-
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Zeitstempel bearbeiten" FontSize="20" FontWeight="SemiBold" Foreground="#202020"/>
+        <Border Grid.Row="1" CornerRadius="8" Background="White" Padding="24" BorderBrush="#D6D6D6" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="Check IN" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker x:Name="datein" SelectedDate="{x:Null}" />
+                    <ComboBox x:Name="hourin" Width="60" Height="34" Margin="12,0,0,0" Grid.Column="1">
+                        <ComboBox.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                        </ComboBox.Resources>
+                        <ComboBoxItem Content="00"/>
+                        <ComboBoxItem Content="01"/>
+                        <ComboBoxItem Content="02"/>
+                        <ComboBoxItem Content="03"/>
+                        <ComboBoxItem Content="04"/>
+                        <ComboBoxItem Content="05"/>
+                        <ComboBoxItem Content="06"/>
+                        <ComboBoxItem Content="07"/>
+                        <ComboBoxItem Content="08"/>
+                        <ComboBoxItem Content="09"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="13"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="17"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="19"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="21"/>
+                        <ComboBoxItem Content="22"/>
+                        <ComboBoxItem Content="23"/>
+                    </ComboBox>
+                    <ComboBox x:Name="minin" Width="60" Height="34" Margin="8,0,0,0" Grid.Column="2">
+                        <ComboBoxItem Content="00"/>
+                        <ComboBoxItem Content="05"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="25"/>
+                        <ComboBoxItem Content="30"/>
+                        <ComboBoxItem Content="35"/>
+                        <ComboBoxItem Content="40"/>
+                        <ComboBoxItem Content="45"/>
+                        <ComboBoxItem Content="50"/>
+                        <ComboBoxItem Content="55"/>
+                    </ComboBox>
+                </Grid>
+                <TextBlock Text="Check OUT" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                <Grid Margin="0,0,0,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker x:Name="dateout" />
+                    <ComboBox x:Name="hourout" Width="60" Height="34" Margin="12,0,0,0" Grid.Column="1">
+                        <ComboBox.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="14"/>
+                            </Style>
+                        </ComboBox.Resources>
+                        <ComboBoxItem Content="00"/>
+                        <ComboBoxItem Content="01"/>
+                        <ComboBoxItem Content="02"/>
+                        <ComboBoxItem Content="03"/>
+                        <ComboBoxItem Content="04"/>
+                        <ComboBoxItem Content="05"/>
+                        <ComboBoxItem Content="06"/>
+                        <ComboBoxItem Content="07"/>
+                        <ComboBoxItem Content="08"/>
+                        <ComboBoxItem Content="09"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="13"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="17"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="19"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="21"/>
+                        <ComboBoxItem Content="22"/>
+                        <ComboBoxItem Content="23"/>
+                    </ComboBox>
+                    <ComboBox x:Name="minout" Width="60" Height="34" Margin="8,0,0,0" Grid.Column="2">
+                        <ComboBoxItem Content="00"/>
+                        <ComboBoxItem Content="05"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="25"/>
+                        <ComboBoxItem Content="30"/>
+                        <ComboBoxItem Content="35"/>
+                        <ComboBoxItem Content="40"/>
+                        <ComboBoxItem Content="45"/>
+                        <ComboBoxItem Content="50"/>
+                        <ComboBoxItem Content="55"/>
+                    </ComboBox>
+                </Grid>
+                <Button Content="Speichern" Width="140" Height="44" HorizontalAlignment="Center" Click="Save_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
