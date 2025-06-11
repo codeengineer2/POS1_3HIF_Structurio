@@ -1,0 +1,48 @@
+﻿<Window x:Class="Structurio.Windows.CreateProjectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Structurio.Windows"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Structurio - Project - Create" Height="400" Width="320"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#FFFFFFFF"
+        WindowStyle="SingleBorderWindow"
+        BorderBrush="#DDD"
+        BorderThickness="1"
+        Icon="/Assets/logo.ico">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Projekt erstellen" FontSize="20" FontWeight="SemiBold" Margin="0,0,0,20"/>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,0,0,12">
+            <TextBlock Text="Farbe" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,4"/>
+
+            <xctk:ColorPicker x:Name="colorPicker" Width="100" Height="28" HorizontalAlignment="Left" Margin="0,0,0,12" SelectedColor="#FF5733" UsingAlphaChannel="False" ShowAvailableColors="False" ShowDropDownButton="True" ShowRecentColors="False"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,0,0,12">
+            <TextBlock Text="Name" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBox x:Name="nameBox" Height="30" Padding="6" BorderBrush="#CCC" BorderThickness="1"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Vertical" Margin="0,0,0,12">
+            <TextBlock Text="Beschreibung" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,4"/>
+            <TextBox x:Name="descriptionBox" Height="64" Padding="6" BorderBrush="#CCC" BorderThickness="1" TextWrapping="Wrap" AcceptsReturn="True" />
+        </StackPanel>
+
+        <Button Grid.Row="4" Content="Erstellen" Height="36" Foreground="White" FontWeight="SemiBold" Cursor="Hand" Click="Create_Click"/>
+    </Grid>
+    
+</Window>
