@@ -8,6 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectsPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ProjectsPageStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <DockPanel Margin="20">
         <Grid DockPanel.Dock="Top" Margin="0,0,0,10" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -17,11 +25,11 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" Width="300">
-                <TextBox x:Name="searchBox" Height="32" FontSize="14" Background="White" Foreground="Black" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged"/>
+                <TextBox x:Name="searchBox" Height="32" FontSize="14" Background="White" Foreground="Black" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged" Style="{StaticResource SearchBoxStyle}"/>
                 <TextBlock x:Name="placeholderText" Text="🔍 Projekt suchen..." FontSize="14" Foreground="Gray" VerticalAlignment="Top" Margin="10,5,0,0" IsHitTestVisible="False"/>
-            </Grid> 
+            </Grid>
 
-            <Button Grid.Column="2" Height="32" Content="Projekt erstellen" FontWeight="Bold" Padding="12,0" Margin="10,0,0,0" Cursor="Hand" Click="CreateProjectButton_Click"/>
+            <Button Grid.Column="2" Width="150" Height="32" Content="Projekt erstellen" FontWeight="Bold" Padding="12,0" Margin="10,0,0,0" Cursor="Hand" Click="CreateProjectButton_Click" Style="{StaticResource ProjectCreateButtonStyle}"/>
         </Grid>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">

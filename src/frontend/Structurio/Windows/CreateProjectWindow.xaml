@@ -14,7 +14,15 @@
         BorderBrush="#DDD"
         BorderThickness="1"
         Icon="/Assets/logo.ico">
-    
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/CreateProjectWindowStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -43,7 +51,7 @@
             <TextBlock x:Name="descriptionInfo" Text="* erforderlich" Foreground="Gray" FontSize="11" Margin="4,4,0,0"/>
         </StackPanel>
 
-        <Button Grid.Row="4" Content="Erstellen" Height="36" Foreground="White" FontWeight="SemiBold" Cursor="Hand" Click="Create_Click"/>
+        <Button Grid.Row="4" Content="Erstellen" Height="36" Foreground="White" FontWeight="SemiBold" Cursor="Hand" Click="Create_Click" Style="{StaticResource CreateButtonStyle}"/>
     </Grid>
     
 </Window>
