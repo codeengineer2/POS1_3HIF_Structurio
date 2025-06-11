@@ -28,12 +28,25 @@ namespace Structurio.Windows
 
         private void descriptionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            descriptionBox.Background = Brushes.White;
+            descriptionInfo.Text = "* erforderlich";
+            descriptionInfo.Foreground = Brushes.Gray;
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-
+            IssueDescription = descriptionBox.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(IssueDescription))
+            {
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                descriptionInfo.Text = "Bitte Beschreibung eingeben!";
+                descriptionInfo.Foreground = Brushes.DarkRed;
+            }
         }
     }
 }

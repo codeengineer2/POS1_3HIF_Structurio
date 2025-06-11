@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Structurio.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="240">
+             d:DesignHeight="120" d:DesignWidth="240" Height="120" Width="240">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -28,7 +28,7 @@
                     <Run Text=" • Issue"/>
                 </TextBlock>
 
-                <TextBlock DockPanel.Dock="Right" Text="{Binding Number}" Foreground="Gray" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Id, StringFormat=#\{0\}}" Foreground="Gray" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Right"/>
             </DockPanel>
 
             <Grid Grid.Row="1">

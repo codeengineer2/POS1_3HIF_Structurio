@@ -69,8 +69,8 @@ namespace Structurio
                                     Name = "Backlog",
                                     Issues = new List<Issue>
                                     {
-                                        new Issue { Id = 1, Description = "Erste Aufgabe", ColumnId = 1 },
-                                        new Issue { Id = 2, Description = "Zweite Aufgabe", ColumnId = 1 }
+                                        new Issue { Id = 1, Description = "Erste Aufgabe", ColumnId = 1, Name="HTL"},
+                                        new Issue { Id = 2, Description = "Zweite Aufgabe", ColumnId = 1, Name="HTL"}
                                     }
                                 },
                                 new Column
@@ -84,10 +84,10 @@ namespace Structurio
                     }
             };
 
-            mainFrame.Navigate(new ProjectsPage(this, testProjects));
-            this.projectsButton.IsChecked = true;
             currentUser = null;
             userProjects = testProjects;
+            mainFrame.Navigate(new ProjectsPage(this, testProjects));
+            this.projectsButton.IsChecked = true;
             // Window costs = new Costs();
             // costs.Show();
             Window timestamp = new TimeStamp();

@@ -52,7 +52,8 @@ namespace Structurio.Pages
                     {
                         Id = issueCounter++,
                         Description = window.IssueDescription,
-                        ColumnId = column.Original.Id
+                        ColumnId = column.Original.Id,
+                        Name = project.Name
                     };
 
                     column.Original.Issues.Add(issue);

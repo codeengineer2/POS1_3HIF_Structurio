@@ -24,5 +24,10 @@ namespace Structurio.Controls
         {
             InitializeComponent();
         }
+
+        private void infoButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
