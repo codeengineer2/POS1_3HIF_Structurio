@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Classes;
 using Structurio.Controls;
+using Structurio.Windows;
 
 namespace Structurio.Pages
 {
@@ -78,6 +79,31 @@ namespace Structurio.Pages
             var filtered = allProjectCards.Where(p => p.Project.Name.ToLower().Contains(query));
 
             RenderProjects(filtered);
+        }
+
+        private void CreateProjectButton_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new CreateProjectWindow();
+            window.Owner = Window.GetWindow(this);
+
+            if (window.ShowDialog() == true)
+            {
+                var newProject = new Project
+                {
+                    Name = window.ProjectName,
+                    Description = window.ProjectDescription,
+                    Color = window.ProjectColor,
+                    Board = new Board
+                    {
+                        Columns = new List<Column>()
+                    }
+                };
+
+                var card = new ProjectCard { Project = newProject };
+                allProjects.Add(newProject);
+                allProjectCards.Add(card);
+                AddCardToPanel(card);
+            }
         }
     }
 }

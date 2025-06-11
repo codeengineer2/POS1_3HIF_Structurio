@@ -27,6 +27,7 @@ namespace Structurio.Pages
         private Project project;
         public ObservableCollection<ColumnWrapper> Columns { get; set; } = new();
         private int issueCounter = 1;
+        private Issue issueBeingMoved;
 
         public KanbanPage(Project project)
         {
@@ -52,7 +53,8 @@ namespace Structurio.Pages
                     {
                         Id = issueCounter++,
                         Description = window.IssueDescription,
-                        ColumnId = column.Original.Id
+                        ColumnId = column.Original.Id,
+                        Name = project.Name
                     };
 
                     column.Original.Issues.Add(issue);
@@ -86,6 +88,81 @@ namespace Structurio.Pages
                     Keyboard.ClearFocus();
                 }
             }
+        }
+
+        private void ItemsControl_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Issue)))
+            {
+                e.Effects = DragDropEffects.Move;
+                e.Handled = true;
+            }
+        }
+
+        private void ItemsControl_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(Issue)) && sender is ItemsControl itemsControl)
+            {
+                var targetColumn = itemsControl.DataContext as ColumnWrapper;
+                var issue = e.Data.GetData(typeof(Issue)) as Issue;
+
+                if (targetColumn != null && issue != null)
+                {
+                    issueBeingMoved = issue;
+                    var currentColumn = Columns.FirstOrDefault(ContainsIssue);
+                    issueBeingMoved = null;
+
+                    if (currentColumn != null && currentColumn != targetColumn)
+                    {
+                        currentColumn.Items.Remove(issue);
+                        currentColumn.Original.Issues.Remove(issue);
+
+                        issue.ColumnId = targetColumn.Original.Id;
+                        targetColumn.Items.Add(issue);
+                        targetColumn.Original.Issues.Add(issue);
+                    }
+                }
+            }
+        }
+        
+        private void Column_DragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("Issue"))
+            {
+                e.Effects = DragDropEffects.Move;
+                e.Handled = true;
+            }
+        }
+
+        private void Column_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent("Issue") && sender is Border border)
+            {
+                var issue = e.Data.GetData("Issue") as Issue;
+                var targetColumn = border.DataContext as ColumnWrapper;
+
+                if (issue != null && targetColumn != null)
+                {
+                    issueBeingMoved = issue;
+                    var currentColumn = Columns.FirstOrDefault(ContainsIssue);
+                    issueBeingMoved = null;
+
+                    if (currentColumn != null && currentColumn != targetColumn)
+                    {
+                        currentColumn.Items.Remove(issue);
+                        currentColumn.Original.Issues.Remove(issue);
+
+                        issue.ColumnId = targetColumn.Original.Id;
+                        targetColumn.Items.Add(issue);
+                        targetColumn.Original.Issues.Add(issue);
+                    }
+                }
+            }
+        }
+
+        private bool ContainsIssue(ColumnWrapper column)
+        {
+            return column.Items.Contains(this.issueBeingMoved);
         }
     }
 }

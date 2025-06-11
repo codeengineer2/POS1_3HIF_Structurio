@@ -15,4 +15,4 @@ namespace Structurio.Classes
         public Board Board { get; set; }
         public int OwnerUid { get; set; }
     }
-}
+}   

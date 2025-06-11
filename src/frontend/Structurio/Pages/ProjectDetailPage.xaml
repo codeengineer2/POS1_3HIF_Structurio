@@ -31,7 +31,7 @@
                         <TextBlock x:Name="nameText" FontSize="12" FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
                     </Border>
 
-                    <TextBlock Text="General" FontSize="16" VerticalAlignment="Center" Margin="0,0,70,0"/>
+                    <TextBlock Text="Allgemein" FontSize="16" VerticalAlignment="Center" Margin="0,0,70,0"/>
 
                     <ToggleButton IsChecked="True" Style="{StaticResource MenuToggleButtonStyle}">
                         <StackPanel Orientation="Horizontal">
