@@ -92,7 +92,11 @@ namespace Structurio.Pages
                 {
                     Name = window.ProjectName,
                     Description = window.ProjectDescription,
-                    Color = window.ProjectColor
+                    Color = window.ProjectColor,
+                    Board = new Board
+                    {
+                        Columns = new List<Column>()
+                    }
                 };
 
                 var card = new ProjectCard { Project = newProject };

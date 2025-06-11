@@ -67,7 +67,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Center" Margin="20,0,0,0" Click="addColumn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Top" Margin="20,0,0,0" Click="addColumn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
         </StackPanel>
     </ScrollViewer>
     
