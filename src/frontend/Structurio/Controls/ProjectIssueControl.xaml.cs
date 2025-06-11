@@ -1,4 +1,5 @@
 ﻿using Structurio.Classes;
+using Structurio.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Structurio.Controls
     /// </summary>
     public partial class ProjectIssueControl : UserControl
     {
+        public Issue Issue => this.DataContext as Issue;
+
         public ProjectIssueControl()
         {
             InitializeComponent();
@@ -93,9 +96,41 @@ namespace Structurio.Controls
             return null;
         }
 
-        private void infoButton_Click(object sender, RoutedEventArgs e)
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
+            var window = new UpdateIssueWindow(this.Issue);
+            window.Owner = Window.GetWindow(this);
 
+            if (window.ShowDialog() == true)
+            {
+                if (window.IsDeleted)
+                {
+                    var column = FindParentColumn();
+                    if (column != null)
+                    {
+                        column.Original.Issues.Remove(this.Issue);
+                        column.Items.Remove(this.Issue);
+                    }
+                }
+                else
+                {
+                    this.Issue.Description = window.UpdatedDescription;
+                }
+            }
+        }
+        
+        private ColumnWrapper FindParentColumn()
+        {
+            DependencyObject parent = this;
+            while (parent != null)
+            {
+                if (parent is FrameworkElement frameworkElement && frameworkElement.DataContext is ColumnWrapper column)
+                {
+                    return column;
+                }
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return null;
         }
     }
 }

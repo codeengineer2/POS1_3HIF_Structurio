@@ -1,12 +1,12 @@
 ﻿<Page x:Class="Structurio.Pages.KanbanPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Structurio.Pages"
-      xmlns:controls="clr-namespace:Structurio.Controls"
-      mc:Ignorable="d" 
-      Title="KanbanPage">
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+          xmlns:local="clr-namespace:Structurio.Pages"
+          xmlns:controls="clr-namespace:Structurio.Controls"
+          mc:Ignorable="d" 
+          Title="KanbanPage">
 
     <Page.Resources>
         <ResourceDictionary>
@@ -70,5 +70,5 @@
             <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Top" Margin="20,0,0,0" Click="addColumn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
         </StackPanel>
     </ScrollViewer>
-    
+
 </Page>
