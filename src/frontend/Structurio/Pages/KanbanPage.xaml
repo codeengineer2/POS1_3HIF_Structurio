@@ -27,7 +27,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Width="280" Padding="0" Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1" Margin="10,0" VerticalAlignment="Stretch">
+                        <Border Width="280" Background="White" Padding="0" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1" Margin="10,0" VerticalAlignment="Stretch" AllowDrop="True" Drop="Column_Drop" DragOver="Column_DragOver">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
