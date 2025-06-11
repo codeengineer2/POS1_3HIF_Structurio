@@ -7,7 +7,15 @@
              mc:Ignorable="d" 
              d:DesignHeight="120" d:DesignWidth="240">
 
-    <Border x:Name="rootBorder">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ProjectIssueControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border x:Name="rootBorder" Style="{StaticResource IssueBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -16,17 +24,17 @@
 
             <DockPanel Grid.Row="0" LastChildFill="False">
                 <TextBlock DockPanel.Dock="Left" Foreground="Black" FontSize="13" FontWeight="SemiBold">
-                    <Run Text="{Binding ProjectTag}"/>
+                    <Run Text="{Binding Name}"/>
                     <Run Text=" • Issue"/>
                 </TextBlock>
 
-                <TextBlock DockPanel.Dock="Right" Text="{Binding DisplayNumber}" Foreground="Gray" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Number}" Foreground="Gray" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Right"/>
             </DockPanel>
 
             <Grid Grid.Row="1">
                 <TextBlock Text="{Binding Description}" Foreground="#222" FontSize="13" Margin="0,0,30,20" TextWrapping="Wrap"/>
 
-                <Button Width="22" Height="22" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand" ToolTip="Informationen anzeigen" Click="infoButton_Click">
+                <Button Width="22" Height="22" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand" ToolTip="Informationen anzeigen" Click="infoButton_Click" Style="{StaticResource InfoButtonStyle}">
                     <TextBlock Text="ℹ️" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button>
             </Grid>
