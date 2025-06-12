@@ -8,6 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FilesPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/FilesPageStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <DockPanel Margin="20">
         <Grid DockPanel.Dock="Top" Margin="0,0,0,10" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -17,11 +25,11 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" Width="300">
-                <TextBox x:Name="searchBox" Height="32" FontSize="14" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged"/>
+                <TextBox x:Name="searchBox" Height="32" FontSize="14" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged" Style="{StaticResource SearchBoxStyle}"/>
                 <TextBlock x:Name="placeholderText" Text="🔍 Datei suchen..." FontSize="14" Foreground="Gray" VerticalAlignment="Top" Margin="10,5,0,0" IsHitTestVisible="False"/>
             </Grid>
 
-            <Border Grid.Column="2" Width="150" Height="32" Margin="10,0,0,0" Background="#FAFAFA" CornerRadius="5" BorderBrush="DarkGray" BorderThickness="1" AllowDrop="True" Cursor="Hand" MouseLeftButtonUp="UploadBox_Click" Drop="UploadBox_Drop" DragOver="UploadBox_DragOver">
+            <Border Grid.Column="2" Width="150" Height="32" Margin="10,0,0,0" Background="#FAFAFA" CornerRadius="5" BorderBrush="DarkGray" BorderThickness="1" AllowDrop="True" Cursor="Hand" MouseLeftButtonUp="UploadBox_Click" Drop="UploadBox_Drop" DragOver="UploadBox_DragOver" Style="{StaticResource UploadBoxStyle}">
                 <TextBlock Text="📤 Datei hochladen" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Border>
         </Grid>
