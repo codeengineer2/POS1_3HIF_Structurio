@@ -8,8 +8,16 @@
                  d:DesignHeight="200" d:DesignWidth="200"
                  Height="200" Width="200"
                  Margin="10">
-    
-    <Border x:Name="outerBorder" Background="White" CornerRadius="10" BorderBrush="#CCC" BorderThickness="1" Margin="8" MouseLeftButtonUp="FileBox_Click">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/FileBoxControlStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Border x:Name="outerBorder" Background="White" CornerRadius="10" BorderBrush="#CCC" BorderThickness="1" Margin="8" MouseLeftButtonUp="FileBox_Click" Style="{StaticResource FileBoxBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="200"/>
@@ -21,13 +29,13 @@
             </Border>
 
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="6,0,6,0">
-                <Button Width="24" Height="24" Background="Transparent" BorderThickness="0" Cursor="Hand" ToolTip="Löschen" Click="DeleteButton_Click">
+                <Button Width="24" Height="24" Background="Transparent" BorderThickness="0" Cursor="Hand" ToolTip="Löschen" Click="DeleteButton_Click" Style="{StaticResource IconButtonStyle}">
                     <TextBlock Text="🗑️" FontSize="15" VerticalAlignment="Center"/>
                 </Button>
 
                 <TextBlock x:Name="fileNameText" Width="90" Text="Dateiname.pdf" FontSize="13" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4,0,4,0" TextAlignment="Center" TextTrimming="CharacterEllipsis" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
 
-                <Button Width="24" Height="24" Background="Transparent" BorderThickness="0" Cursor="Hand" ToolTip="PDF öffnen" Click="OpenFile_Click">
+                <Button Width="24" Height="24" Background="Transparent" BorderThickness="0" Cursor="Hand" ToolTip="PDF öffnen" Click="OpenFile_Click" Style="{StaticResource IconButtonStyle}">
                     <TextBlock Text="📂" FontSize="15" VerticalAlignment="Center"/>
                 </Button>
             </StackPanel>

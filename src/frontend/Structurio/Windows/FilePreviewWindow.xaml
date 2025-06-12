@@ -8,7 +8,8 @@
         Title="Structurio - File - Preview"
         Height="500" Width="400"
         WindowStartupLocation="CenterOwner"
-        Background="#FFFFFFFF">
+        Background="#FFFFFFFF"
+        Icon="/Assets/logo.ico">
 
     <Border CornerRadius="6" BorderBrush="#CCC" BorderThickness="1" Margin="10">
         <Image x:Name="previewImage" Stretch="Uniform"/>
