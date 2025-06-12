@@ -18,11 +18,11 @@ using Structurio.Controls;
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaktionslogik für ProjectFilesPage.xaml
+    /// Interaktionslogik für ProjectFoldersPage.xaml
     /// </summary>
-    public partial class ProjectFilesPage : Page
+    public partial class ProjectFoldersPage : Page
     {
-        public ProjectFilesPage()
+        public ProjectFoldersPage()
         {
             InitializeComponent();
             filesWrapPanel.Children.Add(new FileBoxControl("Dateien"));

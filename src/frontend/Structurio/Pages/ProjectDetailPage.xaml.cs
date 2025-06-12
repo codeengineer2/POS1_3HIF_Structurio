@@ -59,7 +59,7 @@ namespace Structurio.Pages
         private void files_Click(object sender, RoutedEventArgs e)
         {
             UncheckAllMenuItems(sender);
-            contentFrame.Navigate(new ProjectFilesPage());
+            contentFrame.Navigate(new ProjectFoldersPage());
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
