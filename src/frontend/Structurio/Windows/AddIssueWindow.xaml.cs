@@ -28,7 +28,7 @@ namespace Structurio.Windows
 
         private void descriptionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            descriptionBox.Background = Brushes.White;
+            descriptionBox.ClearValue(BackgroundProperty);
             descriptionInfo.Text = "* erforderlich";
             descriptionInfo.Foreground = Brushes.Gray;
         }
@@ -36,17 +36,25 @@ namespace Structurio.Windows
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             IssueDescription = descriptionBox.Text.Trim();
-            if (!string.IsNullOrWhiteSpace(IssueDescription))
-            {
-                DialogResult = true;
-                Close();
-            }
-            else
+
+            if (string.IsNullOrWhiteSpace(IssueDescription))
             {
                 descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 descriptionInfo.Text = "Bitte Beschreibung eingeben!";
                 descriptionInfo.Foreground = Brushes.DarkRed;
+                return;
             }
+
+            if (IssueDescription.Length > 100)
+            {
+                descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                descriptionInfo.Text = "Max. 100 Zeichen erlaubt!";
+                descriptionInfo.Foreground = Brushes.DarkRed;
+                return;
+            }
+
+            DialogResult = true;
+            Close();
         }
     }
 }
