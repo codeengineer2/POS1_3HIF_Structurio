@@ -198,6 +198,37 @@ paths:
               schema:
                 $ref: '#/components/schemas/Timestamp'
       x-openapi-router-controller: openapi_server.controllers.timestamp_controller
+  /abrechnung/{uid}/{pid}:
+    
+    get:
+      summary: Liste aller Abrechnungen
+      operationId: get_abrechnungen
+      x-openapi-router-controller: openapi_server.controllers.abrechnung_controller
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Benutzer-ID
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: Projekt-ID
+      responses:
+        '200':
+          description: Erfolgreiche Antwort mit Abrechnungs-Liste
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Abrechnung'
+        '400':
+          description: Ungültige Eingabedaten
+    
 components:
   schemas:
     EmailRequest:
@@ -297,3 +328,57 @@ components:
           type: string
           format: date
           example: 2005-04-01
+    Abrechnung:
+      type: object
+      properties:
+        aid:
+          type: integer
+          description: Eindeutiger Beleg-Identifikator
+        uid:
+          type: integer
+          description: Benutzer-ID
+        pid:
+          type: integer
+          description: Projekt-ID
+        name:
+          type: string
+          description: Name der Abrechnung
+        date:
+          type: string
+          format: date
+          description: Datum der Abrechnung
+        price:
+          type: number
+          format: float
+          description: Betrag in Euro
+        category:
+          type: string
+          description: Kategorie der Abrechnung
+        rechnung:
+          type: string
+          nullable: true
+          description: Optionales Feld für weitere Rechnungsangaben
+        user:
+          type: object
+          description: Verknüpfter Benutzer (Kurzreferenz)
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+        project:
+          type: object
+          description: Verknüpftes Projekt (Kurzreferenz)
+          properties:
+            id:
+              type: integer
+            name:
+              type: string
+      required:
+        - aid
+        - uid
+        - pid
+        - name
+        - date
+        - price
+        - category

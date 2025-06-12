@@ -34,7 +34,7 @@
                                     DisplayMemberBinding="{Binding Name}" 
                                     Width="200"/>
                     <GridViewColumn Header="Kosten" 
-                                    DisplayMemberBinding="{Binding Betrag}" 
+                                    DisplayMemberBinding="{Binding Preis}" 
                                     Width="100"/>
                     <GridViewColumn Header="Datum" 
                                     DisplayMemberBinding="{Binding Datum, StringFormat=d}" 
@@ -43,13 +43,14 @@
                                     DisplayMemberBinding="{Binding Kategorie}" 
                                     Width="170"/>
                     <GridViewColumn Header="Rechnung" 
-                        DisplayMemberBinding="{Binding bill}" 
+                        DisplayMemberBinding="{Binding Rechnung}" 
                         Width="130"/>
 
                 </GridView>
             </ListView.View>
         </ListView>
         <Button Canvas.Left="20" Content="Rechnung Upload" Canvas.Top="214" Click="Upload_Click"/>
+        <Button Content="Button" Canvas.Left="279" Canvas.Top="195" Click="Save_Data_Click"/>
 
 
 
