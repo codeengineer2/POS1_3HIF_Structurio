@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Windows;
 
 namespace Structurio.Controls
 {
@@ -47,7 +48,12 @@ namespace Structurio.Controls
 
         private void FileBox_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Hallo!");
+            if (previewImage.Source != null)
+            {
+                var previewWindow = new FilePreviewWindow(previewImage.Source);
+                previewWindow.Owner = Window.GetWindow(this);
+                previewWindow.ShowDialog();
+            }
         }
     }
 }

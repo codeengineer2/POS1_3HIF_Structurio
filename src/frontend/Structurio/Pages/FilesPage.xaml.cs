@@ -50,7 +50,7 @@ namespace Structurio.Pages
         {
             var dialog = new OpenFileDialog
             {
-                Filter = "PDF-Dateien|*.pdf|Bilder|*.png;*.jpg;*.jpeg",
+                Filter = "PDF-Dateien (*.pdf)|*.pdf",
                 Multiselect = false
             };
 
@@ -74,7 +74,16 @@ namespace Structurio.Pages
 
                 if (files.Length > 0)
                 {
-                    AddFileBoxFromPath(files[0]);
+                    string extension = System.IO.Path.GetExtension(files[0]).ToLower();
+
+                    if (extension == ".pdf")
+                    {
+                        AddFileBoxFromPath(files[0]);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler nur pdfs erlaubt!");
+                    }
                 }
             }
         }
@@ -82,45 +91,44 @@ namespace Structurio.Pages
         private void AddFileBoxFromPath(string filePath)
         {
             string extension = System.IO.Path.GetExtension(filePath).ToLower();
+
+            if (extension != ".pdf")
+            {
+                MessageBox.Show("Fehler nur pdfs erlaubt!");
+                return;
+            }
+
             ImageBrush previewBrush = null;
 
-            if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
+            try
             {
-                var image = new BitmapImage(new Uri(filePath));
-                previewBrush = new ImageBrush(image) { Stretch = Stretch.UniformToFill };
-            }
-            else if (extension == ".pdf") // using a package :/
-            {
-                try
+                using (var pdfDoc = PdfiumViewer.PdfDocument.Load(filePath))
+                using (var image = pdfDoc.Render(0, 300, 400, true))
+                using (var ms = new MemoryStream())
                 {
-                    using (var pdfDoc = PdfiumViewer.PdfDocument.Load(filePath))
-                    using (var image = pdfDoc.Render(0, 300, 400, true))
-                    using (var ms = new MemoryStream())
+                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    ms.Position = 0;
+
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+
+                    previewBrush = new ImageBrush(bitmapImage)
                     {
-                        image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-                        ms.Position = 0;
-
-                        var bitmapImage = new BitmapImage();
-                        bitmapImage.BeginInit();
-                        bitmapImage.StreamSource = ms;
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.EndInit();
-
-                        previewBrush = new ImageBrush(bitmapImage)
-                        {
-                            Stretch = Stretch.UniformToFill
-                        };
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
+                        Stretch = Stretch.UniformToFill
+                    };
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
 
-            string boxType = filePath.ToLower().Contains("diagram") || extension == ".pdf" ? "diagram" : "file";
+            string boxType = "diagram";
             var fileBox = new FileBoxControl(boxType, System.IO.Path.GetFileName(filePath));
-
             fileBox.ToolTip = System.IO.Path.GetFileName(filePath);
 
             if (previewBrush != null)
