@@ -22,37 +22,32 @@ namespace Structurio.Controls
     {
         private Brush originalBorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
 
-        public FileBoxControl(string type)
+        public FileBoxControl(string type, string fileName = "Dateiname")
         {
             InitializeComponent();
 
-            if (type.ToLower().Contains("file"))
+            fileNameText.Text = System.IO.Path.GetFileName(fileName);
+
+            Width = 200;
+            Height = 250;
+        }
+
+        public void SetBackground(Brush brush)
+        {
+            if (brush is ImageBrush imageBrush && imageBrush.ImageSource != null)
             {
-                Width = 150; 
-                Height = 200;
+                previewImage.Source = imageBrush.ImageSource;
+                imageContainer.Background = Brushes.Transparent;
             }
             else
             {
-                Width = 200; 
-                Height = 200;
+                imageContainer.Background = brush;
             }
         }
 
         private void FileBox_Click(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Hallo!");
-        }
-
-        private void FileBox_MouseEnter(object sender, MouseEventArgs e)
-        {
-            outerBorder.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
-            outerBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(100, 149, 237));
-        }
-
-        private void FileBox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            outerBorder.Background = Brushes.White;
-            outerBorder.BorderBrush = originalBorderBrush;
         }
     }
 }
