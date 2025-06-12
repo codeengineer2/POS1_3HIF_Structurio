@@ -80,14 +80,15 @@ namespace Structurio.Controls
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var parent = this.Parent as Panel;
+            var result = MessageBox.Show("Möchten Sie diese Datei wirklich löschen?", "Löschen bestätigen", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-            if (parent != null)
+            if (result == MessageBoxResult.Yes)
             {
-                parent.Children.Remove(this);
+                var parent = this.Parent as Panel;
+                parent?.Children.Remove(this);
             }
         }
     }
