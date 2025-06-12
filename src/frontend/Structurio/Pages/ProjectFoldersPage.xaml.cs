@@ -25,8 +25,8 @@ namespace Structurio.Pages
         public ProjectFoldersPage()
         {
             InitializeComponent();
-            filesWrapPanel.Children.Add(new FolderBoxControl("Dateien"));
-            filesWrapPanel.Children.Add(new FolderBoxControl("Diagramme"));
+            filesWrapPanel.Children.Add(new FolderBoxControl("file"));
+            filesWrapPanel.Children.Add(new FolderBoxControl("diagram"));
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)

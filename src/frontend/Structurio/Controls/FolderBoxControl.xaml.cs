@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Structurio.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Pages;
 
 namespace Structurio.Controls
 {
@@ -21,17 +23,18 @@ namespace Structurio.Controls
     public partial class FolderBoxControl : UserControl
     {
         private Brush originalBorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
+        private string type;
 
         public FolderBoxControl(string title)
         {
             InitializeComponent();
-
-            titleText.Text = title.ToLower().Contains("dateien") ? "📁 Dateien" : "📊 Diagramme";
+            type = title.ToLower().Contains("file") ? "file" : "diagram";
+            titleText.Text = type == "file" ? "📁 Dateien" : "📊 Diagramme";
         }
 
         private void FolderBox_Click(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Hallo!");
+            NavigationService.GetNavigationService(this)?.Navigate(new FilesPage(type));
         }
 
         private void FolderBox_MouseEnter(object sender, MouseEventArgs e)

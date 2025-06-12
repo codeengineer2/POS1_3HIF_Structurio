@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Structurio"
         mc:Ignorable="d"
         Title="Structurio - Main" 
-        Height="600" Width="1000"
+        Height="600" Width="1100"
         WindowStartupLocation="CenterScreen"
         Icon="/Assets/logo.ico"
         Background="#FFFFFFFF">
