@@ -8,6 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectFoldersPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/ProjectFoldersPageStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <DockPanel Margin="20">
         <Grid DockPanel.Dock="Top" VerticalAlignment="Center" Margin="0,0,0,10">
             <Grid.ColumnDefinitions>
@@ -17,7 +25,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" Width="300">
-                <TextBox x:Name="searchBox" Height="32" Background="White" Foreground="Black" FontSize="14" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged"/>
+                <TextBox x:Name="searchBox" Height="32" Background="White" Foreground="Black" FontSize="14" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged" Style="{StaticResource SearchBoxStyle}"/>
                 <TextBlock x:Name="placeholderText" Text="🔍 Ordner suchen..." Foreground="Gray" FontSize="14" VerticalAlignment="Top" Margin="10,5,0,0" IsHitTestVisible="False"/>
             </Grid>
         </Grid>
