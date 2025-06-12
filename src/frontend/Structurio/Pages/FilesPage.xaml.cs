@@ -12,21 +12,29 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Structurio.Classes;
 using Structurio.Controls;
 
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaktionslogik für ProjectFoldersPage.xaml
+    /// Interaktionslogik für FilesPage.xaml
     /// </summary>
-    public partial class ProjectFoldersPage : Page
+    public partial class FilesPage : Page
     {
-        public ProjectFoldersPage()
+        public FilesPage(string type)
         {
             InitializeComponent();
-            filesWrapPanel.Children.Add(new FolderBoxControl("file"));
-            filesWrapPanel.Children.Add(new FolderBoxControl("diagram"));
+
+            if (type == "file")
+            {
+                fileBoxPanel.Children.Add(new FileBoxControl("file"));
+                fileBoxPanel.Children.Add(new FileBoxControl("file"));
+            }
+            else
+            {
+                fileBoxPanel.Children.Add(new FileBoxControl("diagram"));
+                fileBoxPanel.Children.Add(new FileBoxControl("diagram"));
+            }
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
