@@ -8,8 +8,23 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProjectFilesPage">
 
-    <Grid>
+    <DockPanel Margin="20">
+        <Grid DockPanel.Dock="Top" VerticalAlignment="Center" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-    </Grid>
+            <Grid Grid.Column="0" Width="300">
+                <TextBox x:Name="searchBox" Height="32" Background="White" Foreground="Black" FontSize="14" Padding="6,4" VerticalContentAlignment="Center" TextChanged="searchBox_TextChanged"/>
+                <TextBlock x:Name="placeholderText" Text="🔍 Ordner suchen..." Foreground="Gray" FontSize="14" VerticalAlignment="Top" Margin="10,5,0,0" IsHitTestVisible="False"/>
+            </Grid>
+        </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <WrapPanel x:Name="filesWrapPanel" Margin="10"/>
+        </ScrollViewer>
+    </DockPanel>
     
 </Page>

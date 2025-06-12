@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Classes;
+using Structurio.Controls;
 
 namespace Structurio.Pages
 {
@@ -24,6 +25,13 @@ namespace Structurio.Pages
         public ProjectFilesPage()
         {
             InitializeComponent();
+            filesWrapPanel.Children.Add(new FileBoxControl("Dateien"));
+            filesWrapPanel.Children.Add(new FileBoxControl("Diagramme"));
+        }
+
+        private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Hidden;
         }
     }
 }
