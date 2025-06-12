@@ -128,7 +128,7 @@ namespace Structurio.Pages
             }
 
             string boxType = "diagram";
-            var fileBox = new FileBoxControl(boxType, System.IO.Path.GetFileName(filePath));
+            var fileBox = new FileBoxControl("diagram", System.IO.Path.GetFileName(filePath), filePath);
             fileBox.ToolTip = System.IO.Path.GetFileName(filePath);
 
             if (previewBrush != null)

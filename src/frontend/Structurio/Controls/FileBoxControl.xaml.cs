@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Windows;
+using System.IO;
 
 namespace Structurio.Controls
 {
@@ -22,11 +23,13 @@ namespace Structurio.Controls
     public partial class FileBoxControl : UserControl
     {
         private Brush originalBorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
+        private string filePath;
 
-        public FileBoxControl(string type, string fileName = "Dateiname")
+        public FileBoxControl(string type, string fileName = "Dateiname", string path = "")
         {
             InitializeComponent();
 
+            filePath = path;
             fileNameText.Text = System.IO.Path.GetFileName(fileName);
 
             Width = 200;
@@ -53,6 +56,38 @@ namespace Structurio.Controls
                 var previewWindow = new FilePreviewWindow(previewImage.Source);
                 previewWindow.Owner = Window.GetWindow(this);
                 previewWindow.ShowDialog();
+            }
+        }
+
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (File.Exists(filePath))
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(filePath)
+                    {
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Datei wurde nicht gefunden!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var parent = this.Parent as Panel;
+
+            if (parent != null)
+            {
+                parent.Children.Remove(this);
             }
         }
     }

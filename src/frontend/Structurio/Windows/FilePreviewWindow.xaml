@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Structurio.Windows"
         mc:Ignorable="d"
-        Title="FilePreviewWindow" 
+        Title="Structurio - File - Preview"
         Height="500" Width="400"
         WindowStartupLocation="CenterOwner"
         Background="#FFFFFFFF">
