@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Structurio Auth API
   version: 1.0.0
-  description: Nur Check-Email, Try-Login, Register Endpoints
+  description: Nur Check-Email, Try-Login, Register, Projects Endpoints
 
 servers:
   - url: http://localhost:8080
@@ -67,6 +67,35 @@ paths:
           description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.user_controller
 
+  /projects:
+    post:
+      summary: Neues Projekt mit leerem Board erstellen
+      operationId: create_project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRequest'
+      responses:
+        "201":
+          description: Projekt erfolgreich erstellt
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  pid:
+                    type: integer
+                    example: 42
+        "400":
+          description: Ungültige Eingabe
+        "500":
+          description: Interner Serverfehler
+      x-openapi-router-controller: openapi_server.controllers.project_controller
 
   /timestamps/{uid}/{pid}:
     get:
@@ -273,6 +302,22 @@ components:
           type: string
           format: date
           example: 2005-04-01
+
+    ProjectRequest:
+      type: object
+      required: [name, color, owner_uid]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        color:
+          type: string
+          example: "#2288FF"
+        owner_uid:
+          type: integer
+          example: 1
 
     TimestampRequest:
       type: object
