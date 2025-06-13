@@ -106,11 +106,22 @@ namespace Structurio.Controls
             {
                 if (window.IsDeleted)
                 {
-                    var column = FindParentColumn();
-                    if (column != null)
+                    var api = new ApiService();
+                    var success = await api.DeleteIssueAsync(this.Issue.Id);
+
+                    if (success)
                     {
-                        column.Original.Issues.Remove(this.Issue);
-                        column.Items.Remove(this.Issue);
+                        var column = FindParentColumn();
+
+                        if (column != null)
+                        {
+                            column.Original.Issues.Remove(this.Issue);
+                            column.Items.Remove(this.Issue);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler beim Löschen des Issues!");
                     }
                 }
                 else

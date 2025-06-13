@@ -145,5 +145,18 @@ namespace Structurio.Services
                 return false;
             }
         }
+
+        public async Task<bool> DeleteIssueAsync(int id)
+        {
+            try
+            {
+                var response = await client.DeleteAsync($"http://localhost:8080/issues/{id}");
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

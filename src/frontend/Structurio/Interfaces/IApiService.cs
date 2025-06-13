@@ -14,5 +14,6 @@ namespace Structurio.Interfaces
         Task<Project?> CreateProjectAsync(ProjectRequest request);
         Task<Issue?> AddIssueAsync(AddIssueRequest request);
         Task<bool> UpdateIssueAsync(UpdateIssueRequest request);
+        Task<bool> DeleteIssueAsync(int id);
     }
 }
