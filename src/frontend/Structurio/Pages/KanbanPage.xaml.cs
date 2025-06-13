@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Classes;
 using Structurio.Controls;
+using Structurio.Interfaces;
+using Structurio.Services;
 using Structurio.Windows;
 
 namespace Structurio.Pages
@@ -25,9 +27,10 @@ namespace Structurio.Pages
     public partial class KanbanPage : Page
     {
         private Project project;
-        public ObservableCollection<ColumnWrapper> Columns { get; set; } = new();
+        private IApiService apiService;
         private int issueCounter = 1;
         private Issue issueBeingMoved;
+        public ObservableCollection<ColumnWrapper> Columns { get; set; } = new();
 
         public KanbanPage(Project project)
         {
@@ -42,26 +45,40 @@ namespace Structurio.Pages
             kanbanItemsControl.ItemsSource = Columns;
         }
 
-        private void addItem_Click(object sender, RoutedEventArgs e)
+        private async void addItem_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn && btn.DataContext is ColumnWrapper column)
+            if (sender is Button button && button.DataContext is ColumnWrapper column)
             {
                 var window = new AddIssueWindow { Owner = Window.GetWindow(this) };
+                window.DataContext = column.Original;
+
                 if (window.ShowDialog() == true)
                 {
-                    var issue = new Issue
+                    var api = new ApiService();
+
+                    var request = new AddIssueRequest
                     {
-                        Id = issueCounter++,
-                        Description = window.IssueDescription,
                         ColumnId = column.Original.Id,
-                        Name = project.Name
+                        Description = window.IssueDescription
                     };
 
-                    column.Original.Issues.Add(issue);
-                    column.Items.Add(issue);
+                    var newIssue = await api.AddIssueAsync(request);
+
+                    if (newIssue != null)
+                    {
+                        newIssue.Name = project.Name;
+
+                        column.Original.Issues.Add(newIssue);
+                        column.Items.Add(newIssue);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler beim Erstellen des Issues!");
+                    }
                 }
             }
         }
+
 
         private void addColumn_Click(object sender, RoutedEventArgs e)
         {

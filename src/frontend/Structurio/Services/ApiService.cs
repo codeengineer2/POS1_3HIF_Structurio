@@ -94,5 +94,40 @@ namespace Structurio.Services
                 return null;
             }
         }
+
+        public async Task<Issue?> AddIssueAsync(AddIssueRequest request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync("http://localhost:8080/issues", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var body = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
+
+                if (result != null && result.TryGetValue("issue_id", out var iidObj) && int.TryParse(iidObj.ToString(), out int iid))
+                {
+                    return new Issue
+                    {
+                        Id = iid,
+                        Description = request.Description,
+                        ColumnId = request.ColumnId
+                    };
+                }
+
+                return null;
+            }
+            catch 
+            {
+                return null;
+            }
+        }
     }
 }

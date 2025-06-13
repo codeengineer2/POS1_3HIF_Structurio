@@ -12,5 +12,6 @@ namespace Structurio.Interfaces
         Task<LoginResponse?> LoginAsync(string email, string password);
         Task<bool> RegisterAsync(RegisterRequest request);
         Task<Project?> CreateProjectAsync(ProjectRequest request);
+        Task<Issue?> AddIssueAsync(AddIssueRequest request);
     }
 }
