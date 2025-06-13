@@ -1,4 +1,5 @@
 ﻿using Structurio.Classes;
+using Structurio.Services;
 using Structurio.Windows;
 using System;
 using System.Collections.Generic;
@@ -96,7 +97,7 @@ namespace Structurio.Controls
             return null;
         }
 
-        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        private async void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             var window = new UpdateIssueWindow(this.Issue);
             window.Owner = Window.GetWindow(this);
@@ -114,7 +115,23 @@ namespace Structurio.Controls
                 }
                 else
                 {
-                    this.Issue.Description = window.UpdatedDescription;
+                    var api = new ApiService();
+                    var updateRequest = new UpdateIssueRequest
+                    {
+                        Id = this.Issue.Id,
+                        Description = window.UpdatedDescription
+                    };
+
+                    var success = await api.UpdateIssueAsync(updateRequest);
+
+                    if (success)
+                    {
+                        this.Issue.Description = window.UpdatedDescription;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler beim Aktualisieren des Issues!");
+                    }
                 }
             }
         }

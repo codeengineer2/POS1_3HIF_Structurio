@@ -13,5 +13,6 @@ namespace Structurio.Interfaces
         Task<bool> RegisterAsync(RegisterRequest request);
         Task<Project?> CreateProjectAsync(ProjectRequest request);
         Task<Issue?> AddIssueAsync(AddIssueRequest request);
+        Task<bool> UpdateIssueAsync(UpdateIssueRequest request);
     }
 }
