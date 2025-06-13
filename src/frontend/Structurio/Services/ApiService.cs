@@ -52,5 +52,47 @@ namespace Structurio.Services
                 return false;
             }
         }
+
+        public async Task<Project?> CreateProjectAsync(ProjectRequest request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync("http://localhost:8080/projects", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                    
+                var responseJson = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseJson);
+
+                if (result != null && result.TryGetValue("pid", out var pidObj) && int.TryParse(pidObj.ToString(), out int pid))
+                {
+                    return new Project
+                    {
+                        Id = pid,
+                        Name = request.Name,
+                        Description = request.Description,
+                        Color = request.Color,
+                        OwnerUid = request.OwnerUid,
+                        Board = new Board
+                        {
+                            ProjectId = pid,
+                            Columns = new List<Column>()
+                        }
+                    };
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Classes;
 using Structurio.Controls;
+using Structurio.Services;
 using Structurio.Windows;
 
 namespace Structurio.Pages
@@ -79,28 +80,35 @@ namespace Structurio.Pages
             RenderProjects(filtered);
         }
 
-        private void CreateProjectButton_Click(object sender, RoutedEventArgs e)
+        private async void CreateProjectButton_Click(object sender, RoutedEventArgs e)
         {
             var window = new CreateProjectWindow();
             window.Owner = Window.GetWindow(this);
 
-            if (window.ShowDialog() == true)    
+            if (window.ShowDialog() == true)
             {
-                var newProject = new Project
+                var request = new ProjectRequest
                 {
                     Name = window.ProjectName,
                     Description = window.ProjectDescription,
                     Color = window.ProjectColor,
-                    Board = new Board
-                    {
-                        Columns = new List<Column>()
-                    }
+                    OwnerUid = mainWindow.CurrentUser.Id
                 };
 
-                var card = new ProjectCard { Project = newProject };
-                allProjects.Add(newProject);
-                allProjectCards.Add(card);
-                AddCardToPanel(card);
+                var api = new ApiService();
+                var newProject = await api.CreateProjectAsync(request);
+
+                if (newProject != null)
+                {
+                    var card = new ProjectCard { Project = newProject };
+                    allProjects.Add(newProject);
+                    allProjectCards.Add(card);
+                    AddCardToPanel(card);
+                }
+                else
+                {
+                    MessageBox.Show("Projekt konnte nicht erstellt werden!");
+                }
             }
         }
     }

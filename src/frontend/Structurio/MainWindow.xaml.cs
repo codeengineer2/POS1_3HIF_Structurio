@@ -25,8 +25,7 @@ namespace Structurio
         private DateTime startTime;
         private DispatcherTimer timer;
         public Frame MainFramePublic;
-
-        private User currentUser;
+        public User CurrentUser;
         private List<Project> userProjects;
 
         public MainWindow(User user, List<Project> projects)
@@ -36,7 +35,7 @@ namespace Structurio
             this.MainFramePublic = this.mainFrame;
             mainFrame.Navigate(new ProjectsPage(this, projects));
             this.projectsButton.IsChecked = true;
-            currentUser = user;
+            CurrentUser = user;
             userProjects = projects;
          
         }
@@ -84,7 +83,7 @@ namespace Structurio
                     }
             };
 
-            currentUser = null;
+            CurrentUser = null;
             userProjects = testProjects;
             mainFrame.Navigate(new ProjectsPage(this, testProjects));
             this.projectsButton.IsChecked = true;
