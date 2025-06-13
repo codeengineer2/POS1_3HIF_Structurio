@@ -33,10 +33,10 @@ namespace Structurio.Pages
             this.project = project;
 
             nameText.Text = project.Name.ToUpper();
+            contentFrame.Navigate(new KanbanPage(this.project));
+
             var brush = (SolidColorBrush)new BrushConverter().ConvertFromString(project.Color);
             (nameText.Parent as Border).Background = brush;
-
-            contentFrame.Navigate(new KanbanPage(project));
         }
 
         private void UncheckAllMenuItems(object sender)
@@ -52,10 +52,15 @@ namespace Structurio.Pages
 
         private void kanban_Click(object sender, RoutedEventArgs e)
         {
-//            UncheckAllMenuItems(sender);
-//            contentFrame.Navigate(new KanbanPage(project));
-        }
+            if (this.project == null)
+            {
+                return;
+            }
 
+            UncheckAllMenuItems(sender);
+            contentFrame.Navigate(new KanbanPage(this.project));
+        }
+   
         private void files_Click(object sender, RoutedEventArgs e)
         {
             UncheckAllMenuItems(sender);
