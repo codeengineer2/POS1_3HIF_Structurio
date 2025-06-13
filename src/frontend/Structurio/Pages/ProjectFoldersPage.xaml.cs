@@ -22,16 +22,34 @@ namespace Structurio.Pages
     /// </summary>
     public partial class ProjectFoldersPage : Page
     {
+        private List<FolderBoxControl> allFolderBoxes = new();
+
         public ProjectFoldersPage()
         {
             InitializeComponent();
-            filesWrapPanel.Children.Add(new FolderBoxControl("file"));
-            filesWrapPanel.Children.Add(new FolderBoxControl("diagram"));
+
+            var folder1 = new FolderBoxControl("file");
+            var folder2 = new FolderBoxControl("diagram");
+
+            allFolderBoxes.Add(folder1);
+            allFolderBoxes.Add(folder2);
+
+            filesWrapPanel.Children.Add(folder1);
+            filesWrapPanel.Children.Add(folder2);
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Hidden;
+            placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+
+            var query = searchBox.Text.ToLower();
+            var filtered = allFolderBoxes.Where(f => f.Name.Contains(query)).ToList();
+
+            filesWrapPanel.Children.Clear();
+            foreach (var folder in filtered)
+            {
+                filesWrapPanel.Children.Add(folder);
+            }
         }
     }
 }

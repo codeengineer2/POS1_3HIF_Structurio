@@ -24,12 +24,14 @@ namespace Structurio.Controls
     {
         private Brush originalBorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
         private string type;
+        public string Name;
 
         public FolderBoxControl(string title)
         {
             InitializeComponent();
             type = title.ToLower().Contains("file") ? "file" : "diagram";
             titleText.Text = type == "file" ? "📁 Dateien" : "📊 Diagramme";
+            this.Name = titleText.Text.ToLower();
         }
 
         private void FolderBox_Click(object sender, MouseButtonEventArgs e)
