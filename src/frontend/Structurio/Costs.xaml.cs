@@ -151,5 +151,18 @@ namespace Structurio
             DatePickerCosts.SelectedDate = null;
             rechnungspfad = "";
         }
+        private void Window_SizeChanged(object Sender, SizeChangedEventArgs e)
+        {
+            double totalWidth = CostsListView.ActualWidth - 35;
+
+            if (CostsListView.View is GridView gridView && gridView.Columns.Count == 5)
+            {
+                gridView.Columns[0].Width = totalWidth * 0.20;
+                gridView.Columns[1].Width = totalWidth * 0.10;
+                gridView.Columns[2].Width = totalWidth * 0.15;
+                gridView.Columns[3].Width = totalWidth * 0.25;
+                gridView.Columns[4].Width = totalWidth * 0.30;
+            }
+        }
     }
 }
