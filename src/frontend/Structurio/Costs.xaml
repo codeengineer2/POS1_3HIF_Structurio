@@ -5,54 +5,197 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:local="clr-namespace:Structurio"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Costs">
+      Title="Costs" Height="600" Width="880"
+      Background="#FAFAFA"
+      WindowStartupLocation="CenterScreen"
+      SizeChanged="Window_SizeChanged">
 
-    <Canvas Background="White">
+    <Window.Resources>
+        <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Padding" Value="8,4"/>
+        </Style>
+        <Color x:Key="PrimaryColor">#1976D2</Color>
+        <Color x:Key="PrimaryDarkColor">#1565C0</Color>
+        <Color x:Key="PrimaryDarkerColor">#0D47A1</Color>
 
-        <lvc:PieChart x:Name="PieChartCosts"  Width="300" Height="192" Canvas.Left="468" Canvas.Top="23" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <TextBlock Text="Name:" RenderTransformOrigin="2.158,5.579" Canvas.Left="24" Canvas.Top="64" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <TextBox x:Name="costsName" Text="Kostenname" Canvas.Left="76" Canvas.Top="62" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <TextBlock Text="Datum: " Canvas.Left="18" Canvas.Top="138"/>
-        <DatePicker x:Name="DatePickerCosts" Margin="0,0,0,0" Width="120" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="69" Canvas.Top="134"/>
-        <TextBlock Text="Kosten: " Canvas.Left="21" Canvas.Top="99"/>
-        <TextBox x:Name="costs" Text="Betrag" Canvas.Left="74" Canvas.Top="100"/>
+        <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
+        <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{StaticResource PrimaryDarkerColor}"/>
 
-        <TextBlock Text="Kategorie: " Canvas.Left="17" Canvas.Top="182"/>
-        <ComboBox x:Name="CostsCategory" Margin="0,0,0,0" Width="120" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="91" Canvas.Top="177" RenderTransformOrigin="0.008,0.362">
-            <ComboBoxItem Content="Lizenzen und Abos"/>
-            <ComboBoxItem Content="Meetings"/>
-            <ComboBoxItem Content="Hardware"/>
-            <ComboBoxItem Content="Arbeitsmittel"/>
-        </ComboBox>
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryDarkerBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-        <ListView x:Name="CostsListView" Canvas.Left="38" Canvas.Top="249" HorizontalAlignment="Left" VerticalAlignment="Center" Width="700">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Name" 
-                                    DisplayMemberBinding="{Binding Name}" 
-                                    Width="200"/>
-                    <GridViewColumn Header="Kosten" 
-                                    DisplayMemberBinding="{Binding Preis}" 
-                                    Width="100"/>
-                    <GridViewColumn Header="Datum" 
-                                    DisplayMemberBinding="{Binding Datum, StringFormat=d}" 
-                                    Width="100"/>
-                    <GridViewColumn Header="Kategorie" 
-                                    DisplayMemberBinding="{Binding Kategorie}" 
-                                    Width="170"/>
-                    <GridViewColumn Header="Rechnung" 
-                        DisplayMemberBinding="{Binding Rechnung}" 
-                        Width="130"/>
+        <Style x:Key="CardStyle" TargetType="Border">
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="16"/>
+            <Setter Property="Margin" Value="8"/>
+            <Setter Property="BorderBrush" Value="#D6D6D6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="6"
+                              ShadowDepth="1"
+                              Opacity="0.12"/>
+                </Setter.Value>
+            </Setter>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Canvas.Left="20" Content="Rechnung Upload" Canvas.Top="214" Click="Upload_Click"/>
-        <Button Content="Button" Canvas.Left="279" Canvas.Top="195" Click="Save_Data_Click"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Kostenverwaltung" FontSize="24" FontWeight="SemiBold" Foreground="#202020" Margin="8"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource CardStyle}">
+                <Grid Margin="0,0,0,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
+                    <TextBox x:Name="costsName"
+                 Grid.Row="0" Grid.Column="1"
+                 Text="Kostenname"
+                 Margin="8,4"
+                 Height="34"
+                 Padding="8"
+                 FontSize="14"
+                 BorderThickness="1"
+                 BorderBrush="#CCCCCC"
+                 Background="#F5F7FA"/>
+
+                    <TextBlock Text="Kosten:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
+                    <TextBox x:Name="costs"
+                 Grid.Row="1" Grid.Column="1"
+                 Text="Betrag"
+                 Margin="8,4"
+                 Height="34"
+                 Padding="8"
+                 FontSize="14"
+                 BorderThickness="1"
+                 BorderBrush="#CCCCCC"
+                 Background="#F5F7FA"
+                 />
+
+                    
+                    <TextBlock Text="Datum:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
+                    <DatePicker x:Name="DatePickerCosts"
+                    Grid.Row="2" Grid.Column="1"
+                    Margin="8,4"
+                    Height="34"
+                    FontSize="14"
+                    Padding="4"
+                    BorderThickness="1"
+                    BorderBrush="#CCCCCC"
+                    Background="#F5F7FA"/>
+
+                    <TextBlock Text="Kategorie:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
+                    <ComboBox x:Name="CostsCategory"
+                  Grid.Row="3" Grid.Column="1"
+                  Margin="8,4"
+                  Height="34"
+                  Padding="4"
+                  FontSize="14"
+                  BorderThickness="1"
+                  BorderBrush="#CCCCCC"
+                  Background="#F5F7FA">
+                        <ComboBoxItem Content="Lizenzen und Abos"/>
+                        <ComboBoxItem Content="Meetings"/>
+                        <ComboBoxItem Content="Hardware"/>
+                        <ComboBoxItem Content="Arbeitsmittel"/>
+                    </ComboBox>
+
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,16,0,0">
+                        <Button x:Name="UploadButton"
+                    Content="Rechnung Upload"
+                    Click="Upload_Click"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Width="160"
+                    Height="44"
+                    Margin="6"/>
+                        <Button Content="Speichern"
+                    Click="Save_Data_Click"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Width="140"
+                    Height="44"
+                    Margin="6"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
 
+            <Border Grid.Column="1" Style="{StaticResource CardStyle}" HorizontalAlignment="Stretch">
+                <lvc:PieChart x:Name="PieChartCosts" Width="260" Height="200"/>
+            </Border>
+        </Grid>
 
-    </Canvas>
+        <Border Grid.Row="2" Style="{StaticResource CardStyle}" Margin="8,16,8,8">
+            <ListView x:Name="CostsListView"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Margin="0"
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}">
+
+                
+                <ListView.View>
+                    <GridView x:Name="CostsGridView">
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Kosten" DisplayMemberBinding="{Binding Preis}" />
+                        <GridViewColumn Header="Datum" DisplayMemberBinding="{Binding Datum, StringFormat=d}" />
+                        <GridViewColumn Header="Kategorie" DisplayMemberBinding="{Binding Kategorie}" />
+                        <GridViewColumn Header="Rechnung" DisplayMemberBinding="{Binding Rechnung}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
+    
+    </Grid>
+
 </Window>

@@ -90,8 +90,8 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
             // Window costs = new Costs();
             // costs.Show();
-            // Window timestamp = new TimeStamp();
-            // timestamp.ShowDialog();
+            Window timestamp = new TimeStamp();
+            timestamp.ShowDialog();
         }
 
 
