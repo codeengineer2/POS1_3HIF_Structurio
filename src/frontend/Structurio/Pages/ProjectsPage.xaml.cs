@@ -47,18 +47,16 @@ namespace Structurio.Pages
 
         private void LoadProjects()
         {
-
             foreach (var project in allProjects)
             {
                 var card = new ProjectCard
                 {
                     Project = project
                 };
-
+                    
                 allProjectCards.Add(card);
+                AddCardToPanel(card);
             }
-
-            RenderProjects(allProjectCards);
         }
 
         private void RenderProjects(IEnumerable<ProjectCard> cards)
@@ -86,7 +84,7 @@ namespace Structurio.Pages
             var window = new CreateProjectWindow();
             window.Owner = Window.GetWindow(this);
 
-            if (window.ShowDialog() == true)
+            if (window.ShowDialog() == true)    
             {
                 var newProject = new Project
                 {

@@ -33,33 +33,39 @@ namespace Structurio.Pages
             this.project = project;
 
             nameText.Text = project.Name.ToUpper();
+            contentFrame.Navigate(new KanbanPage(this.project));
+
             var brush = (SolidColorBrush)new BrushConverter().ConvertFromString(project.Color);
             (nameText.Parent as Border).Background = brush;
-
-            contentFrame.Navigate(new KanbanPage(project));
         }
 
         private void UncheckAllMenuItems(object sender)
         {
             foreach (var child in LogicalTreeHelper.GetChildren(TopbarMenuPanel))
             {
-                if (child is ToggleButton btn && !ReferenceEquals(btn, sender))
+                if (child is ToggleButton button && !ReferenceEquals(button, sender))
                 {
-                    btn.IsChecked = false;
+                    button.IsChecked = false;
                 }
             }
         }
 
         private void kanban_Click(object sender, RoutedEventArgs e)
         {
-//            UncheckAllMenuItems(sender);
-//            contentFrame.Navigate(new KanbanPage(project));
+            var button = sender as ToggleButton;
+            UncheckAllMenuItems(button);
+
+            contentFrame.Navigate(new KanbanPage(this.project));
+            button.IsChecked = true;
         }
 
         private void files_Click(object sender, RoutedEventArgs e)
         {
-            UncheckAllMenuItems(sender);
+            var button = sender as ToggleButton;
+            UncheckAllMenuItems(button);
+
             contentFrame.Navigate(new ProjectFoldersPage());
+            button.IsChecked = true;
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
