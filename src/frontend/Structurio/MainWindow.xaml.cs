@@ -118,17 +118,20 @@ namespace Structurio
         {
             foreach (var child in LogicalTreeHelper.GetChildren(SidebarMenuPanel))
             {
-                if (child is ToggleButton btn && !ReferenceEquals(btn, sender))
+                if (child is ToggleButton button && !ReferenceEquals(button, sender))
                 {
-                    btn.IsChecked = false;
+                    button.IsChecked = false;
                 }
             }
         }
 
         private void projects_Click(object sender, RoutedEventArgs e)
         {
-            UncheckAllMenuItems(sender);
+            var button = sender as ToggleButton;
+            UncheckAllMenuItems(button);
+
             mainFrame.Navigate(new ProjectsPage(this, this.userProjects));
+            button.IsChecked = true;
         }
 
         private void settings_Click(object sender, RoutedEventArgs e)

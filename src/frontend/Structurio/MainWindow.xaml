@@ -51,7 +51,7 @@
                     </Border>
 
                     <StackPanel x:Name="SidebarMenuPanel">
-                        <ToggleButton x:Name="projectsButton" Content="📁  Projekte" Style="{StaticResource MenuToggleButtonStyle}" Checked="projects_Click"/>
+                        <ToggleButton x:Name="projectsButton" Content="📁  Projekte" Click="projects_Click" Style="{StaticResource MenuToggleButtonStyle}"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
