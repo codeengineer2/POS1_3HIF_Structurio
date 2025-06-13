@@ -24,6 +24,7 @@ namespace Structurio.Controls
     {
         private Brush originalBorderBrush = new SolidColorBrush(Color.FromRgb(204, 204, 204));
         private string filePath;
+        public string FileName;
 
         public FileBoxControl(string type, string fileName = "Dateiname", string path = "")
         {
@@ -31,6 +32,7 @@ namespace Structurio.Controls
 
             filePath = path;
             fileNameText.Text = System.IO.Path.GetFileName(fileName);
+            FileName = fileNameText.Text.ToLower();
 
             Width = 200;
             Height = 250;

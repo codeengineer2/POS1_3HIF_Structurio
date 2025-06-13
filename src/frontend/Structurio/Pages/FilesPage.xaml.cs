@@ -48,7 +48,12 @@ namespace Structurio.Pages
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Hidden;
+            placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;
+
+            var query = searchBox.Text.ToLower();
+            var filtered = allFileBoxes.Where(f => f.FileName.Replace(".pdf", "").Contains(query)).ToList();
+
+            RenderBoxes(filtered);
         }
 
         private void UploadBox_Click(object sender, MouseButtonEventArgs e)
@@ -141,6 +146,7 @@ namespace Structurio.Pages
                 fileBox.SetBackground(previewBrush);
             }
 
+            allFileBoxes.Add(fileBox);
             fileBoxPanel.Children.Add(fileBox);
         }
 
