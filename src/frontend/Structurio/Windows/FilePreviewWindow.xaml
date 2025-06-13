@@ -10,9 +10,13 @@
         WindowStartupLocation="CenterOwner"
         Background="#FFFFFFFF"
         Icon="/Assets/logo.ico">
-
+    
     <Border CornerRadius="6" BorderBrush="#CCC" BorderThickness="1" Margin="10">
-        <Image x:Name="previewImage" Stretch="Uniform"/>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Viewbox Stretch="Uniform" StretchDirection="Both">
+                <Image x:Name="previewImage"/>
+            </Viewbox>
+        </ScrollViewer>
     </Border>
 
 </Window>

@@ -29,15 +29,20 @@ namespace Structurio.Pages
         {
             InitializeComponent();
 
+            string projectPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources");
+            string path = "";
+
             if (type == "file")
             {
-                fileBoxPanel.Children.Add(new FileBoxControl("file"));
-                fileBoxPanel.Children.Add(new FileBoxControl("file"));
+                path = System.IO.Path.Combine(projectPath, "file.pdf");
+                var fileBox = new FileBoxControl("file", "file.pdf", path);
+                AddFileBoxFromPath(path);
             }
             else
             {
-                fileBoxPanel.Children.Add(new FileBoxControl("diagram"));
-                fileBoxPanel.Children.Add(new FileBoxControl("diagram"));
+                path = System.IO.Path.Combine(projectPath, "diagram.pdf");
+                var fileBox = new FileBoxControl("diagram", "diagram.pdf", path);
+                AddFileBoxFromPath(path);
             }
         }
 
@@ -127,8 +132,8 @@ namespace Structurio.Pages
                 return;
             }
 
-            string boxType = "diagram";
-            var fileBox = new FileBoxControl("diagram", System.IO.Path.GetFileName(filePath), filePath);
+            string boxType = "file";
+            var fileBox = new FileBoxControl("file", System.IO.Path.GetFileName(filePath), filePath);
             fileBox.ToolTip = System.IO.Path.GetFileName(filePath);
 
             if (previewBrush != null)

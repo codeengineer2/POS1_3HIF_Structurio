@@ -13,6 +13,17 @@
     <None Remove="Assets\login_eye_open.png" />
     <None Remove="Assets\logo.ico" />
     <None Remove="Assets\profile.png" />
+    <None Remove="Resources\diagram.pdf" />
+    <None Remove="Resources\file.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\diagram.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\file.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
