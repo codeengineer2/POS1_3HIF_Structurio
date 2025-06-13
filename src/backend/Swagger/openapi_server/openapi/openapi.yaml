@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Structurio Auth API
   version: 1.0.0
-  description: Nur Check-Email, Try-Login, Register, Projects Endpoints
+  description: Nur Check-Email, Try-Login, Register, Projects, Issues Endpoints
 
 servers:
   - url: http://localhost:8080
@@ -97,6 +97,69 @@ paths:
           description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.project_controller
 
+  /issues:
+    post:
+      summary: Neues Issue hinzufügen
+      operationId: openapi_server.controllers.issue_controller.add_issue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueRequest'
+      responses:
+        '201':
+          description: Issue erfolgreich erstellt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueResponse'
+        '400':
+          description: Ungültige Eingabe
+        '500':
+          description: Serverfehler beim Erstellen
+
+    put:
+      summary: Bestehendes Issue aktualisieren
+      operationId: openapi_server.controllers.issue_controller.update_issue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IssueUpdateRequest'
+      responses:
+        '200':
+          description: Issue erfolgreich aktualisiert
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IssueResponse'
+        '400':
+          description: Ungültige Eingabe
+        '404':
+          description: Issue nicht gefunden
+        '500':
+          description: Serverfehler beim Aktualisieren
+
+  /issues/{id}:
+    delete:
+      summary: Issue löschen
+      operationId: openapi_server.controllers.issue_controller.delete_issue
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Issue erfolgreich gelöscht
+        '404':
+          description: Issue nicht gefunden
+        '500':
+          description: Serverfehler beim Löschen
+
   /timestamps/{uid}/{pid}:
     get:
       summary: Alle Zeitstempel für einen Benutzer und ein Projekt abrufen
@@ -149,10 +212,7 @@ paths:
                     - datum_out
                     - checkout
                     - duration
-      x-openapi-router-controller: openapi_server.controllers.timestamp_controller
-
-
-  
+      x-openapi-router-controller: openapi_server.controllers.timestamp_controller  
 
   /timestamps/{uid}/{pid}/{zid}:
     put:
@@ -319,6 +379,50 @@ components:
           type: integer
           example: 1
 
+    IssueRequest:
+      type: object
+      required:
+        - column_id
+        - description
+      properties:
+        column_id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "Neue Aufgabe"
+
+    IssueUpdateRequest:
+      type: object
+      required:
+        - id
+        - description
+      properties:
+        id:
+          type: integer
+          example: 1
+        description:
+          type: string
+          example: "Andere Aufgabe"
+
+    DeleteIssueRequest:
+      type: object
+      required:
+        - issue_id
+      properties:
+        issue_id:
+          type: integer
+
+    IssueResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        column_id:
+          type: integer
+        description:
+          type: string
+
     TimestampRequest:
       type: object
       required: [uid, pid, datum_in, checkin]
@@ -353,26 +457,6 @@ components:
             zid:
               type: integer
 
-    RegisterRequest:
-      type: object
-      required: [surname, lastname, email, password, birthdate]
-      properties:
-        surname:
-          type: string
-        lastname:
-          type: string
-        email:
-          type: string
-          format: email
-          example: max@example.com
-        password:
-          type: string
-          format: password
-          example: pass123
-        birthdate:
-          type: string
-          format: date
-          example: 2005-04-01
     Abrechnung:
       type: object
       properties:
