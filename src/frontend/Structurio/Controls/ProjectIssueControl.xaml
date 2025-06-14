@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border x:Name="rootBorder" Style="{StaticResource IssueBorderStyle}" AllowDrop="True" Drop="IssueControl_Drop" DragOver="IssueControl_DragOver" MouseMove="rootBorder_MouseMove">
+    <Border x:Name="rootBorder" Style="{StaticResource IssueBorderStyle}" AllowDrop="True" Drop="IssueControl_Drop" DragOver="IssueControl_DragOver" MouseMove="rootBorder_MouseMove" MouseLeftButtonDown="rootBorder_MouseLeftButtonDown" MouseLeftButtonUp="rootBorder_MouseLeftButtonUp">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
