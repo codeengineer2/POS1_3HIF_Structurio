@@ -83,9 +83,30 @@ namespace Structurio.Controls
         {
             if (e.LeftButton == MouseButtonState.Pressed && isMouseDown && ghostWindow == null)
             {
-                var liveClone = new ProjectIssueControl { DataContext = this.DataContext };
+                var clone = new ProjectIssueControl { DataContext = this.DataContext };
+                clone.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                clone.Arrange(new Rect(clone.DesiredSize));
+                clone.UpdateLayout();
 
-                ghostWindow = new GhostWindow(liveClone);
+                var bounds = VisualTreeHelper.GetDescendantBounds(clone);
+                var renderTargetBitmap = new RenderTargetBitmap((int)Math.Ceiling(bounds.Width), (int)Math.Ceiling(bounds.Height), 96, 96, PixelFormats.Pbgra32);
+
+                var drawingVisual = new DrawingVisual();
+                using (var drawingContext = drawingVisual.RenderOpen())
+                {
+                    drawingContext.DrawRectangle(new VisualBrush(clone), null, new Rect(new Point(), bounds.Size));
+                }
+                renderTargetBitmap.Render(drawingVisual);
+
+                var image = new Image
+                {
+                    Source = renderTargetBitmap,
+                    Width = bounds.Width,
+                    Height = bounds.Height,
+                    IsHitTestVisible = false
+                };
+
+                ghostWindow = new GhostWindow(image);
 
                 Point scaledCursor = GetCursorPositionScaled();
                 ghostWindow.Left = scaledCursor.X - 20;
