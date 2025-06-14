@@ -158,5 +158,40 @@ namespace Structurio.Services
                 return false;
             }
         }
+
+        public async Task<Column?> AddColumnAsync(AddColumnRequest request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync("http://localhost:8080/columns", content);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+
+                var responseBody = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseBody);
+
+                if (result != null && result.TryGetValue("cid", out var cidObj) && int.TryParse(cidObj.ToString(), out int cid) && result.TryGetValue("name", out var nameObj))
+                {
+                    return new Column
+                    {
+                        Id = cid,
+                        Name = nameObj.ToString(),
+                        Issues = new List<Issue>()
+                    };
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

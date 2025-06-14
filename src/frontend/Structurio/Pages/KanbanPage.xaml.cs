@@ -79,18 +79,30 @@ namespace Structurio.Pages
             }
         }
 
-
-        private void addColumn_Click(object sender, RoutedEventArgs e)
+        private async void addColumn_Click(object sender, RoutedEventArgs e)
         {
+            var api = new ApiService();
+
             int number = Columns.Count + 1;
-            var column = new Column
+
+            var request = new AddColumnRequest
             {
-                Name = $"Spalte {number}",
-                Issues = new List<Issue>()
+                BoardId = project.Board.Id,
+                Name = $"Spalte {number}"
             };
 
-            project.Board.Columns.Add(column);
-            Columns.Add(new ColumnWrapper(column));
+            var newColumn = await api.AddColumnAsync(request);
+
+            if (newColumn != null)
+            {
+                newColumn.BoardId = project.Board.Id;
+                project.Board.Columns.Add(newColumn);
+                Columns.Add(new ColumnWrapper(newColumn));
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erstellen der Spalte!");
+            }
         }
 
         private void titleBox_LostFocus(object sender, RoutedEventArgs e)
