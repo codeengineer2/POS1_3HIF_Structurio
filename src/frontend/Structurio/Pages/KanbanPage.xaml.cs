@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using Structurio.Classes;
 using Structurio.Controls;
 using Structurio.Interfaces;
@@ -105,16 +106,37 @@ namespace Structurio.Pages
             }
         }
 
-        private void titleBox_LostFocus(object sender, RoutedEventArgs e)
+        private async void titleBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox textBox && textBox.DataContext is ColumnWrapper column)
             {
-                if (string.IsNullOrWhiteSpace(textBox.Text))
+                var newName = textBox.Text.Trim();
+                var oldName = column.Original.Name;
+
+                if (string.IsNullOrWhiteSpace(newName))
                 {
                     int index = Columns.IndexOf(column) + 1;
                     column.Name = $"Spalte {index}";
                     textBox.Text = column.Name;
                     Keyboard.ClearFocus();
+                    return;
+                }
+
+                column.Name = newName;
+
+                var api = new ApiService();
+
+                var updateRequest = new UpdateColumnRequest
+                {
+                    Id = column.Original.Id,
+                    Name = newName
+                };
+
+                var success = await api.UpdateColumnAsync(updateRequest);
+
+                if (!success)
+                {
+                    MessageBox.Show("Spaltenname konnte nicht gespeichert werden!");
                 }
             }
         }

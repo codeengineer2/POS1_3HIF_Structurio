@@ -193,5 +193,21 @@ namespace Structurio.Services
                 return null;
             }
         }
+
+        public async Task<bool> UpdateColumnAsync(UpdateColumnRequest request)
+        {
+            var json = JsonConvert.SerializeObject(request);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PutAsync("http://localhost:8080/columns", content);
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

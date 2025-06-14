@@ -126,7 +126,8 @@ paths:
 
     put:
       summary: Spaltennamen aktualisieren
-      operationId: openapi_server.controllers.column_controller.update_column
+      operationId: update_column  
+      x-openapi-router-controller: openapi_server.controllers.column_controller
       requestBody:
         required: true
         content:
