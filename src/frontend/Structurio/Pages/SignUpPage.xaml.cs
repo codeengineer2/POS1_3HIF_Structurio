@@ -17,6 +17,8 @@ using Structurio.Windows;
 using Structurio.Classes;
 using Structurio.Services;
 using Structurio.Interfaces;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 namespace Structurio.Pages
 {
@@ -114,6 +116,25 @@ namespace Structurio.Pages
             }
         }
 
+        private async Task<bool> CheckEmailAsync(string email)
+        {
+            var mail = new { email };
+            var json = JsonConvert.SerializeObject(mail);
+
+            using var client = new HttpClient();
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PostAsync("http://localhost:8080/auth/check-email", content);
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         private async void register_Click(object sender, RoutedEventArgs e)
         {
             bool valid = true;
@@ -123,7 +144,7 @@ namespace Structurio.Pages
             DateTime maxBirthdate = DateTime.Today.AddYears(-13);
             int maxEmailLength = 100;
             int minPasswordLength = 8;
-            int maxPasswordLength = 64;                     
+            int maxPasswordLength = 64;
 
             string firstName = firstNameBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(firstName))
@@ -282,6 +303,19 @@ namespace Structurio.Pages
                 return;
             }
 
+            loginWindow.ShowSpinningAnimation();
+
+            bool alreadyExists = await CheckEmailAsync(email);
+
+            if (alreadyExists)
+            {
+                loginWindow.ResetSpinningAnimation();
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "Diese E-Mail ist bereits vergeben!";
+                emailInfo.Foreground = Brushes.DarkRed;
+                return;
+            }
+
             var request = new RegisterRequest
             {
                 Firstname = firstName,
@@ -291,7 +325,6 @@ namespace Structurio.Pages
                 Birthdate = birthDate?.ToString("yyyy-MM-dd") ?? ""
             };
 
-            loginWindow.ShowSpinningAnimation();
             bool success = await api.RegisterAsync(request);
             loginWindow.ResetSpinningAnimation();
 

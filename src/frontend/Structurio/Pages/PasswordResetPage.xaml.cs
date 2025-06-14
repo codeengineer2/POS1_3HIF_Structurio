@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Structurio.Classes;
 using Structurio.Windows;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace Structurio.Pages
 {
@@ -25,6 +26,7 @@ namespace Structurio.Pages
     public partial class PasswordResetPage : Page
     {
         private LoginWindow loginWindow;
+        private Regex emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
 
         public PasswordResetPage(LoginWindow loginWindow)
         {
@@ -65,11 +67,15 @@ namespace Structurio.Pages
 
         private async void send_Click(object sender, RoutedEventArgs e)
         {
+            int maxEmailLength = 100;
+
+            string email = emailBox.Text.Trim();
+
             emailBox.Background = Brushes.White;
             emailInfo.Text = "* erforderlich";
             emailInfo.Foreground = Brushes.Gray;
 
-            if (string.IsNullOrWhiteSpace(emailBox.Text))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Bitte E-Mail eingeben!";
@@ -77,8 +83,24 @@ namespace Structurio.Pages
                 return;
             }
 
+            if (email.Length > maxEmailLength)
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = $"E-Mail darf maximal {maxEmailLength} Zeichen haben.";
+                emailInfo.Foreground = Brushes.DarkRed;
+                return;
+            }
+
+            if (!emailRegex.IsMatch(email))
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "Ungültiges Format (z. B. name@domain.com)";
+                emailInfo.Foreground = Brushes.DarkRed;
+                return;
+            }
+
             loginWindow.SpinningAnimation();
-            bool exists = await CheckEmailAsync(emailBox.Text.Trim());
+            bool exists = await CheckEmailAsync(email);
             loginWindow.ResetSpinningAnimation();
 
             if (exists)
