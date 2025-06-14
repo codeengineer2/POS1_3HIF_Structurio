@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,9 @@ namespace Structurio.Pages
         private LoginWindow loginWindow;
         private bool isPasswordVisible = false;
         private IApiService api;
+        private Regex nameRegex = new Regex(@"^[\p{L}\p{M} \-']{1,50}$", RegexOptions.Compiled);
+        private Regex emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
+        private Regex passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,64}$", RegexOptions.Compiled);
 
         public SignUpPage(LoginWindow loginWindow, IApiService api)
         {
@@ -67,6 +71,7 @@ namespace Structurio.Pages
 
         private void birthDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            birthDatePicker.Background = Brushes.White;
             birthDateInfo.Text = "* erforderlich";
             birthDateInfo.Foreground = Brushes.Gray;
         }
@@ -113,39 +118,118 @@ namespace Structurio.Pages
         {
             bool valid = true;
 
-            if (string.IsNullOrWhiteSpace(firstNameBox.Text))
+            int recommendedNameLength = 30;
+            DateTime minBirthdate = new DateTime(1900, 1, 1);
+            DateTime maxBirthdate = DateTime.Today.AddYears(-13);
+            int maxEmailLength = 150;
+            int minPasswordLength = 8;
+            int maxPasswordLength = 64;                     
+
+            string firstName = firstNameBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(firstName))
             {
                 firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 firstNameInfo.Text = "Bitte ausfüllen!";
                 firstNameInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
+            else if (firstName.Length > 50)
+            {
+                firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                firstNameInfo.Text = "Vorname darf maximal 50 Zeichen haben.";
+                firstNameInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (!nameRegex.IsMatch(firstName))
+            {
+                firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                firstNameInfo.Text = "Nur Buchstaben, Leerzeichen, - und ' erlaubt.";
+                firstNameInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (firstName.Length > recommendedNameLength)
+            {
+                firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 245, 200));
+                firstNameInfo.Text = $"Vorname ist ungewöhnlich lang (max. {recommendedNameLength} empfohlen)";
+                firstNameInfo.Foreground = Brushes.DarkOrange;
+            }
 
-            if (string.IsNullOrWhiteSpace(lastNameBox.Text))
+            string lastName = lastNameBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(lastName))
             {
                 lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 lastNameInfo.Text = "Bitte ausfüllen!";
                 lastNameInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
-
-            if (birthDatePicker.SelectedDate == null)
+            else if (lastName.Length > 50)
             {
+                lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                lastNameInfo.Text = "Nachname darf maximal 50 Zeichen haben.";
+                lastNameInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (!nameRegex.IsMatch(lastName))
+            {
+                lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                lastNameInfo.Text = "Nur Buchstaben, Leerzeichen, - und ' erlaubt.";
+                lastNameInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (lastName.Length > recommendedNameLength)
+            {
+                lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 245, 200));
+                lastNameInfo.Text = $"Nachname ist ungewöhnlich lang (max. {recommendedNameLength} empfohlen)";
+                lastNameInfo.Foreground = Brushes.DarkOrange;
+            }
+
+            DateTime? birthDate = birthDatePicker.SelectedDate;
+            if (birthDate == null)
+            {
+                birthDatePicker.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 birthDateInfo.Text = "Bitte auswählen!";
                 birthDateInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
+            else if (birthDate < minBirthdate)
+            {
+                birthDatePicker.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                birthDateInfo.Text = "Bitte wähle ein realistisches Geburtsdatum ab dem Jahr 1900.";
+                birthDateInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (birthDate > maxBirthdate)
+            {
+                birthDatePicker.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                birthDateInfo.Text = "Du musst mindestens 13 Jahre alt sein.";
+                birthDateInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
 
-            if (string.IsNullOrWhiteSpace(emailBox.Text))
+            string email = emailBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(email))
             {
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Bitte ausfüllen!";
                 emailInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
+            else if (email.Length > maxEmailLength)
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "E-Mail ist zu lang (maximal 150 Zeichen erlaubt).";
+                emailInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (!emailRegex.IsMatch(email))
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "Ungültiges Format (z. B. name@domain.com)";
+                emailInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
 
-            string password = isPasswordVisible ? passwordTextBox.Text : passwordBox.Password;
-
+            string password = isPasswordVisible ? passwordTextBox.Text.Trim() : passwordBox.Password.Trim();
             if (string.IsNullOrWhiteSpace(password))
             {
                 if (isPasswordVisible)
@@ -161,6 +245,37 @@ namespace Structurio.Pages
                 passwordInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
+            else if (password.Length < minPasswordLength || password.Length > maxPasswordLength)
+            {
+                if (isPasswordVisible)
+                {
+                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+                else
+                {
+                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+
+                passwordInfo.Text = $"Länge ungültig (min. {minPasswordLength}, max. {maxPasswordLength})";
+                passwordInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (!passwordRegex.IsMatch(password))
+            {
+                if (isPasswordVisible)
+                {
+                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+
+                }
+                else
+                {
+                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+
+                passwordInfo.Text = "Mind. 1 Groß-/Kleinbuchstabe, Zahl & Sonderzeichen";
+                passwordInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
 
             if (!valid)
             {
@@ -169,11 +284,11 @@ namespace Structurio.Pages
 
             var request = new RegisterRequest
             {
-                Firstname = firstNameBox.Text.Trim(),
-                Lastname = lastNameBox.Text.Trim(),
-                Email = emailBox.Text.Trim(),
+                Firstname = firstName,
+                Lastname = lastName,
+                Email = email,
                 Password = password,
-                Birthdate = birthDatePicker.SelectedDate?.ToString("yyyy-MM-dd") ?? ""
+                Birthdate = birthDate?.ToString("yyyy-MM-dd") ?? ""
             };
 
             loginWindow.ShowSpinningAnimation();
@@ -182,14 +297,14 @@ namespace Structurio.Pages
 
             if (success)
             {
-                var loginResult = await api.LoginAsync(request.Email, request.Password);
-                if (loginResult != null && loginResult.Success)
+                var loginResult = await api.LoginAsync(email, password);
+                if (loginResult?.Success == true)
                 {
                     loginWindow.GoToMainWindow(loginResult.User, loginResult.Projects);
                 }
                 else
                 {
-                    MessageBox.Show("Error!");
+                    MessageBox.Show("Fehler beim automatischen Login.");
                 }
             }
         }
