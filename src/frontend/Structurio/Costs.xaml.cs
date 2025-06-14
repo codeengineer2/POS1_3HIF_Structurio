@@ -29,7 +29,7 @@ namespace Structurio
     /// <summary>
     /// Interaction logic for Costs.xaml
     /// </summary>
-    public partial class Costs : Window
+    public partial class Costs : Page
     {
 
         public ObservableCollection<Finance> finance = new ObservableCollection<Finance>();
