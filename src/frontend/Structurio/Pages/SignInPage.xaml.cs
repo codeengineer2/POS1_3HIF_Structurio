@@ -16,6 +16,7 @@ using Structurio.Windows;
 using Structurio.Classes;
 using Structurio.Services;
 using Structurio.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace Structurio.Pages
 {
@@ -27,6 +28,8 @@ namespace Structurio.Pages
         private LoginWindow loginWindow;
         private bool isPasswordVisible = false;
         private IApiService api;
+        private Regex emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
+        private Regex passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,64}$", RegexOptions.Compiled);
 
         public SignInPage(LoginWindow loginWindow, IApiService api)
         {
@@ -101,6 +104,15 @@ namespace Structurio.Pages
 
         private async void login_Click(object sender, RoutedEventArgs e)
         {
+            bool valid = true;
+
+            int maxEmailLength = 100;
+            int minPasswordLength = 8;
+            int maxPasswordLength = 64;
+
+            string email = emailBox.Text.Trim();
+            string password = isPasswordVisible ? passwordTextBox.Text : passwordBox.Password;
+
             emailBox.Background = Brushes.White;
             passwordBox.Background = Brushes.White;
             passwordTextBox.Background = Brushes.White;
@@ -109,17 +121,27 @@ namespace Structurio.Pages
             emailInfo.Foreground = Brushes.Gray;
             passwordInfo.Foreground = Brushes.Gray;
 
-            bool valid = true;
-
-            if (string.IsNullOrWhiteSpace(emailBox.Text))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Bitte ausfüllen!";
                 emailInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
-
-            string password = isPasswordVisible ? passwordTextBox.Text : passwordBox.Password;
+            else if (email.Length > maxEmailLength)
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = $"E-Mail darf maximal {maxEmailLength} Zeichen haben.";
+                emailInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (!emailRegex.IsMatch(email))
+            {
+                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                emailInfo.Text = "Ungültiges Format (z. B. name@domain.com)";
+                emailInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
 
             if (string.IsNullOrWhiteSpace(password))
             {
@@ -136,6 +158,36 @@ namespace Structurio.Pages
                 passwordInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
+            else if (password.Length > maxPasswordLength)
+            {
+                if (isPasswordVisible)
+                {
+                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+                else
+                {
+                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+
+                passwordInfo.Text = $"Maximal {maxPasswordLength} Zeichen erlaubt.";
+                passwordInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (!passwordRegex.IsMatch(password))
+            {
+                if (isPasswordVisible)
+                {
+                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+                else
+                {
+                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                }
+
+                passwordInfo.Text = "Mind. 1 Groß-, 1 Kleinbuchstabe, Zahl, Sonderzeichen";
+                passwordInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
 
             if (!valid)
             {
@@ -143,7 +195,7 @@ namespace Structurio.Pages
             }
 
             loginWindow.SpinningAnimation();
-            var result = await api.LoginAsync(emailBox.Text.Trim(), password);
+            var result = await api.LoginAsync(email, password);
             loginWindow.ResetSpinningAnimation();
 
             if (result != null && result.Success)
@@ -153,7 +205,6 @@ namespace Structurio.Pages
             else
             {
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
-
                 if (isPasswordVisible)
                 {
                     passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));

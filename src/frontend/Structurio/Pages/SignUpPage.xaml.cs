@@ -118,10 +118,10 @@ namespace Structurio.Pages
         {
             bool valid = true;
 
-            int recommendedNameLength = 30;
+            int recommendedNameLength = 10;
             DateTime minBirthdate = new DateTime(1900, 1, 1);
             DateTime maxBirthdate = DateTime.Today.AddYears(-13);
-            int maxEmailLength = 150;
+            int maxEmailLength = 100;
             int minPasswordLength = 8;
             int maxPasswordLength = 64;                     
 
