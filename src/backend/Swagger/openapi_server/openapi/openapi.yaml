@@ -97,6 +97,52 @@ paths:
           description: Interner Serverfehler
       x-openapi-router-controller: openapi_server.controllers.project_controller
 
+  /columns:
+    post:
+      summary: Neue Spalte zu einem Board hinzufügen
+      operationId: openapi_server.controllers.column_controller.add_column
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ColumnRequest'
+      responses:
+        "201":
+          description: Spalte erfolgreich erstellt
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cid:
+                    type: integer
+                  name:
+                    type: string
+        "400":
+          description: Ungültige Eingabe
+        "500":
+          description: Interner Serverfehler
+
+    put:
+      summary: Spaltennamen aktualisieren
+      operationId: openapi_server.controllers.column_controller.update_column
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ColumnUpdateRequest'
+      responses:
+        "200":
+          description: Spalte erfolgreich aktualisiert
+        "400":
+          description: Ungültige Eingabe
+        "404":
+          description: Spalte nicht gefunden
+        "500":
+          description: Serverfehler beim Aktualisieren
+
   /issues:
     post:
       summary: Neues Issue hinzufügen
@@ -378,6 +424,30 @@ components:
         owner_uid:
           type: integer
           example: 1
+
+    ColumnRequest:
+      type: object
+      required:
+        - board_id
+        - name
+      properties:
+        board_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+
+    ColumnUpdateRequest:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
 
     IssueRequest:
       type: object
