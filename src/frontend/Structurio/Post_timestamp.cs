@@ -10,12 +10,11 @@ namespace Structurio
 {
     public class Post_timestamp
     {
-        public static async Task<Timestamp_Json> CreateAsync(HttpClient httpClient, int uid, int pid, DateTime checkIn)
+        public static async Task<Timestamp_Json> CreateAsync(HttpClient httpClient, int uid, DateTime checkIn)
         {
             var payload = new
             {
                 uid = uid,
-                pid = pid,
                 datum_in = checkIn.ToString("yyyy-MM-dd"),
                 checkin = checkIn.ToString("HH:mm:ss"),
                 datum_out = DateTime.MinValue.ToString("yyyy-MM-dd"),

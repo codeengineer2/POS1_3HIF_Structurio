@@ -45,7 +45,7 @@ namespace Structurio
         {
             try
             {
-                var items = await Get_timestamp.GetAsync(httpClient, uid, pid);
+                var items = await Get_timestamp.GetAsync(httpClient, uid);
                 entries.Clear();
                 foreach (var item in items)
                 {
@@ -76,7 +76,7 @@ namespace Structurio
             {
                 try
                 {
-                    var created = await Post_timestamp.CreateAsync(httpClient, uid, pid, now);
+                    var created = await Post_timestamp.CreateAsync(httpClient, uid, now);
                     entries.Add(new Timecheckin
                     {
                         Zid = created.zid,
@@ -110,7 +110,6 @@ namespace Structurio
                     await Put_timestamp.UpdateAsync(
                         httpClient,
                         uid,
-                        pid,
                         entry.Zid,
                         entry.CheckIN,
                         entry.CheckOUT,

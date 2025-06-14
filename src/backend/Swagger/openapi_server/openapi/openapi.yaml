@@ -207,10 +207,10 @@ paths:
         '500':
           description: Serverfehler beim Löschen
 
-  /timestamps/{uid}/{pid}:
+  /timestamps/{uid}:
     get:
-      summary: Alle Zeitstempel für einen Benutzer und ein Projekt abrufen
-      operationId: get_timestamps_by_user_project
+      summary: Alle Zeitstempel für einen Benutzer abrufen
+      operationId: get_timestamps_by_user
       parameters:
         - name: uid
           in: path
@@ -218,60 +218,25 @@ paths:
           required: true
           schema:
             type: integer
-        - name: pid
-          in: path
-          description: ID des Projekts
-          required: true
-          schema:
-            type: integer
       responses:
-        "200":
-          description: Liste der Zeitstempel (nur Datum und Uhrzeiten)
+        '200':
+          description: Liste der Zeitstempel
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    datum_in:
-                      type: string
-                      format: date
-                      description: Datum des Check-ins
-                    checkin:
-                      type: string
-                      format: time
-                      description: Uhrzeit des Check-ins
-                    datum_out:
-                      type: string
-                      format: date
-                      description: Datum des Check-outs
-                    checkout:
-                      type: string
-                      format: time
-                      description: Uhrzeit des Check-outs
-                    duration:
-                      type: string
-                      description: Dauer im Format hh:mm
-                  required:
-                    - datum_in
-                    - checkin
-                    - datum_out
-                    - checkout
-                    - duration
-      x-openapi-router-controller: openapi_server.controllers.timestamp_controller  
+                  $ref: '#/components/schemas/Timestamp'
+        '404':
+          description: Keine Zeitstempel gefunden für den Benutzer
+      x-openapi-router-controller: openapi_server.controllers.timestamp_controller
 
-  /timestamps/{uid}/{pid}/{zid}:
+  /timestamps/{uid}/{zid}:
     put:
       summary: Check-out eines bestehenden Zeitstempels
       operationId: update_timestamp
       parameters:
         - name: uid
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: pid
           in: path
           required: true
           schema:
@@ -286,36 +251,16 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                datum_in:
-                  type: string
-                  format: date
-                checkin:
-                  type: string
-                  format: time
-                datum_out:
-                  type: string
-                  format: date
-                checkout:
-                  type: string
-                  format: time
-                duration:
-                  type: string
-              required:
-                - datum_in
-                - checkin
-                - datum_out
-                - checkout
-                - duration
+              $ref: '#/components/schemas/TimestampUpdate'
       responses:
-        "200":
+        '200':
           description: Zeitstempel erfolgreich aktualisiert
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Timestamp'
       x-openapi-router-controller: openapi_server.controllers.timestamp_controller
+
   /timestamps:
     post:
       summary: Neuen Zeitstempel (Check-in) anlegen
@@ -325,9 +270,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TimestampRequest'
+              $ref: '#/components/schemas/TimestampCreate'
       responses:
-        "201":
+        '201':
           description: Zeitstempel angelegt
           content:
             application/json:
@@ -517,13 +462,11 @@ components:
         description:
           type: string
 
-    TimestampRequest:
+    TimestampCreate:
       type: object
-      required: [uid, pid, datum_in, checkin]
+      required: [uid, datum_in, checkin]
       properties:
         uid:
-          type: integer
-        pid:
           type: integer
         datum_in:
           type: string
@@ -531,25 +474,35 @@ components:
         checkin:
           type: string
           format: time
+
+    TimestampUpdate:
+      type: object
+      required: [datum_out, checkout, duration]
+      properties:
         datum_out:
           type: string
           format: date
-          nullable: true
         checkout:
           type: string
           format: time
-          nullable: true
         duration:
           type: string
-          nullable: true
 
     Timestamp:
       allOf:
-        - $ref: '#/components/schemas/TimestampRequest'
+        - $ref: '#/components/schemas/TimestampCreate'
         - type: object
           properties:
             zid:
               type: integer
+            datum_out:
+              type: string
+              format: date
+            checkout:
+              type: string
+              format: time
+            duration:
+              type: string
 
     Abrechnung:
       type: object

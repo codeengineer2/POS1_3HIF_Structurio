@@ -29,37 +29,34 @@ def _serialize_timestamp_record(record: dict) -> dict:
     return serialized
 
 
-def get_timestamps_by_user_project(uid, pid):
-  
+def get_timestamps_by_user(uid):
     conn = get_connection()
     try:
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(
-        """
-        SELECT zid, datum_in, checkin, datum_out, checkout, duration
-        FROM zeitstempel
-        WHERE uid = %s AND pid = %s
-        ORDER BY datum_in, checkin
-        """,
-        (uid, pid)
+            """
+            SELECT zid, datum_in, checkin, datum_out, checkout, duration
+            FROM zeitstempel
+            WHERE uid = %s
+            ORDER BY datum_in, checkin
+            """,
+            (uid,)
         )
-
         rows = cur.fetchall()
         cur.close()
     finally:
         conn.close()
 
     if not rows:
-        abort(404, description="Keine Zeitstempel gefunden für Benutzer und Projekt")
+        abort(404, description="Keine Zeitstempel für diesen Benutzer gefunden")
 
-    serialized = [_serialize_timestamp_record(r) for r in rows]
-    return jsonify(serialized), 200
+    return jsonify([_serialize_timestamp_record(r) for r in rows]), 200
 
 
 def create_timestamp():
 
     data = request.get_json(force=True)
-    required = ['uid', 'pid', 'datum_in', 'datum_out', 'checkin', 'checkout', 'duration']
+    required = ['uid', 'datum_in', 'datum_out', 'checkin', 'checkout', 'duration']
     for field in required:
         if field not in data:
             abort(400, description=f"'{field}' ist erforderlich")
@@ -69,13 +66,12 @@ def create_timestamp():
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(
             """
-            INSERT INTO zeitstempel (uid, pid, checkin, checkout, datum_out, datum_in, duration)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-            RETURNING zid, uid, pid, checkin, checkout, datum_out, datum_in, duration
+            INSERT INTO zeitstempel (uid, checkin, checkout, datum_out, datum_in, duration)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            RETURNING zid, uid, checkin, checkout, datum_out, datum_in, duration
             """,
             (
                 data['uid'],
-                data['pid'],
                 data['checkin'],
                 data['checkout'],
                 data['datum_out'],
@@ -99,7 +95,7 @@ def get_timestamp_by_id(zid):
         cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cur.execute(
             """
-            SELECT zid, uid, pid, checkin, checkout, datum_out, datum_in, duration
+            SELECT zid, uid, checkin, checkout, datum_out, datum_in, duration
             FROM zeitstempel
             WHERE zid = %s
             """,
@@ -117,7 +113,7 @@ def get_timestamp_by_id(zid):
     return jsonify(serialized), 200
 
 
-def update_timestamp(uid, pid, zid):
+def update_timestamp(uid, zid):
     data = request.get_json(force=True)
     for field in ('datum_in','checkin','datum_out','checkout','duration'):
         if field not in data:
@@ -129,12 +125,12 @@ def update_timestamp(uid, pid, zid):
         """
         UPDATE zeitstempel
         SET datum_in=%s, checkin=%s, datum_out=%s, checkout=%s, duration=%s
-        WHERE uid=%s AND pid=%s AND zid=%s
-        RETURNING zid, uid, pid, datum_in, checkin, datum_out, checkout, duration
+        WHERE uid=%s AND zid=%s
+        RETURNING zid, uid, datum_in, checkin, datum_out, checkout, duration
         """,
         (data['datum_in'], data['checkin'],
          data['datum_out'], data['checkout'],
-         data['duration'], uid, pid, zid)
+         data['duration'], uid, zid)
     )
     row = cur.fetchone()
     conn.commit()

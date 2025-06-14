@@ -27,7 +27,6 @@ namespace Structurio
         private readonly ObservableCollection<Timecheckin> entries;
         private readonly HttpClient httpClient;
         private readonly int uid = 1;
-        private readonly int pid = 1;
         public edittime(ObservableCollection<Timecheckin> entry, int index, DataGrid times, HttpClient httpClient)
         {
             InitializeComponent();
@@ -97,7 +96,6 @@ namespace Structurio
                 await Put_timestamp.UpdateAsync(
                     httpClient,
                     uid,
-                    pid,
                     entries[Index].Zid,
                     checkIn,
                     checkOut,

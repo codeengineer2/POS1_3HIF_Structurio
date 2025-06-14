@@ -12,7 +12,6 @@ namespace Structurio
     {
         public static async Task UpdateAsync(HttpClient httpClient,
                                              int uid,
-                                             int pid,
                                              int zid,
                                              DateTime checkIn,
                                              DateTime checkOut,
@@ -29,8 +28,7 @@ namespace Structurio
 
             string json = JsonSerializer.Serialize(payload);
             using var content = new StringContent(json, Encoding.UTF8, "application/json");
-            using HttpResponseMessage resp = await httpClient.PutAsync(
-                $"timestamps/{uid}/{pid}/{zid}", content);
+            using HttpResponseMessage resp = await httpClient.PutAsync($"timestamps/{uid}/{zid}", content);
             resp.EnsureSuccessStatusCode();
         }
 

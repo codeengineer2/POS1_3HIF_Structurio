@@ -12,9 +12,9 @@ namespace Structurio
 {
     public class Get_timestamp
     {
-        public static async Task<List<Timestamp_Json>> GetAsync(HttpClient httpClient, int uid, int pid)
+        public static async Task<List<Timestamp_Json>> GetAsync(HttpClient httpClient, int uid)
         {
-            using HttpResponseMessage response = await httpClient.GetAsync($"timestamps/{uid}/{pid}");
+            using HttpResponseMessage response = await httpClient.GetAsync($"timestamps/{uid}");
             response.EnsureSuccessStatusCode();
             string json = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<List<Timestamp_Json>>(json)!;
