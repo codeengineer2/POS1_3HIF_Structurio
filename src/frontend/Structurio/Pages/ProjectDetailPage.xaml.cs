@@ -79,7 +79,13 @@ namespace Structurio.Pages
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+            var mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow != null)
+            {
+                var projectsPage = new ProjectsPage(mainWindow, mainWindow.UserProjects);
+                mainWindow.MainFramePublic.Navigate(projectsPage);
+            }
         }
     }
 }

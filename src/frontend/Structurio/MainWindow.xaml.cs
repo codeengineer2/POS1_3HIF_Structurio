@@ -26,7 +26,7 @@ namespace Structurio
         private DispatcherTimer timer;
         public Frame MainFramePublic;
         public User CurrentUser;
-        private List<Project> userProjects;
+        public List<Project> UserProjects;
 
         public MainWindow(User user, List<Project> projects)
         {
@@ -36,7 +36,7 @@ namespace Structurio
             mainFrame.Navigate(new ProjectsPage(this, projects));
             this.projectsButton.IsChecked = true;
             CurrentUser = user;
-            userProjects = projects;
+            UserProjects = projects;
          
         }
 
@@ -84,7 +84,7 @@ namespace Structurio
             };
 
             CurrentUser = null;
-            userProjects = testProjects;
+            UserProjects = testProjects;
             mainFrame.Navigate(new ProjectsPage(this, testProjects));
             this.projectsButton.IsChecked = true;
             // Window costs = new Costs();
@@ -129,7 +129,7 @@ namespace Structurio
             var button = sender as ToggleButton;
             UncheckAllMenuItems(button);
 
-            mainFrame.Navigate(new ProjectsPage(this, this.userProjects));
+            mainFrame.Navigate(new ProjectsPage(this, this.UserProjects));
             button.IsChecked = true;
         }
 
