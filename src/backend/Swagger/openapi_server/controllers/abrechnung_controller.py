@@ -50,5 +50,46 @@ def get_abrechnungen(uid, pid):
     serialized= [_serialize_record(r) for r in rows]
     return jsonify(serialized), 200
 
-def create_abrechnungen():
-    pass
+def create_abrechnung():
+
+    data = request.get_json(silent=True)
+    if not data:
+        abort(400, description="JSON-Body fehlt oder ist ungültig")
+
+
+    required = ["uid", "pid", "name", "date", "price", "category", "rechnung"]
+
+    missing = [f for f in required if f not in data]
+    if missing:
+        abort(400, description=f"Fehlende Felder: {', '.join(missing)}")
+
+
+
+    conn = get_connection()
+    try:
+        with conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor) as cur:
+            cur.execute(
+                """
+                INSERT INTO abrechnung (uid, pid, name, date, price, category, rechnung)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                RETURNING aid, uid, pid, name, date, price, category, rechnung
+                """,
+                (
+                    data["uid"],
+                    data["pid"],
+                    data["name"],
+                    data["date"],  
+                    data["price"],
+                    data["category"],
+                    data["rechnung"],
+                ),
+            )
+            record = cur.fetchone()
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        abort(500, description=f"DB-Fehler: {e}")
+    finally:
+        conn.close()
+
+    return jsonify(_serialize_record(record)), 201

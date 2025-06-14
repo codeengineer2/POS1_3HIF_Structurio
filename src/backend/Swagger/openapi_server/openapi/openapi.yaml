@@ -364,6 +364,29 @@ paths:
                   $ref: '#/components/schemas/Abrechnung'
         '400':
           description: Ungültige Eingabedaten
+  /abrechnung:
+    post:
+      summary: Neue Abrechnung erstellen
+      operationId: create_abrechnung
+      x-openapi-router-controller: openapi_server.controllers.abrechnung_controller
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AbrechnungCreate'
+      responses:
+        "201":
+          description: Abrechnung erfolgreich erstellt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Abrechnung'
+        "400":
+          description: Ungültige Eingabedaten
+        "500":
+          description: Interner Serverfehler
+
     
 components:
   schemas:
@@ -582,3 +605,14 @@ components:
         - date
         - price
         - category
+    AbrechnungCreate:
+      type: object
+      required: [uid, pid, name, date, price, category, rechnung]
+      properties:
+        uid:       { type: integer }
+        pid:       { type: integer }
+        name:      { type: string }
+        date:      { type: string, format: date }
+        price:     { type: number, format: float }
+        category:  { type: string }
+        rechnung:  { type: string, nullable: true }

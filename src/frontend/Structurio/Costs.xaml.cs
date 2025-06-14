@@ -116,7 +116,7 @@ namespace Structurio
             }
         }
 
-        private void Save_Data_Click(object sender, RoutedEventArgs e)
+        private async void Save_Data_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(costsName.Text) || string.IsNullOrWhiteSpace(costs.Text) || !DatePickerCosts.SelectedDate.HasValue || CostsCategory.SelectedItem == null || string.IsNullOrWhiteSpace(rechnungspfad))
             {
@@ -130,12 +130,29 @@ namespace Structurio
                 MessageBox.Show("Bitte geben Sie einen gültigen Preis ein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            MessageBox.Show(preis.ToString());
-
             string name = costsName.Text;
             DateTime datum = DatePickerCosts.SelectedDate.Value;
             string kategorie = ((ComboBoxItem)CostsCategory.SelectedItem).Content.ToString();
 
+            Abrechnung_JSON json;
+            try
+            {
+                json = await Post_Abrechnung.CreateAsync(
+                                httpClient,
+                                uid,                    
+                                pid,
+                                costsName.Text,
+                                DatePickerCosts.SelectedDate.Value,
+                                preis,
+                                kategorie,
+                                rechnungspfad);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Speichern fehlgeschlagen:\n{ex.Message}",
+                                "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             finance.Add(new Finance
             {
                 Name = name,
