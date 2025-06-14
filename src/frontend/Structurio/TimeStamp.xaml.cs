@@ -23,7 +23,7 @@ namespace Structurio
     /// <summary>
     /// Interaction logic for TimeStamp.xaml
     /// </summary>
-    public partial class TimeStamp : Window
+    public partial class TimeStamp : Page
     {
         private readonly HttpClient httpClient = new HttpClient
         {
@@ -145,11 +145,6 @@ namespace Structurio
             }
         }
 
-        private async void ButtonCosts_Click(object sender, RoutedEventArgs e)
-        {
-            Costs costsWindow = new Costs();
-            costsWindow.Show();
-            
-        }
+       
     }
 }
