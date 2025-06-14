@@ -1,7 +1,4 @@
-﻿using Structurio.Classes;
-using Structurio.Services;
-using Structurio.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,31 +12,111 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Structurio.Classes;
+using Structurio.Services;
+using Structurio.Windows;
+using System.Runtime.InteropServices;
 
 namespace Structurio.Controls
 {
-    /// <summary>
-    /// Interaction logic for ProjectIssueControl.xaml
-    /// </summary>
     public partial class ProjectIssueControl : UserControl
     {
+        private bool isMouseDown = false;
+        private GhostWindow ghostWindow = null;
+
         public Issue Issue => this.DataContext as Issue;
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT { public int X; public int Y; }
+
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorPos(out POINT lpPoint);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetDC(IntPtr hWnd);
+
+        [DllImport("gdi32.dll")]
+        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        [DllImport("user32.dll")]
+        static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
+
+        const int LOGPIXELSX = 88;
+        const int LOGPIXELSY = 90;
+
+        public Point GetCursorPositionScaled()
+        {
+            GetCursorPos(out POINT point);
+            IntPtr hdc = GetDC(IntPtr.Zero);
+            int dpiX = GetDeviceCaps(hdc, LOGPIXELSX);
+            int dpiY = GetDeviceCaps(hdc, LOGPIXELSY);
+            ReleaseDC(IntPtr.Zero, hdc);
+
+            double scaleX = dpiX / 96.0;
+            double scaleY = dpiY / 96.0;
+
+            return new Point(point.X / scaleX, point.Y / scaleY);
+        }
 
         public ProjectIssueControl()
         {
             InitializeComponent();
+
             rootBorder.MouseMove += rootBorder_MouseMove;
+            rootBorder.MouseLeftButtonDown += rootBorder_MouseLeftButtonDown;
+            rootBorder.MouseLeftButtonUp += rootBorder_MouseLeftButtonUp;
+        }
+
+        private void rootBorder_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            isMouseDown = true;
+            rootBorder.CaptureMouse();
+        }
+
+        private void rootBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            isMouseDown = false;
+            rootBorder.ReleaseMouseCapture();
         }
 
         private void rootBorder_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.LeftButton == MouseButtonState.Pressed)
+            if (e.LeftButton == MouseButtonState.Pressed && isMouseDown && ghostWindow == null)
             {
+                var liveClone = new ProjectIssueControl { DataContext = this.DataContext };
+
+                ghostWindow = new GhostWindow(liveClone);
+
+                Point scaledCursor = GetCursorPositionScaled();
+                ghostWindow.Left = scaledCursor.X - 20;
+                ghostWindow.Top = scaledCursor.Y + 20;
+
+                ghostWindow.Show();
+
+                CompositionTarget.Rendering += FollowCursor;
+
                 var issue = DataContext as Issue;
                 if (issue != null)
                 {
+                    Mouse.OverrideCursor = Cursors.Hand;
                     DragDrop.DoDragDrop(this, new DataObject("Issue", issue), DragDropEffects.Move);
+                    Mouse.OverrideCursor = null;
+
+                    CompositionTarget.Rendering -= FollowCursor;
+
+                    ghostWindow?.Close();
+                    ghostWindow = null;
                 }
+            }
+        }
+
+        private void FollowCursor(object sender, EventArgs e)
+        {
+            if (ghostWindow != null)
+            {
+                Point scaledCursor = GetCursorPositionScaled();
+                ghostWindow.Left = scaledCursor.X - 20;
+                ghostWindow.Top = scaledCursor.Y + 20;
             }
         }
 
@@ -74,10 +151,11 @@ namespace Structurio.Controls
                 {
                     int oldIndex = column.Items.IndexOf(sourceIssue);
                     int newIndex = column.Items.IndexOf(targetIssue);
+
                     if (oldIndex >= 0 && newIndex >= 0 && oldIndex != newIndex)
                     {
                         column.Items.Move(oldIndex, newIndex);
-                        e.Handled = true; 
+                        e.Handled = true;
                     }
                 }
             }
@@ -112,7 +190,6 @@ namespace Structurio.Controls
                     if (success)
                     {
                         var column = FindParentColumn();
-
                         if (column != null)
                         {
                             column.Original.Issues.Remove(this.Issue);
@@ -146,7 +223,7 @@ namespace Structurio.Controls
                 }
             }
         }
-        
+
         private ColumnWrapper FindParentColumn()
         {
             DependencyObject parent = this;
