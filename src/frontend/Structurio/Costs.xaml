@@ -5,9 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:local="clr-namespace:Structurio"
-      Title="Costs" Height="600" Width="880"
+      Title="Costs" Height="520" Width="880"
       Background="#FAFAFA"
-    
+
       SizeChanged="Window_SizeChanged">
 
     <Page.Resources>
@@ -102,7 +102,6 @@
                     <TextBlock Text="Name:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
                     <TextBox x:Name="costsName"
                  Grid.Row="0" Grid.Column="1"
-                 Text="Kostenname"
                  Margin="8,4"
                  Height="34"
                  Padding="8"
@@ -114,7 +113,6 @@
                     <TextBlock Text="Kosten:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,6"/>
                     <TextBox x:Name="costs"
                  Grid.Row="1" Grid.Column="1"
-                 Text="Betrag"
                  Margin="8,4"
                  Height="34"
                  Padding="8"
