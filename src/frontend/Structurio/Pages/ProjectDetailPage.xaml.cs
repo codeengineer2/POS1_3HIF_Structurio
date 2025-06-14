@@ -59,6 +59,15 @@ namespace Structurio.Pages
             button.IsChecked = true;
         }
 
+        private void costs_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as ToggleButton;
+            UncheckAllMenuItems(button);
+
+            contentFrame.Navigate(new Costs());
+            button.IsChecked = true;
+        }
+
         private void files_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as ToggleButton;

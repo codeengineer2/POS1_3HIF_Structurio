@@ -133,6 +133,15 @@ namespace Structurio
             button.IsChecked = true;
         }
 
+        private void timestamp_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as ToggleButton;
+            UncheckAllMenuItems(button);
+
+            mainFrame.Navigate(new TimeStamp());
+            button.IsChecked = true;
+        }
+
         private void settings_Click(object sender, RoutedEventArgs e)
         {
             UncheckAllMenuItems(sender);

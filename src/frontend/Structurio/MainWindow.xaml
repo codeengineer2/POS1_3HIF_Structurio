@@ -52,6 +52,7 @@
 
                     <StackPanel x:Name="SidebarMenuPanel">
                         <ToggleButton x:Name="projectsButton" Content="📁  Projekte" Click="projects_Click" Style="{StaticResource MenuToggleButtonStyle}"/>
+                        <ToggleButton x:Name="timestampButton" Content="⏱  Zeitstempel" Click="timestamp_Click" Style="{StaticResource MenuToggleButtonStyle}"/>
                     </StackPanel>
                 </StackPanel>
             </DockPanel>
