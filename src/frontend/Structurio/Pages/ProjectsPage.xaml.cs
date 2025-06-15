@@ -85,31 +85,38 @@ namespace Structurio.Pages
             var window = new CreateProjectWindow();
             window.Owner = Window.GetWindow(this);
 
-            if (window.ShowDialog() == true)
+            if (window.ShowDialog() != true)
             {
-                var request = new ProjectRequest
-                {
-                    Name = window.ProjectName,
-                    Description = window.ProjectDescription,
-                    Color = window.ProjectColor,
-                    OwnerUid = mainWindow.CurrentUser.Id
-                };
+                return;
+            }
 
-                var api = new ApiService();
+            var request = new ProjectRequest
+            {
+                Name = window.ProjectName,
+                Description = window.ProjectDescription,
+                Color = window.ProjectColor,
+                OwnerUid = mainWindow.CurrentUser.Id
+            };
+
+            var api = new ApiService();
+
+            await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
+            {
                 var newProject = await api.CreateProjectAsync(request);
-
                 if (newProject != null)
                 {
                     var card = new ProjectCard { Project = newProject };
+
                     allProjects.Add(newProject);
                     allProjectCards.Add(card);
+
                     AddCardToPanel(card);
                 }
                 else
                 {
                     MessageBox.Show("Projekt konnte nicht erstellt werden!");
                 }
-            }
+            });
         }
     }
 }

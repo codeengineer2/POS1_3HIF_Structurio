@@ -56,22 +56,26 @@ namespace Structurio.Pages
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var confirmed = MessageBox.Show("Wirklich löschen?", "Bestätigen", MessageBoxButton.YesNo);
+
             if (confirmed != MessageBoxResult.Yes)
             {
                 return;
             }
-                
+
             var api = new ApiService();
 
-            bool success = await api.DeleteProjectAsync(project.Id);
-            if (success)
+            await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
             {
-                mainWindow.RemoveProjectById(project.Id);
-            }
-            else
-            {
-                MessageBox.Show("Fehler beim Löschen");
-            }
+                bool success = await api.DeleteProjectAsync(project.Id);
+                if (success)
+                {
+                    mainWindow.RemoveProjectById(project.Id);
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Löschen");
+                }
+            });
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -93,12 +97,6 @@ namespace Structurio.Pages
                 nameInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
-            else
-            {
-                nameBox.ClearValue(BackgroundProperty);
-                nameInfo.Text = "* erforderlich";
-                nameInfo.Foreground = Brushes.Gray;
-            }
 
             string descriptionText = descriptionBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(descriptionText))
@@ -115,12 +113,6 @@ namespace Structurio.Pages
                 descriptionInfo.Foreground = Brushes.DarkRed;
                 valid = false;
             }
-            else
-            {
-                descriptionBox.ClearValue(BackgroundProperty);
-                descriptionInfo.Text = "* erforderlich";
-                descriptionInfo.Foreground = Brushes.Gray;
-            }
 
             if (!valid)
             {
@@ -131,19 +123,20 @@ namespace Structurio.Pages
             project.Description = descriptionText;
             project.Color = (colorPicker.SelectedColor ?? Colors.LightGray).ToString();
 
-            mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
-
-            var api = new ApiService();
-
-            bool success = await api.UpdateProjectAsync(project);
-            if (success)
+            await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
             {
-                mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
-            }
-            else
-            {
-                MessageBox.Show("Fehler beim Speichern des Projekts.");
-            }
+                var api = new ApiService();
+
+                bool success = await api.UpdateProjectAsync(project);
+                if (success)
+                {
+                    mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Speichern des Projekts.");
+                }
+            });
         }
     }
 }

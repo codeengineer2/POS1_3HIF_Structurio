@@ -99,22 +99,22 @@ namespace Structurio.Pages
                 return;
             }
 
-            loginWindow.SpinningAnimation();
-            bool exists = await CheckEmailAsync(email);
-            loginWindow.ResetSpinningAnimation();
-
-            if (exists)
+            await LoadingAnimation.RunAsync(loginWindow.loadingAnimationCanvas, loginWindow.loadingGrid, async () =>
             {
-                emailBox.Background = Brushes.LightGreen;
-                emailInfo.Text = "Rücksetzungs-Link wurde (simuliert) gesendet.";
-                emailInfo.Foreground = Brushes.Green;
-            }
-            else
-            {
-                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
-                emailInfo.Text = "Es existiert kein Konto mit dieser E-Mail!";
-                emailInfo.Foreground = Brushes.DarkRed;
-            }
+                bool exists = await CheckEmailAsync(email);
+                if (exists)
+                {
+                    emailBox.Background = Brushes.LightGreen;
+                    emailInfo.Text = "Rücksetzungs-Link wurde (simuliert) gesendet.";
+                    emailInfo.Foreground = Brushes.Green;
+                }
+                else
+                {
+                    emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                    emailInfo.Text = "Es existiert kein Konto mit dieser E-Mail!";
+                    emailInfo.Foreground = Brushes.DarkRed;
+                }
+            });
         }
     }
 }

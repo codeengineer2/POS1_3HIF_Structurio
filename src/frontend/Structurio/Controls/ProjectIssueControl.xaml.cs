@@ -205,19 +205,33 @@ namespace Structurio.Controls
 
         private async void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-            var window = new UpdateIssueWindow(this.Issue);
-            window.Owner = Window.GetWindow(this);
-
-            if (window.ShowDialog() == true)
+            var window = new UpdateIssueWindow(this.Issue)
             {
+                Owner = Window.GetWindow(this)
+            };
+
+            if (window.ShowDialog() != true)
+            {
+                return;
+            }
+
+            var kanbanPage = FindParentPage<KanbanPage>();
+            if (kanbanPage == null)
+            {
+                MessageBox.Show("Konnte Kanban-Seite nicht finden.");
+                return;
+            }
+
+            await LoadingAnimation.RunAsync(kanbanPage.loadingCanvas, kanbanPage.loadingGrid, async () =>
+            {
+                var api = new ApiService();
+
                 if (window.IsDeleted)
                 {
-                    var api = new ApiService();
                     var success = await api.DeleteIssueAsync(this.Issue.Id);
                     if (success)
                     {
                         var column = FindParentColumn();
-
                         column?.Original.Issues.Remove(this.Issue);
                         column?.Items.Remove(this.Issue);
                     }
@@ -228,7 +242,6 @@ namespace Structurio.Controls
                 }
                 else
                 {
-                    var api = new ApiService();
                     var updateRequest = new UpdateIssueRequest
                     {
                         Id = this.Issue.Id,
@@ -245,7 +258,7 @@ namespace Structurio.Controls
                         MessageBox.Show("Fehler beim Aktualisieren des Issues!");
                     }
                 }
-            }
+            });
         }
 
         private ColumnWrapper FindParentColumn()

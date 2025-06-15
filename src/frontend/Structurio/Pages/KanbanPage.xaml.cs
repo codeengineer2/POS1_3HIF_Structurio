@@ -99,27 +99,29 @@ namespace Structurio.Pages
 
                 if (window.ShowDialog() == true)
                 {
-                    var api = new ApiService();
-
                     var request = new AddIssueRequest
                     {
                         ColumnId = column.Original.Id,
                         Description = window.IssueDescription
                     };
 
-                    var newIssue = await api.AddIssueAsync(request);
-
-                    if (newIssue != null)
+                    await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
                     {
-                        newIssue.Name = project.Name;
+                        var api = new ApiService();
 
-                        column.Original.Issues.Add(newIssue);
-                        column.Items.Add(newIssue);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Fehler beim Erstellen des Issues!");
-                    }
+                        var newIssue = await api.AddIssueAsync(request);
+                        if (newIssue != null)
+                        {
+                            newIssue.Name = project.Name;
+
+                            column.Original.Issues.Add(newIssue);
+                            column.Items.Add(newIssue);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Fehler beim Erstellen des Issues!");
+                        }
+                    });
                 }
             }
         }
@@ -136,18 +138,20 @@ namespace Structurio.Pages
                 Name = $"Spalte {number}"
             };
 
-            var newColumn = await api.AddColumnAsync(request);
-
-            if (newColumn != null)
+            await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
             {
-                newColumn.BoardId = project.Board.Id;
-                project.Board.Columns.Add(newColumn);
-                Columns.Add(new ColumnWrapper(newColumn));
-            }
-            else
-            {
-                MessageBox.Show("Fehler beim Erstellen der Spalte!");
-            }
+                var newColumn = await api.AddColumnAsync(request);
+                if (newColumn != null)
+                {
+                    newColumn.BoardId = project.Board.Id;
+                    project.Board.Columns.Add(newColumn);
+                    Columns.Add(new ColumnWrapper(newColumn));
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erstellen der Spalte!");
+                }
+            });
         }
 
         private async void titleBox_LostFocus(object sender, RoutedEventArgs e)
@@ -155,8 +159,6 @@ namespace Structurio.Pages
             if (sender is TextBox textBox && textBox.DataContext is ColumnWrapper column)
             {
                 var newName = textBox.Text.Trim();
-                var oldName = column.Original.Name;
-
                 if (string.IsNullOrWhiteSpace(newName))
                 {
                     int index = Columns.IndexOf(column) + 1;
@@ -168,20 +170,22 @@ namespace Structurio.Pages
 
                 column.Name = newName;
 
-                var api = new ApiService();
-
                 var updateRequest = new UpdateColumnRequest
                 {
                     Id = column.Original.Id,
                     Name = newName
                 };
 
-                var success = await api.UpdateColumnAsync(updateRequest);
-
-                if (!success)
+                await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
                 {
-                    MessageBox.Show("Spaltenname konnte nicht gespeichert werden!");
-                }
+                    var api = new ApiService();
+
+                    var success = await api.UpdateColumnAsync(updateRequest);
+                    if (!success)
+                    {
+                        MessageBox.Show("Spaltenname konnte nicht gespeichert werden!");
+                    }
+                });
             }
         }
 
@@ -213,6 +217,7 @@ namespace Structurio.Pages
                         currentColumn.Original.Issues.Remove(issue);
 
                         issue.ColumnId = targetColumn.Original.Id;
+
                         targetColumn.Items.Add(issue);
                         targetColumn.Original.Issues.Add(issue);
                     }
@@ -229,7 +234,7 @@ namespace Structurio.Pages
             }
         }
 
-        private void Column_Drop(object sender, DragEventArgs e)
+        private async void Column_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent("Issue") && sender is Border border)
             {
@@ -238,20 +243,33 @@ namespace Structurio.Pages
 
                 if (issue != null && targetColumn != null)
                 {
-                    issueBeingMoved = issue;
-                    var currentColumn = Columns.FirstOrDefault(ContainsIssue);
-                    issueBeingMoved = null;
-
-                    if (currentColumn != null && currentColumn != targetColumn)
+                    await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
                     {
-                        currentColumn.Items.Remove(issue);
-                        currentColumn.Original.Issues.Remove(issue);
+                        issueBeingMoved = issue;
+                        var currentColumn = Columns.FirstOrDefault(ContainsIssue);
+                        issueBeingMoved = null;
 
-                        issue.ColumnId = targetColumn.Original.Id;
+                        if (currentColumn != null && currentColumn != targetColumn)
+                        {
+                            currentColumn.Items.Remove(issue);
+                            currentColumn.Original.Issues.Remove(issue);
 
-                        targetColumn.Items.Add(issue);
-                        targetColumn.Original.Issues.Add(issue);
-                    }
+                            issue.ColumnId = targetColumn.Original.Id;
+
+                            targetColumn.Items.Add(issue);
+                            targetColumn.Original.Issues.Add(issue);
+
+                            var api = new ApiService();
+
+                            var updateRequest = new UpdateIssueRequest
+                            {
+                                Id = issue.Id,
+                                Description = issue.Description,
+                            };
+
+                            await api.UpdateIssueAsync(updateRequest);
+                        }
+                    });
                 }
             }
         }

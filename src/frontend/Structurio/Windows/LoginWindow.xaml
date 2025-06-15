@@ -15,8 +15,8 @@
     <Grid>
         <Frame x:Name="loginFrame" NavigationUIVisibility="Hidden"/>
 
-        <Grid x:Name="loadingGrid" Background="#AAFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Visibility="Collapsed" IsHitTestVisible="True" Cursor="Wait">
-            <Canvas x:Name="loadingAnimationCanvas" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="100"/>
+        <Grid x:Name="loadingGrid" Background="#AAFFFFFF" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Cursor="Wait" Visibility="Collapsed" IsHitTestVisible="True">
+            <Canvas x:Name="loadingAnimationCanvas" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
     

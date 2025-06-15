@@ -303,43 +303,44 @@ namespace Structurio.Pages
                 return;
             }
 
-            loginWindow.ShowSpinningAnimation();
-
-            bool alreadyExists = await CheckEmailAsync(email);
-
-            if (alreadyExists)
+            await LoadingAnimation.RunAsync(loginWindow.loadingAnimationCanvas, loginWindow.loadingGrid, async () =>
             {
-                loginWindow.ResetSpinningAnimation();
-                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
-                emailInfo.Text = "Diese E-Mail ist bereits vergeben!";
-                emailInfo.Foreground = Brushes.DarkRed;
-                return;
-            }
-
-            var request = new RegisterRequest
-            {
-                Firstname = firstName,
-                Lastname = lastName,
-                Email = email,
-                Password = password,
-                Birthdate = birthDate?.ToString("yyyy-MM-dd") ?? ""
-            };
-
-            bool success = await api.RegisterAsync(request);
-            loginWindow.ResetSpinningAnimation();
-
-            if (success)
-            {
-                var loginResult = await api.LoginAsync(email, password);
-                if (loginResult?.Success == true)
+                bool alreadyExists = await CheckEmailAsync(email);
+                if (alreadyExists)
                 {
-                    loginWindow.GoToMainWindow(loginResult.User, loginResult.Projects);
+                    emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                    emailInfo.Text = "Diese E-Mail ist bereits vergeben!";
+                    emailInfo.Foreground = Brushes.DarkRed;
+                    return;
+                }
+
+                var request = new RegisterRequest
+                {
+                    Firstname = firstName,
+                    Lastname = lastName,
+                    Email = email,
+                    Password = password,
+                    Birthdate = birthDate?.ToString("yyyy-MM-dd") ?? ""
+                };
+
+                bool success = await api.RegisterAsync(request);
+                if (success)
+                {
+                    var loginResult = await api.LoginAsync(email, password);
+                    if (loginResult?.Success == true)
+                    {
+                        loginWindow.GoToMainWindow(loginResult.User, loginResult.Projects);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Fehler beim Login.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Fehler beim automatischen Login.");
+                    MessageBox.Show("Registrierung fehlgeschlagen. Bitte versuche es erneut.");
                 }
-            }
+            });
         }
     }
 }

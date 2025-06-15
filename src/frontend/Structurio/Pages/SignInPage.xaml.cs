@@ -194,31 +194,32 @@ namespace Structurio.Pages
                 return;
             }
 
-            loginWindow.SpinningAnimation();
-            var result = await api.LoginAsync(email, password);
-            loginWindow.ResetSpinningAnimation();
-
-            if (result != null && result.Success)
+            await LoadingAnimation.RunAsync(loginWindow.loadingAnimationCanvas, loginWindow.loadingGrid, async () =>
             {
-                loginWindow.GoToMainWindow(result.User, result.Projects);
-            }
-            else
-            {
-                emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
-                if (isPasswordVisible)
+                var result = await api.LoginAsync(email, password);
+                if (result != null && result.Success)
                 {
-                    passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                    loginWindow.GoToMainWindow(result.User, result.Projects);
                 }
                 else
                 {
-                    passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
-                }
+                    emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
 
-                emailInfo.Text = "Falsche Zugangsdaten!";
-                passwordInfo.Text = "Falsche Zugangsdaten!";
-                emailInfo.Foreground = Brushes.DarkRed;
-                passwordInfo.Foreground = Brushes.DarkRed;
-            }
+                    if (isPasswordVisible)
+                    {
+                        passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                    }
+                    else
+                    {
+                        passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                    }
+
+                    emailInfo.Text = "Falsche Zugangsdaten!";
+                    passwordInfo.Text = "Falsche Zugangsdaten!";
+                    emailInfo.Foreground = Brushes.DarkRed;
+                    passwordInfo.Foreground = Brushes.DarkRed;
+                }
+            });
         }
     }
 }

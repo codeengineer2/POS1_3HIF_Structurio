@@ -16,59 +16,65 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer x:Name="scrollViewer" Padding="20" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
-            <ItemsControl x:Name="kanbanItemsControl">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+    <Grid>
+        <ScrollViewer x:Name="scrollViewer" Padding="20" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                <ItemsControl x:Name="kanbanItemsControl">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border Width="280" Padding="0" Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1"  VerticalAlignment="Stretch" Margin="10,0" AllowDrop="True" Drop="Column_Drop" DragOver="Column_DragOver">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="1"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Width="280" Padding="0" Background="White" CornerRadius="8" BorderBrush="#DDD" BorderThickness="1"  VerticalAlignment="Stretch" Margin="10,0" AllowDrop="True" Drop="Column_Drop" DragOver="Column_DragOver">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="1"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0" Margin="10,6,10,4">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Row="0" Margin="10,6,10,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
 
-                                    <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Foreground="Black" FontSize="14" FontWeight="SemiBold" BorderThickness="0" LostFocus="titleBox_LostFocus"/>
-                                    <TextBlock Grid.Column="1" Text="✏️" Foreground="#888" FontSize="13" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                                    <TextBlock Grid.Column="2" Text="{Binding Items.Count, StringFormat='({0})'}" Foreground="Gray" FontSize="13" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                        <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="Transparent" Foreground="Black" FontSize="14" FontWeight="SemiBold" BorderThickness="0" LostFocus="titleBox_LostFocus"/>
+                                        <TextBlock Grid.Column="1" Text="✏️" Foreground="#888" FontSize="13" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding Items.Count, StringFormat='({0})'}" Foreground="Gray" FontSize="13" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    </Grid>
+
+                                    <Border Grid.Row="1" Height="1" Background="#CCC"/>
+
+                                    <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                        <ItemsControl ItemsSource="{Binding Items}" Margin="10,8,10,0">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <controls:ProjectIssueControl/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </ScrollViewer>
+
+                                    <Button Grid.Row="3" Content="➕ Item hinzufügen" HorizontalAlignment="Stretch" Margin="0,20,0,0" Click="addItem_Click" Style="{StaticResource MenuButtonStyle}"/>
                                 </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                                <Border Grid.Row="1" Height="1" Background="#CCC"/>
+                <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Top" Margin="20,0,0,0" Click="addColumn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
+            </StackPanel>
+        </ScrollViewer>
 
-                                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-                                    <ItemsControl ItemsSource="{Binding Items}" Margin="10,8,10,0">
-                                        <ItemsControl.ItemTemplate>
-                                            <DataTemplate>
-                                                <controls:ProjectIssueControl/>
-                                            </DataTemplate>
-                                        </ItemsControl.ItemTemplate>
-                                    </ItemsControl>
-                                </ScrollViewer>
-
-                                <Button Grid.Row="3" Content="➕ Item hinzufügen" HorizontalAlignment="Stretch" Margin="0,20,0,0" Click="addItem_Click" Style="{StaticResource MenuButtonStyle}"/>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <Button Content="➕ Spalte hinzufügen" Width="180" VerticalAlignment="Top" Margin="20,0,0,0" Click="addColumn_Click" Style="{StaticResource PrimaryButtonStyle}"/>
-        </StackPanel>
-    </ScrollViewer>
+        <Grid x:Name="loadingGrid" Background="#AAFFFFFF" Visibility="Collapsed" IsHitTestVisible="True" Cursor="Wait">
+            <Canvas x:Name="loadingCanvas" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+    </Grid>
     
 </Page>
