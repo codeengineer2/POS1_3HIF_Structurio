@@ -23,10 +23,20 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Einstellungen" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,10" ToolTip="Projekt entfernen" Click="DeleteButton_Click" Style="{StaticResource TrashButtonStyle}">
-            <TextBlock Text="🗑️" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Button>
+            <Button Grid.Column="0" VerticalAlignment="Bottom" Margin="0,0,0,10" ToolTip="Projekt entfernen" Click="DeleteButton_Click" Style="{StaticResource TrashButtonStyle}">
+                <TextBlock Text="🗑️" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Button>
+
+            <Button Grid.Column="2" Content="Speichern" VerticalAlignment="Bottom" Margin="0,0,0,10" Click="SaveButton_Click" Style="{StaticResource SaveButtonStyle}"/>
+        </Grid>
     </Grid>
     
 </Page>
