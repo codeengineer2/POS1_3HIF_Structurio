@@ -18,5 +18,6 @@ namespace Structurio.Interfaces
         Task<Column?> AddColumnAsync(AddColumnRequest request);
         Task<bool> UpdateColumnAsync(UpdateColumnRequest request);
         Task<bool> DeleteProjectAsync(int projectId);
+        Task<bool> UpdateProjectAsync(Project project);
     }
 }
