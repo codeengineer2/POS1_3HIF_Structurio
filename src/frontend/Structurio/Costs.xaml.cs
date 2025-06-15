@@ -38,6 +38,7 @@ namespace Structurio
         private readonly HttpClient httpClient;
         private int uid = 1;
         private int pid = 1;
+        private double gesamtBudget = 10000;
         public Costs(User user, Project project)
         {
             InitializeComponent();
@@ -47,15 +48,11 @@ namespace Structurio
             {
                 BaseAddress = new Uri("http://localhost:8080/")
             };
-            PieChartCosts.Series = [
-
-                new PieSeries<double> { Values = new double[] { 1000 }, Name="Lohn" },
-                new PieSeries<double> { Values = new double[] { 8000 }, Name="Lizenzen" },
-                new PieSeries<double> { Values = new double[] { 2000 }, Name="Essen" },
-            ];
+            
             CostsListView.ItemsSource = finance;
-           
+            
             Load_Items();
+          
         }
         private async void Load_Items()
         {
@@ -76,6 +73,7 @@ namespace Structurio
                     });
                 }
                 CostsListView.Items.Refresh();
+                UpdatePieChart();
             }
             
             catch (Exception ex)
@@ -164,6 +162,7 @@ namespace Structurio
                 Kategorie = kategorie,
                 Rechnung = rechnungspfad
             });
+            UpdatePieChart();
             CostsListView.Items.Refresh();
             CostsCategory.SelectedIndex = -1;
             costsName.Text = "";
@@ -191,6 +190,62 @@ namespace Structurio
                 var detailWindow = new Costs_Detail(fin);
                 detailWindow.Show();
             }
+        }
+        private void UpdatePieChart()
+        {
+            
+
+            var kategorien = new[] { "Lizenzen und Abos", "Meetings", "Hardware", "Arbeitsmittel" };
+            var kategorienSummen = finance
+                .GroupBy(f => f.Kategorie)
+                .ToDictionary(g => g.Key, g => g.Sum(item => item.Preis));
+
+            var seriesList = new List<PieSeries<double>>();
+            double gesamtausgaben = 0;
+
+            foreach (var kategorie in kategorien)
+            {
+                double betrag = kategorienSummen.ContainsKey(kategorie) ? kategorienSummen[kategorie] : 0;
+                gesamtausgaben += betrag;
+
+                if (betrag > 0)
+                {
+                    seriesList.Add(new PieSeries<double>
+                    {
+                        Values = new[] { betrag },
+                        Name = kategorie,
+                        DataLabelsSize = 14,
+                        DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                        DataLabelsFormatter = point => $"{point.Label}: {point.Model} €"
+                    });
+                }
+            }
+
+            double restBudget = gesamtBudget - gesamtausgaben;
+            if (restBudget > 0)
+                seriesList.Add(new PieSeries<double>
+                {
+                    Values = new[] { restBudget },
+                    Name = "Verfügbar",
+                    DataLabelsSize = 14,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    DataLabelsFormatter = point => $"{point.Label}: {point.Model} €"
+                });
+
+            if (gesamtausgaben == 0)
+            {
+                seriesList.Clear();
+                seriesList.Add(new PieSeries<double>
+                {
+                    Values = new[] { gesamtBudget },
+                    Name = "Verfügbar",
+                    DataLabelsSize = 14,
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
+                    DataLabelsFormatter = point => $"{point.Label}: {point.Model} €"
+                });
+            }
+
+            PieChartCosts.Series = seriesList;
         }
     }
 }
