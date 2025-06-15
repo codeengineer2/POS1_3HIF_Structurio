@@ -1,0 +1,86 @@
+﻿<Window x:Class="Structurio.Costs_Detail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:local="clr-namespace:Structurio"
+        mc:Ignorable="d"
+        Title="Costs_Detail" Height="450" Width="800">
+    <!-- prompt: Wie binde ich das pdf in wpf richtig ein? -->
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"  />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                Background="White"
+                CornerRadius="6"
+                Padding="20"
+                Margin="12"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                HorizontalAlignment="Stretch"
+                MinWidth="220">
+       
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Rechnungsdetails"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Margin="0,0,0,16"/>
+
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Stretch">
+
+                    <TextBlock Text="Name:" FontWeight="Bold"/>
+                    <TextBlock x:Name="LabelName" Margin="0,4,0,12"/>
+
+                    <TextBlock Text="Kosten:" FontWeight="Bold"/>
+                    <TextBlock x:Name="LabelKosten" Margin="0,4,0,12"/>
+
+                    <TextBlock Text="Datum:" FontWeight="Bold"/>
+                    <TextBlock x:Name="LabelDatum" Margin="0,4,0,12"/>
+
+                    <TextBlock Text="Kategorie:" FontWeight="Bold"/>
+                    <TextBlock x:Name="LabelKategorie" Margin="0,4,0,12"/>
+
+                    <TextBlock Text="Rechnungsdatei:" FontWeight="Bold"/>
+                    <TextBlock x:Name="LabelPfad"
+                               Margin="0,4,0,0"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Grid.Column="1"
+                Background="White"
+                CornerRadius="6"
+                Padding="4"
+                Margin="12"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                HorizontalAlignment="Stretch">
+
+            <Grid>
+                <wv2:WebView2 x:Name="PdfView"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Visibility="Collapsed"/>
+
+                <TextBlock x:Name="ErrorText"
+                           Text="PDF nicht gefunden"
+                           FontSize="16"
+                           FontStyle="Italic"
+                           Foreground="Gray"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Visibility="Collapsed"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

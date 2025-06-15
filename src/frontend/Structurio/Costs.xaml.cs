@@ -184,5 +184,13 @@ namespace Structurio
                 gridView.Columns[4].Width = totalWidth * 0.30;
             }
         }
+        private void CostsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (CostsListView.SelectedItem is Finance fin)
+            {
+                var detailWindow = new Costs_Detail(fin);
+                detailWindow.Show();
+            }
+        }
     }
 }
