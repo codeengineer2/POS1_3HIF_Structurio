@@ -36,7 +36,7 @@ def get_abrechnungen(uid, pid):
         cur.execute(
             """
             SELECT aid, name, date, price, category, rechnung
-            FROM abrechnung WHERE pid = %s AND uid = %s
+            FROM abrechnung WHERE uid = %s AND pid = %s
             ORDER BY date
             """,
             (uid, pid)
