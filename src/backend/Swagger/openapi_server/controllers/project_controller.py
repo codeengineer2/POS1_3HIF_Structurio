@@ -63,7 +63,7 @@ def update_project(body):
 
     if not pid or not name or not color:
         abort(400, "Felder pid, name und color sind erforderlich")
-        
+
     conn = get_connection()
 
     try:
@@ -91,16 +91,14 @@ def update_project(body):
         cur.close()
         conn.close()
 
-def delete_project(pid: int):
+def delete_project(pid):
     conn = get_connection()
 
     try:
         cur = conn.cursor()
 
         cur.execute("SELECT pid FROM projects WHERE pid = %s", (pid,))
-        project = cur.fetchone()
-
-        if not project:
+        if not cur.fetchone():
             abort(404, "Projekt nicht gefunden")
 
         cur.execute("DELETE FROM projects WHERE pid = %s", (pid,))
@@ -111,7 +109,7 @@ def delete_project(pid: int):
 
     except Exception as e:
         conn.rollback()
-        abort(500, f"Fehler beim Löschen des Projekts: {str(e)}")
+        abort(500, f"Fehler beim Löschen: {str(e)}")
 
     finally:
         cur.close()

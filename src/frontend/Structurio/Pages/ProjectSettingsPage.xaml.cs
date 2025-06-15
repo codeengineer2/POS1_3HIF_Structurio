@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Classes;
+using Structurio.Interfaces;
+using Structurio.Services;
+using static OpenTK.Graphics.OpenGL.GL;
 
 namespace Structurio.Pages
 {
@@ -22,6 +25,7 @@ namespace Structurio.Pages
     public partial class ProjectSettingsPage : Page
     {
         private MainWindow mainWindow;
+        private IApiService apiService;
         private Project project;
 
         public ProjectSettingsPage(MainWindow mainWindow, Project project)
@@ -45,16 +49,24 @@ namespace Structurio.Pages
             descriptionInfo.Foreground = Brushes.Gray;
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var owner = Window.GetWindow(this);
-
-            var result = MessageBox.Show(owner, $"Möchtest du das Projekt „{project.Name}“ wirklich entfernen?", "Projekt entfernen", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
+            var confirmed = MessageBox.Show("Wirklich löschen?", "Bestätigen", MessageBoxButton.YesNo);
+            if (confirmed != MessageBoxResult.Yes)
             {
-                mainWindow.RemoveProject(project);
-                mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
+                return;
+            }
+                
+            var api = new ApiService();
+
+            bool success = await api.DeleteProjectAsync(project.Id);
+            if (success)
+            {
+                mainWindow.RemoveProjectById(project.Id);
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Löschen");
             }
         }
 

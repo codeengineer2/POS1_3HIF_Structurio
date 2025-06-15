@@ -211,5 +211,18 @@ namespace Structurio.Services
                 return false;
             }
         }
+
+        public async Task<bool> DeleteProjectAsync(int projectId)
+        {
+            try
+            {
+                var response = await client.DeleteAsync($"http://localhost:8080/projects/{projectId}");
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

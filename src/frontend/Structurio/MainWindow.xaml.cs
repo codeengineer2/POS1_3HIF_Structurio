@@ -37,7 +37,6 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
             CurrentUser = user;
             UserProjects = projects;
-         
         }
 
         // übergangs lösung
@@ -154,12 +153,13 @@ namespace Structurio
             this.Close();
         }
 
-        public void RemoveProject(Project project)
+        public void RemoveProjectById(int pid)
         {
-            var removed = UserProjects.Remove(project);
-            if (removed)
+            var projectToRemove = UserProjects.FirstOrDefault(p => p.Id == pid);
+            if (projectToRemove != null)
             {
-                MessageBox.Show("Projekt wurde entfernt.");
+                UserProjects.Remove(projectToRemove);
+                mainFrame.Navigate(new ProjectsPage(this, UserProjects));
             }
         }
     }
