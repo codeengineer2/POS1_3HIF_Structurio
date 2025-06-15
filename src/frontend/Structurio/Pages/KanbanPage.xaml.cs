@@ -21,8 +21,8 @@ using Structurio.Interfaces;
 using Structurio.Services;
 using Structurio.Windows;
 using System.Runtime.InteropServices;
-
 namespace Structurio.Pages
+
 {
     /// <summary>
     /// Interaction logic for KanbanPage.xaml

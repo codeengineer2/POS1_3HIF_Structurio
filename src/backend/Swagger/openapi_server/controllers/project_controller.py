@@ -32,11 +32,19 @@ def create_project(body):
         """, (name, description, color, owner_uid))
         pid = cur.fetchone()[0]
 
-        cur.execute("INSERT INTO boards (pid) VALUES (%s)", (pid,))
+        cur.execute("INSERT INTO boards (pid) VALUES (%s) RETURNING bid", (pid,))
+        bid = cur.fetchone()[0]
 
         conn.commit()
 
-        return jsonify({"success": True, "pid": pid}), 201
+        return jsonify({
+            "success": True,
+            "pid": pid,
+            "board": {
+                "id": bid,
+                "project_id": pid
+            }
+        }), 201
 
     except Exception as e:
         conn.rollback()

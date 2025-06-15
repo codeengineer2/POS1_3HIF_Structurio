@@ -91,6 +91,13 @@ paths:
                   pid:
                     type: integer
                     example: 42
+                  board:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      project_id:
+                        type: integer
         "400":
           description: Ungültige Eingabe
         "500":

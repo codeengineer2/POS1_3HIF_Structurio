@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using Structurio.Classes;
 using Structurio.Interfaces;
+using Newtonsoft.Json.Linq;
+using System.Windows;
 
 namespace Structurio.Services
 {
@@ -61,36 +63,36 @@ namespace Structurio.Services
             try
             {
                 var response = await client.PostAsync("http://localhost:8080/projects", content);
+                var body = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
                 {
                     return null;
                 }
-                    
-                var responseJson = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(responseJson);
 
-                if (result != null && result.TryGetValue("pid", out var pidObj) && int.TryParse(pidObj.ToString(), out int pid))
+                JObject jsonObj;
+                jsonObj = JObject.Parse(body);
+
+                var project = new Project
                 {
-                    return new Project
+                    Id = (int)jsonObj["pid"],
+                    Name = request.Name,
+                    Description = request.Description,
+                    Color = request.Color,
+                    OwnerUid = request.OwnerUid,
+                    Board = new Board
                     {
-                        Id = pid,
-                        Name = request.Name,
-                        Description = request.Description,
-                        Color = request.Color,
-                        OwnerUid = request.OwnerUid,
-                        Board = new Board
-                        {
-                            ProjectId = pid,
-                            Columns = new List<Column>()
-                        }
-                    };
-                }
+                        Id = (int)jsonObj["board"]["id"],
+                        ProjectId = (int)jsonObj["board"]["project_id"],
+                        Columns = new List<Column>()
+                    }
+                };
 
-                return null;
+                return project;
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message);
                 return null;
             }
         }
