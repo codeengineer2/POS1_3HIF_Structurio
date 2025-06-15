@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Security.Cryptography;
+using Structurio.Classes;
+
 namespace Structurio
 {
     /// <summary>
@@ -30,14 +32,14 @@ namespace Structurio
             BaseAddress = new Uri("http://localhost:8080/")
         };
         public ObservableCollection<Timecheckin> entries = new ObservableCollection<Timecheckin>();
-        private readonly int uid = 1;
-        private readonly int pid = 1;
+        private int uid = 1;
+        private int pid = 1;
         public int timeindex = 0;
      
-        public TimeStamp()
+        public TimeStamp(User user)
         {
             InitializeComponent();
-
+            uid = user.Id;
             times.ItemsSource = entries;
             LoadTimestamps();
         }

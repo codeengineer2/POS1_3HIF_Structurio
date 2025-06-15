@@ -138,7 +138,7 @@ namespace Structurio
             var button = sender as ToggleButton;
             UncheckAllMenuItems(button);
 
-            mainFrame.Navigate(new TimeStamp());
+            mainFrame.Navigate(new TimeStamp(CurrentUser));
             button.IsChecked = true;
         }
 

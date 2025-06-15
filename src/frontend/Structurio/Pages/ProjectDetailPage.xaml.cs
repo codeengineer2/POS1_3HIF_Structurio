@@ -25,12 +25,14 @@ namespace Structurio.Pages
     /// </summary>
     public partial class ProjectDetailPage : Page
     {
+        private MainWindow mainWindow;
         private Project project;
 
-        public ProjectDetailPage(Project project)
+        public ProjectDetailPage(MainWindow mainWindow, Project project)
         {
             InitializeComponent();
             this.project = project;
+            this.mainWindow = mainWindow;
 
             nameText.Text = project.Name.ToUpper();
             contentFrame.Navigate(new KanbanPage(this.project));
@@ -64,7 +66,7 @@ namespace Structurio.Pages
             var button = sender as ToggleButton;
             UncheckAllMenuItems(button);
 
-            contentFrame.Navigate(new Costs());
+            contentFrame.Navigate(new Costs(mainWindow.CurrentUser, project));
             button.IsChecked = true;
         }
 

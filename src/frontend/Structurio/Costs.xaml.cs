@@ -23,6 +23,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IOPath = System.IO.Path;
+using Structurio.Classes;
 
 namespace Structurio
 {
@@ -35,11 +36,13 @@ namespace Structurio
         public ObservableCollection<Finance> finance = new ObservableCollection<Finance>();
         private string rechnungspfad;
         private readonly HttpClient httpClient;
-        private readonly int uid = 1;
-        private readonly int pid = 1;
-        public Costs()
+        private int uid = 1;
+        private int pid = 1;
+        public Costs(User user, Project project)
         {
             InitializeComponent();
+            uid = user.Id;
+            pid = project.Id;
             httpClient = new HttpClient
             {
                 BaseAddress = new Uri("http://localhost:8080/")

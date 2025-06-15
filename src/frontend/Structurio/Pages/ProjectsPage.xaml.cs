@@ -39,7 +39,7 @@ namespace Structurio.Pages
         {
             card.Clicked += (sender, args) =>
             {
-                var detailPage = new ProjectDetailPage(card.Project);
+                var detailPage = new ProjectDetailPage(mainWindow, card.Project);
                 mainWindow.MainFramePublic.Navigate(detailPage);
             };
 
