@@ -46,6 +46,11 @@ namespace Structurio.Pages
             }
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService?.Navigate(new ProjectFoldersPage());
+        }
+
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;

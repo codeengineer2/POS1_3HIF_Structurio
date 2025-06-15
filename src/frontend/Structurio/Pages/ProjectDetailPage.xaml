@@ -52,6 +52,13 @@
                             <TextBlock Text="Dateien" FontSize="14"/>
                         </StackPanel>
                     </ToggleButton>
+
+                    <ToggleButton x:Name="settingsButton" IsChecked="False" Click="settings_Click" Style="{StaticResource MenuToggleButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="⚙️" FontSize="12" Margin="0,0,5,0"/>
+                            <TextBlock Text="Einstellungen" FontSize="14"/>
+                        </StackPanel>
+                    </ToggleButton>
                 </StackPanel>
             </Border>
             

@@ -79,6 +79,15 @@ namespace Structurio.Pages
             button.IsChecked = true;
         }
 
+        private void settings_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as ToggleButton;
+            UncheckAllMenuItems(button);
+
+            contentFrame.Navigate(new ProjectSettingsPage(mainWindow, project));
+            button.IsChecked = true;
+        }
+
         private void back_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = Window.GetWindow(this) as MainWindow;

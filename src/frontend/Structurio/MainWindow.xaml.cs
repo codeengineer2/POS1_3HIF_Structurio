@@ -153,5 +153,14 @@ namespace Structurio
             loginWindow.Show();
             this.Close();
         }
+
+        public void RemoveProject(Project project)
+        {
+            var removed = UserProjects.Remove(project);
+            if (removed)
+            {
+                MessageBox.Show("Projekt wurde entfernt.");
+            }
+        }
     }
 }
