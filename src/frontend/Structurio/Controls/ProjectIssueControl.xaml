@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Border x:Name="rootBorder" Style="{StaticResource IssueBorderStyle}" AllowDrop="True" Drop="IssueControl_Drop" DragOver="IssueControl_DragOver" MouseMove="rootBorder_MouseMove" MouseLeftButtonDown="rootBorder_MouseLeftButtonDown" MouseLeftButtonUp="rootBorder_MouseLeftButtonUp">
+    <Border x:Name="rootBorder" AllowDrop="True" Drop="IssueControl_Drop" DragOver="IssueControl_DragOver" MouseMove="rootBorder_MouseMove" MouseLeftButtonDown="rootBorder_MouseLeftButtonDown" MouseLeftButtonUp="rootBorder_MouseLeftButtonUp" Style="{StaticResource IssueBorderStyle}">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -28,17 +28,17 @@
                     <Run Text=" • Issue"/>
                 </TextBlock>
 
-                <TextBlock DockPanel.Dock="Right" Text="{Binding Id, StringFormat=#\{0\}}" Foreground="Gray" FontSize="12" FontWeight="SemiBold" HorizontalAlignment="Right"/>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Id, StringFormat=#\{0\}}" Foreground="Gray" FontSize="12" FontWeight="SemiBold"/>
             </DockPanel>
 
             <Grid Grid.Row="1">
                 <TextBlock Text="{Binding Description}" Foreground="#222" FontSize="13" Margin="0,0,30,20" TextWrapping="Wrap"/>
-
+                
                 <Button Width="22" Height="22" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Cursor="Hand" ToolTip="Informationen anzeigen" Click="InfoButton_Click" Style="{StaticResource InfoButtonStyle}">
                     <TextBlock Text="ℹ️" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Button>
             </Grid>
         </Grid>
     </Border>
-
+    
 </UserControl>

@@ -16,9 +16,13 @@ using Structurio.Classes;
 using Structurio.Services;
 using Structurio.Windows;
 using System.Runtime.InteropServices;
+using Structurio.Pages;
 
 namespace Structurio.Controls
 {
+    /// <summary>
+    /// Interaktionslogik für ProjectIssueControl.xaml
+    /// </summary>
     public partial class ProjectIssueControl : UserControl
     {
         private bool isMouseDown = false;
@@ -44,7 +48,7 @@ namespace Structurio.Controls
         const int LOGPIXELSX = 88;
         const int LOGPIXELSY = 90;
 
-        public Point GetCursorPositionScaled()
+        public static Point GetCursorPositionScaled()
         {
             GetCursorPos(out POINT point);
             IntPtr hdc = GetDC(IntPtr.Zero);
@@ -107,12 +111,13 @@ namespace Structurio.Controls
                 };
 
                 ghostWindow = new GhostWindow(image);
-
                 Point scaledCursor = GetCursorPositionScaled();
                 ghostWindow.Left = scaledCursor.X - 20;
                 ghostWindow.Top = scaledCursor.Y + 20;
-
                 ghostWindow.Show();
+
+                var kanbanPage = FindParentPage<KanbanPage>();
+                kanbanPage?.StartAutoScroll();
 
                 CompositionTarget.Rendering += FollowCursor;
 
@@ -127,6 +132,8 @@ namespace Structurio.Controls
 
                     ghostWindow?.Close();
                     ghostWindow = null;
+
+                    kanbanPage?.StopAutoScroll();
                 }
             }
         }
@@ -207,15 +214,12 @@ namespace Structurio.Controls
                 {
                     var api = new ApiService();
                     var success = await api.DeleteIssueAsync(this.Issue.Id);
-
                     if (success)
                     {
                         var column = FindParentColumn();
-                        if (column != null)
-                        {
-                            column.Original.Issues.Remove(this.Issue);
-                            column.Items.Remove(this.Issue);
-                        }
+
+                        column?.Original.Issues.Remove(this.Issue);
+                        column?.Items.Remove(this.Issue);
                     }
                     else
                     {
@@ -232,7 +236,6 @@ namespace Structurio.Controls
                     };
 
                     var success = await api.UpdateIssueAsync(updateRequest);
-
                     if (success)
                     {
                         this.Issue.Description = window.UpdatedDescription;
@@ -253,6 +256,20 @@ namespace Structurio.Controls
                 if (parent is FrameworkElement frameworkElement && frameworkElement.DataContext is ColumnWrapper column)
                 {
                     return column;
+                }
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            return null;
+        }
+
+        private T FindParentPage<T>() where T : Page
+        {
+            DependencyObject parent = this;
+            while (parent != null)
+            {
+                if (parent is T page)
+                {
+                    return page;
                 }
                 parent = VisualTreeHelper.GetParent(parent);
             }

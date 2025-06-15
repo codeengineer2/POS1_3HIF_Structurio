@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,7 @@ using Structurio.Controls;
 using Structurio.Interfaces;
 using Structurio.Services;
 using Structurio.Windows;
+using System.Runtime.InteropServices;
 
 namespace Structurio.Pages
 {
@@ -31,7 +33,17 @@ namespace Structurio.Pages
         private IApiService apiService;
         private int issueCounter = 1;
         private Issue issueBeingMoved;
+        private DispatcherTimer autoScrollTimer;
+        private double ScrollThreshold = 60;
+        private double ScrollSpeed = 20;
+
         public ObservableCollection<ColumnWrapper> Columns { get; set; } = new();
+
+        [DllImport("user32.dll")]
+        public static extern bool GetCursorPos(out POINT lpPoint);
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT { public int X; public int Y; }
 
         public KanbanPage(Project project)
         {
@@ -44,6 +56,38 @@ namespace Structurio.Pages
             }
 
             kanbanItemsControl.ItemsSource = Columns;
+        }
+
+        public void StartAutoScroll()
+        {
+            if (autoScrollTimer == null)
+            {
+                autoScrollTimer = new DispatcherTimer();
+                autoScrollTimer.Interval = TimeSpan.FromMilliseconds(40);
+                autoScrollTimer.Tick += AutoScrollTimer_Tick;
+            }
+            autoScrollTimer.Start();
+        }
+
+        public void StopAutoScroll()
+        {
+            autoScrollTimer?.Stop();
+        }
+
+        private void AutoScrollTimer_Tick(object sender, EventArgs e)
+        {
+            GetCursorPos(out POINT p);
+            Point cursorScreen = new Point(p.X, p.Y);
+            Point relativeToScroll = scrollViewer.PointFromScreen(cursorScreen);
+
+            if (relativeToScroll.X < ScrollThreshold)
+            {
+                scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - ScrollSpeed);
+            }
+            else if (relativeToScroll.X > scrollViewer.ActualWidth - ScrollThreshold)
+            {
+                scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + ScrollSpeed);
+            }
         }
 
         private async void addItem_Click(object sender, RoutedEventArgs e)
@@ -175,7 +219,7 @@ namespace Structurio.Pages
                 }
             }
         }
-        
+
         private void Column_DragOver(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent("Issue"))
@@ -204,6 +248,7 @@ namespace Structurio.Pages
                         currentColumn.Original.Issues.Remove(issue);
 
                         issue.ColumnId = targetColumn.Original.Id;
+
                         targetColumn.Items.Add(issue);
                         targetColumn.Original.Issues.Add(issue);
                     }
