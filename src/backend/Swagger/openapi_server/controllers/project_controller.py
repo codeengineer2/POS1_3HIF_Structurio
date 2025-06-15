@@ -1,6 +1,7 @@
 import psycopg2
 from flask import request, jsonify, abort
 from openapi_server.models.project_request import ProjectRequest
+from openapi_server.models.update_project_request import UpdateProjectRequest
 
 def get_connection():
     # egal weil egal
@@ -49,6 +50,68 @@ def create_project(body):
     except Exception as e:
         conn.rollback()
         abort(500, f"Fehler beim Anlegen des Projekts: {str(e)}")
+
+    finally:
+        cur.close()
+        conn.close()
+
+def update_project(body):
+    pid = body.get("pid")
+    name = body.get("name")
+    description = body.get("description")
+    color = body.get("color")
+
+    if not pid or not name or not color:
+        abort(400, "Felder pid, name und color sind erforderlich")
+        
+    conn = get_connection()
+
+    try:
+        cur = conn.cursor()
+
+        cur.execute("SELECT pid FROM projects WHERE pid = %s", (pid,))
+        if not cur.fetchone():
+            abort(404, "Projekt nicht gefunden")
+
+        cur.execute("""
+            UPDATE projects
+            SET name = %s, description = %s, color = %s
+            WHERE pid = %s
+        """, (name, description, color, pid))
+
+        conn.commit()
+
+        return jsonify({"success": True}), 200
+
+    except Exception as e:
+        conn.rollback()
+        abort(500, f"Fehler beim Aktualisieren: {str(e)}")
+
+    finally:
+        cur.close()
+        conn.close()
+
+def delete_project(pid: int):
+    conn = get_connection()
+
+    try:
+        cur = conn.cursor()
+
+        cur.execute("SELECT pid FROM projects WHERE pid = %s", (pid,))
+        project = cur.fetchone()
+
+        if not project:
+            abort(404, "Projekt nicht gefunden")
+
+        cur.execute("DELETE FROM projects WHERE pid = %s", (pid,))
+
+        conn.commit()
+
+        return jsonify({"success": True}), 200
+
+    except Exception as e:
+        conn.rollback()
+        abort(500, f"Fehler beim Löschen des Projekts: {str(e)}")
 
     finally:
         cur.close()

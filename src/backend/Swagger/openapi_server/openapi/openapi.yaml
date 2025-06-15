@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Structurio Auth API
   version: 1.0.0
-  description: Nur Check-Email, Try-Login, Register, Projects, Issues Endpoints
+  description: Nur Check-Email, Try-Login, Register, Projects, Issues, Columns Endpoints
 
 servers:
   - url: http://localhost:8080
@@ -102,6 +102,45 @@ paths:
           description: Ungültige Eingabe
         "500":
           description: Interner Serverfehler
+      x-openapi-router-controller: openapi_server.controllers.project_controller
+
+    put:
+      summary: Bestehendes Projekt aktualisieren
+      operationId: update_project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectUpdateRequest'
+      responses:
+        "200":
+          description: Projekt erfolgreich aktualisiert
+        "400":
+          description: Ungültige Eingabedaten
+        "404":
+          description: Projekt nicht gefunden
+        "500":
+          description: Serverfehler
+      x-openapi-router-controller: openapi_server.controllers.project_controller
+
+  /projects/{pid}:
+    delete:
+      summary: Projekt löschen
+      operationId: delete_project
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Projekt erfolgreich gelöscht
+        "404":
+          description: Projekt nicht gefunden
+        "500":
+          description: Serverfehler
       x-openapi-router-controller: openapi_server.controllers.project_controller
 
   /columns:
@@ -338,7 +377,6 @@ paths:
           description: Ungültige Eingabedaten
         "500":
           description: Interner Serverfehler
-
     
 components:
   schemas:
@@ -400,6 +438,19 @@ components:
         owner_uid:
           type: integer
           example: 1
+
+    ProjectUpdateRequest:
+      type: object
+      required: [pid, name, description, color]
+      properties:
+        pid:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        color:
+          type: string
 
     ColumnRequest:
       type: object
