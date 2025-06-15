@@ -8,79 +8,112 @@
         mc:Ignorable="d"
         Title="Costs_Detail" Height="450" Width="800">
     <!-- prompt: Wie binde ich das pdf in wpf richtig ein? -->
-    <Grid Margin="16">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"  />
-            <ColumnDefinition Width="2*" />
-        </Grid.ColumnDefinitions>
+    <Window.Resources>
+        <Color x:Key="CD_Background">#FFFFFFFF</Color>
+        <Color x:Key="CD_Border">#DADADA</Color>
+        <Color x:Key="CD_BorderHover">#9E9E9E</Color>
+        <SolidColorBrush x:Key="CD_BackBrush"    Color="{StaticResource CD_Background}"/>
+        <SolidColorBrush x:Key="CD_BorderBrush"  Color="{StaticResource CD_Border}"/>
+        <SolidColorBrush x:Key="CD_BorderHoverBrush" Color="{StaticResource CD_BorderHover}"/>
+        <Style x:Key="CostsDetailCardStyle" TargetType="Border">
 
-        <Border Grid.Column="0"
-                Background="White"
-                CornerRadius="6"
-                Padding="20"
-                Margin="12"
-                BorderBrush="#DDDDDD"
-                BorderThickness="1"
-                HorizontalAlignment="Stretch"
-                MinWidth="220">
-       
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <Setter Property="Background"      Value="{StaticResource CD_BackBrush}"/>
+            <Setter Property="BorderBrush"     Value="{StaticResource CD_BorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius"    Value="10"/>
+            <Setter Property="Padding"         Value="20"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="6"
+                                      ShadowDepth="0"
+                                      Opacity="0.08"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush"
+                            Value="{StaticResource CD_BorderHoverBrush}"/>
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect BlurRadius="9"
+                                              ShadowDepth="0"
+                                              Opacity="0.18"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-                <TextBlock Text="Rechnungsdetails"
-                           FontSize="20"
-                           FontWeight="SemiBold"
-                           Margin="0,0,0,16"/>
+    </Window.Resources>
 
-                <StackPanel Grid.Row="1"
-                            HorizontalAlignment="Stretch">
+    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
 
-                    <TextBlock Text="Name:" FontWeight="Bold"/>
-                    <TextBlock x:Name="LabelName" Margin="0,4,0,12"/>
+        <Grid Margin="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"  />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
 
-                    <TextBlock Text="Kosten:" FontWeight="Bold"/>
-                    <TextBlock x:Name="LabelKosten" Margin="0,4,0,12"/>
+            <Border Grid.Column="0"
+                    Style="{StaticResource CostsDetailCardStyle}"
+                    Margin="12">
 
-                    <TextBlock Text="Datum:" FontWeight="Bold"/>
-                    <TextBlock x:Name="LabelDatum" Margin="0,4,0,12"/>
+                <Viewbox Stretch="Uniform" MaxWidth="400">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Text="Kategorie:" FontWeight="Bold"/>
-                    <TextBlock x:Name="LabelKategorie" Margin="0,4,0,12"/>
+                        <TextBlock Text="Rechnungsdetails"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Margin="0 0 0 16"/>
 
-                    <TextBlock Text="Rechnungsdatei:" FontWeight="Bold"/>
-                    <TextBlock x:Name="LabelPfad"
-                               Margin="0,4,0,0"
-                               TextWrapping="Wrap"/>
-                </StackPanel>
-            </Grid>
-        </Border>
-        <Border Grid.Column="1"
-                Background="White"
-                CornerRadius="6"
-                Padding="4"
-                Margin="12"
-                BorderBrush="#DDDDDD"
-                BorderThickness="1"
-                HorizontalAlignment="Stretch">
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Text="Name:" FontWeight="Bold"/>
+                            <TextBlock x:Name="LabelName" Margin="0 4 0 12"/>
 
-            <Grid>
-                <wv2:WebView2 x:Name="PdfView"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              Visibility="Collapsed"/>
+                            <TextBlock Text="Kosten:" FontWeight="Bold"/>
+                            <TextBlock x:Name="LabelKosten" Margin="0 4 0 12"/>
 
-                <TextBlock x:Name="ErrorText"
-                           Text="PDF nicht gefunden"
-                           FontSize="16"
-                           FontStyle="Italic"
-                           Foreground="Gray"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Visibility="Collapsed"/>
-            </Grid>
-        </Border>
-    </Grid>
+                            <TextBlock Text="Datum:" FontWeight="Bold"/>
+                            <TextBlock x:Name="LabelDatum" Margin="0 4 0 12"/>
+
+                            <TextBlock Text="Kategorie:" FontWeight="Bold"/>
+                            <TextBlock x:Name="LabelKategorie" Margin="0 4 0 12"/>
+
+                            <TextBlock Text="Rechnungsdatei:" FontWeight="Bold"/>
+                            <TextBlock x:Name="LabelPfad"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Grid>
+                </Viewbox>
+            </Border>
+
+
+            <Border Grid.Column="1"
+                    Style="{StaticResource CostsDetailCardStyle}"
+                    Margin="12"
+                    Padding="4">
+
+                <Grid>
+                    <wv2:WebView2 x:Name="PdfView"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch"
+                                  Visibility="Collapsed"/>
+                    <TextBlock x:Name="ErrorText"
+                               Text="PDF nicht gefunden"
+                               FontSize="16"
+                               FontStyle="Italic"
+                               Foreground="Gray"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed"/>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </Window>
