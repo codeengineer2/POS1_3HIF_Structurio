@@ -224,5 +224,28 @@ namespace Structurio.Services
                 return false;
             }
         }
+
+        public async Task<bool> UpdateProjectAsync(Project project)
+        {
+            var json = JsonConvert.SerializeObject(new
+            {
+                pid = project.Id,
+                name = project.Name,
+                description = project.Description,
+                color = project.Color
+            });
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await client.PutAsync("http://localhost:8080/projects", content);
+                return response.IsSuccessStatusCode;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

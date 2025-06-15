@@ -33,6 +33,10 @@ namespace Structurio.Pages
             InitializeComponent();
             this.mainWindow = mainWindow;
             this.project = project;
+
+            nameBox.Text = project.Name;
+            descriptionBox.Text = project.Description;
+            colorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(project.Color);
         }
 
         private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -70,7 +74,7 @@ namespace Structurio.Pages
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             bool valid = true;
 
@@ -128,6 +132,18 @@ namespace Structurio.Pages
             project.Color = (colorPicker.SelectedColor ?? Colors.LightGray).ToString();
 
             mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
+
+            var api = new ApiService();
+
+            bool success = await api.UpdateProjectAsync(project);
+            if (success)
+            {
+                mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Speichern des Projekts.");
+            }
         }
     }
 }
