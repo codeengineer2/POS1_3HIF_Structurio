@@ -31,6 +31,20 @@ namespace Structurio.Pages
             this.project = project;
         }
 
+        private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            nameBox.ClearValue(BackgroundProperty);
+            nameInfo.Text = "* erforderlich";
+            nameInfo.Foreground = Brushes.Gray;
+        }
+
+        private void DescriptionBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            descriptionBox.ClearValue(BackgroundProperty);
+            descriptionInfo.Text = "* erforderlich";
+            descriptionInfo.Foreground = Brushes.Gray;
+        }
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var owner = Window.GetWindow(this);
