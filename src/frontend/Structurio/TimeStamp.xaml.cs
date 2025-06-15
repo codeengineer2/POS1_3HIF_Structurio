@@ -127,7 +127,7 @@ namespace Structurio
 
         }
 
-        private void Dataändern(object sender, RoutedEventArgs e)
+        private void Dataaendern(object sender, RoutedEventArgs e)
         {
             if(times.SelectedValue is not null)
             {
