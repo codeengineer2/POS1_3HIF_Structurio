@@ -131,7 +131,7 @@ namespace Structurio
         {
             if(times.SelectedValue is not null)
             {
-                Window aender = new edittime(entries, timeindex, times, httpClient);
+                Window aender = new edittime(uid, entries, timeindex, times, httpClient);
 
                 aender.ShowDialog();
             }

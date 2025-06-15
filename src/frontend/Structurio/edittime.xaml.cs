@@ -28,11 +28,11 @@ namespace Structurio
         private readonly HttpClient httpClient;
         private int uid = 1;
         private MainWindow mainWindow;
-        public edittime(MainWindow mainWindow, ObservableCollection<Timecheckin> entry, int index, DataGrid times, HttpClient httpClient)
+        public edittime(int id, ObservableCollection<Timecheckin> entry, int index, DataGrid times, HttpClient httpClient)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
-            uid = mainWindow.CurrentUser.Id;
+            uid = id;
             Index = index;
             entries = entry;
             DataContext = this;

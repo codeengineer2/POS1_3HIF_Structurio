@@ -60,7 +60,62 @@ namespace Structurio.Pages
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            bool valid = true;
+
+            string nameText = nameBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(nameText))
+            {
+                nameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                nameInfo.Text = "Name ist erforderlich!";
+                nameInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (nameText.Length > 5)
+            {
+                nameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                nameInfo.Text = "Name darf max. 5 Zeichen haben!";
+                nameInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else
+            {
+                nameBox.ClearValue(BackgroundProperty);
+                nameInfo.Text = "* erforderlich";
+                nameInfo.Foreground = Brushes.Gray;
+            }
+
+            string descriptionText = descriptionBox.Text.Trim();
+            if (string.IsNullOrWhiteSpace(descriptionText))
+            {
+                descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                descriptionInfo.Text = "Beschreibung ist erforderlich!";
+                descriptionInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else if (descriptionText.Length > 200)
+            {
+                descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
+                descriptionInfo.Text = "Beschreibung darf max. 200 Zeichen haben!";
+                descriptionInfo.Foreground = Brushes.DarkRed;
+                valid = false;
+            }
+            else
+            {
+                descriptionBox.ClearValue(BackgroundProperty);
+                descriptionInfo.Text = "* erforderlich";
+                descriptionInfo.Foreground = Brushes.Gray;
+            }
+
+            if (!valid)
+            {
+                return;
+            }
+
+            project.Name = nameText;
+            project.Description = descriptionText;
+            project.Color = (colorPicker.SelectedColor ?? Colors.LightGray).ToString();
+
+            mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
         }
     }
 }
