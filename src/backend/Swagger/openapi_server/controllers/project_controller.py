@@ -4,6 +4,9 @@ from openapi_server.models.project_request import ProjectRequest
 from openapi_server.models.update_project_request import UpdateProjectRequest
 
 def get_connection():
+    """
+    Stellt eine Verbindung zur Neon-Datenbank her.
+    """
     # egal weil egal
     conn_str = (
         "postgresql://structure_owner:npg_cEPXthQ49IRm@"
@@ -13,6 +16,12 @@ def get_connection():
     return psycopg2.connect(conn_str)
 
 def create_project(body):
+    """
+    Erstellt ein neues Projekt und ein leeres Board.
+
+    :param body: JSON mit name, description, color und owner_uid
+    :return: JSON mit Erfolgsmeldung, pid und board-ID
+    """
     name = body.get("name")
     description = body.get("description")
     color = body.get("color")
@@ -56,6 +65,12 @@ def create_project(body):
         conn.close()
 
 def update_project(body):
+    """
+    Aktualisiert die Attribute eines Projekts.
+
+    :param body: JSON mit pid, name, description, color
+    :return: JSON mit Erfolgsmeldung
+    """
     pid = body.get("pid")
     name = body.get("name")
     description = body.get("description")
@@ -92,6 +107,12 @@ def update_project(body):
         conn.close()
 
 def delete_project(pid):
+    """
+    Löscht ein Projekt.
+
+    :param pid: Die Project-ID
+    :return: JSON mit Erfolgsmeldung
+    """
     conn = get_connection()
 
     try:

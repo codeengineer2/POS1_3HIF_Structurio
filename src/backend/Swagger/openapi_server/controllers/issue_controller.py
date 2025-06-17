@@ -4,6 +4,9 @@ from openapi_server.models.add_issue_request import AddIssueRequest
 from openapi_server.models.update_issue_request import UpdateIssueRequest
 
 def get_connection():
+    """
+    Stellt eine Verbindung zur Neon-Datenbank her.
+    """
     # egal weil egal
     conn_str = (
         "postgresql://structure_owner:npg_cEPXthQ49IRm@"
@@ -13,6 +16,12 @@ def get_connection():
     return psycopg2.connect(conn_str)
 
 def add_issue(body):
+    """
+    Erstellt ein neues Issue.
+
+    :param body: JSON mit description und column_id
+    :return: JSON mit Erfolgsmeldung und issue_id
+    """
     description = body.get("description")
     column_id = body.get("column_id")
 
@@ -44,6 +53,12 @@ def add_issue(body):
         conn.close()
 
 def update_issue(body):
+    """
+    Aktualisiert die Beschreibung eines Issues.
+
+    :param body: JSON mit issue_id und description
+    :return: JSON mit Erfolgsmeldung
+    """
     issue_id = body.get("id")
     new_description = body.get("description")
 
@@ -74,6 +89,12 @@ def update_issue(body):
         conn.close()
 
 def delete_issue(id_):
+    """
+    Löscht ein Issue.
+
+    :param id_: iid
+    :return: JSON mit Erfolgsmeldung
+    """
     conn = get_connection()
 
     try:

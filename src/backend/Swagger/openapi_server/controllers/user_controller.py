@@ -1,8 +1,12 @@
 import psycopg2
-from openapi_server.models.login_request import LoginRequest
 from openapi_server.models.email_request import EmailRequest
+from openapi_server.models.login_request import LoginRequest
+from openapi_server.models.register_request import RegisterRequest
 
 def get_connection():
+    """
+    Stellt eine Verbindung zur Neon-Datenbank her.
+    """
     # egal weil egal
     conn_str = (
         "postgresql://structure_owner:npg_cEPXthQ49IRm@"
@@ -12,6 +16,12 @@ def get_connection():
     return psycopg2.connect(conn_str)
 
 def auth_check_email_post(body):
+    """
+    Prüft ob eine bestimmte EMail existiert.
+
+    :param body: EmailRequest-Objekt oder dict mit email
+    :return: JSON mit Erfolgsmeldung
+    """
     email = body.get("email") if isinstance(body, dict) else body.email
 
     conn = get_connection()
@@ -27,6 +37,13 @@ def auth_check_email_post(body):
         return {"error": "E-Mail nicht gefunden"}, 404
 
 def auth_login_post(body):
+    """
+    Führt einen Anmeldevorgang mit EMail und Passwort durch.
+    Gibt bei Erfolg vollständige Benutzerdaten und Projektdaten zurück sonst Fehlermeldung.
+
+    :param body: LoginRequest-Objekt oder dict mit email und password
+    :return: JSON mit Benutzer und Projekten oder Fehlermeldung
+    """
     email = body.get("email") if isinstance(body, dict) else body.email
     password = body.get("password") if isinstance(body, dict) else body.password
 
@@ -98,6 +115,12 @@ def auth_login_post(body):
     }, 200
 
 def auth_register_post(body):
+    """
+    Erstellt einen Benutzer mit den übergebenen Daten.
+
+    :param body: RegisterRequest-Objekt oder dict mit Vorname, Nachname, Email, Passwort, Geburtsdatum
+    :return: JSON mit Benutzer oder Fehlermeldung
+    """
     firstname = body.get("firstname") if isinstance(body, dict) else body.firstname
     lastname = body.get("lastname") if isinstance(body, dict) else body.lastname
     email = body.get("email") if isinstance(body, dict) else body.email

@@ -4,6 +4,9 @@ from openapi_server.models.add_column_request import AddColumnRequest
 from openapi_server.models.update_column_request import UpdateColumnRequest
 
 def get_connection():
+    """
+    Stellt eine Verbindung zur Neon-Datenbank her.
+    """
     # egal weil egal
     conn_str = (
         "postgresql://structure_owner:npg_cEPXthQ49IRm@"
@@ -13,6 +16,12 @@ def get_connection():
     return psycopg2.connect(conn_str)
 
 def add_column(body):
+    """
+    Erstellt eine neue Spalte.
+
+    :param body: JSON mit board_id und name
+    :return: JSON mit neuer Column-ID und Name
+    """
     board_id = body.get("board_id")
     name = body.get("name")
 
@@ -40,6 +49,12 @@ def add_column(body):
         conn.close()
 
 def update_column(body):
+    """
+    Aktualisiert den Namen einer Spalte.
+
+    :param body: JSON mit cid und name
+    :return: JSON mit Erfolgsmeldung
+    """
     cid = body.get("id")
     name = body.get("name")
 

@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Structurio Auth API
   version: 1.0.0
-  description: Nur Check-Email, Try-Login, Register, Projects, Issues, Columns Endpoints
+  description: Endpoints
 
 servers:
   - url: http://localhost:8080
@@ -325,8 +325,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Timestamp'
       x-openapi-router-controller: openapi_server.controllers.timestamp_controller
+
   /abrechnung/{uid}/{pid}:
-    
     get:
       summary: Liste aller Abrechnungen
       operationId: get_abrechnungen
@@ -355,6 +355,7 @@ paths:
                   $ref: '#/components/schemas/Abrechnung'
         '400':
           description: Ungültige Eingabedaten
+
   /abrechnung:
     post:
       summary: Neue Abrechnung erstellen
