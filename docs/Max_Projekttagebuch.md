@@ -1,4 +1,4 @@
-# Max' Projekttagebuch
+# Max Projekttagebuch
 
 | Datum      | Aktivität                                                                 |
 |------------|--------------------------------------------------------------------------|
