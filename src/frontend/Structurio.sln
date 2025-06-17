@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Structurio", "Structurio\Structurio.csproj", "{963C5EAB-E31C-46C5-8001-A79B9442CE8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{30361D79-BCDF-42B5-A4B9-BAC36B486B1E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{963C5EAB-E31C-46C5-8001-A79B9442CE8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963C5EAB-E31C-46C5-8001-A79B9442CE8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963C5EAB-E31C-46C5-8001-A79B9442CE8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963C5EAB-E31C-46C5-8001-A79B9442CE8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30361D79-BCDF-42B5-A4B9-BAC36B486B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30361D79-BCDF-42B5-A4B9-BAC36B486B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30361D79-BCDF-42B5-A4B9-BAC36B486B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30361D79-BCDF-42B5-A4B9-BAC36B486B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2A64A980-F18D-4E42-9DA8-5C3D46AD5612}
+	EndGlobalSection
+EndGlobal

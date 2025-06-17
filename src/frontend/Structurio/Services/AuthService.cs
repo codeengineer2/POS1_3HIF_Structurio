@@ -15,7 +15,7 @@ namespace Structurio.Services
 
         public AuthService(IApiService apiService)
         {
-            apiService = apiService;
+            this.apiService = apiService;
         }
 
         public async Task<bool> TryLogin(string email, string password)
