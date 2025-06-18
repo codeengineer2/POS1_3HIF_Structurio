@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Serilog;
 using Structurio.Classes;
 using Structurio.Interfaces;
 using Structurio.Services;
@@ -31,6 +32,9 @@ namespace Structurio.Pages
         public ProjectSettingsPage(MainWindow mainWindow, Project project)
         {
             InitializeComponent();
+
+            Log.Information($"Initialisiere die ProjectSettingsPage für Projekt das Projekt mit dem Namen={project.Name}.");
+
             this.mainWindow = mainWindow;
             this.project = project;
 
@@ -55,10 +59,13 @@ namespace Structurio.Pages
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"Delete Button wurde geklickt für Projekt mit dem Namen={project.Name}");
+
             var confirmed = MessageBox.Show("Wirklich löschen?", "Bestätigen", MessageBoxButton.YesNo);
 
             if (confirmed != MessageBoxResult.Yes)
             {
+                Log.Information("Löschung vom Benutzer abgebrochen.");
                 return;
             }
 
@@ -69,10 +76,12 @@ namespace Structurio.Pages
                 bool success = await api.DeleteProjectAsync(project.Id);
                 if (success)
                 {
+                    Log.Information($"Projekt mit dem Namen={project.Name} wurde erfolgreich gelöscht.");
                     mainWindow.RemoveProjectById(project.Id);
                 }
                 else
                 {
+                    Log.Error($"Fehler beim Löschen des Projekts mit dem Namen={project.Name}.");
                     MessageBox.Show("Fehler beim Löschen");
                 }
             });
@@ -80,11 +89,15 @@ namespace Structurio.Pages
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"Save Button wurde geklickt für das Projekt mit dem Namen={project.Name}.");
+
             bool valid = true;
 
             string nameText = nameBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(nameText))
             {
+                Log.Warning($"Name={project.Name} ist leer.");
+
                 nameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 nameInfo.Text = "Name ist erforderlich!";
                 nameInfo.Foreground = Brushes.DarkRed;
@@ -92,6 +105,8 @@ namespace Structurio.Pages
             }
             else if (nameText.Length > 5)
             {
+                Log.Warning($"Name={project.Name} ist zu lang.");
+
                 nameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 nameInfo.Text = "Name darf max. 5 Zeichen haben!";
                 nameInfo.Foreground = Brushes.DarkRed;
@@ -101,6 +116,8 @@ namespace Structurio.Pages
             string descriptionText = descriptionBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(descriptionText))
             {
+                Log.Warning($"Beschreibung={project.Description} ist leer.");
+
                 descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 descriptionInfo.Text = "Beschreibung ist erforderlich!";
                 descriptionInfo.Foreground = Brushes.DarkRed;
@@ -108,6 +125,8 @@ namespace Structurio.Pages
             }
             else if (descriptionText.Length > 200)
             {
+                Log.Warning($"Beschreibung={project.Description} ist zu lang.");
+
                 descriptionBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 descriptionInfo.Text = "Beschreibung darf max. 200 Zeichen haben!";
                 descriptionInfo.Foreground = Brushes.DarkRed;
@@ -116,6 +135,7 @@ namespace Structurio.Pages
 
             if (!valid)
             {
+                Log.Information("Speichern abgebrochen wegen Validierungsfehlern in der ProjectSettingsPage.");
                 return;
             }
 
@@ -130,10 +150,12 @@ namespace Structurio.Pages
                 bool success = await api.UpdateProjectAsync(project);
                 if (success)
                 {
+                    Log.Information($"Projekt mit dem Namen={project.Name} wurde erfolgreich aktualisiert.");
                     mainWindow.MainFramePublic.Navigate(new ProjectsPage(mainWindow, mainWindow.UserProjects));
                 }
                 else
                 {
+                    Log.Error($"Fehler beim aktualisieren des Projekts mit dem Namen={project.Name}.");
                     MessageBox.Show("Fehler beim Speichern des Projekts.");
                 }
             });

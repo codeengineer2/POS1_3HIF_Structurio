@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Serilog;
 using Structurio.Controls;
     
 namespace Structurio.Pages
@@ -34,12 +35,16 @@ namespace Structurio.Pages
 
             if (type == "file")
             {
+                Log.Information("Dateityp ist 'file'.");
+
                 path = System.IO.Path.Combine(projectPath, "file.pdf");
                 var fileBox = new FileBoxControl("file", "file.pdf", path);
                 AddFileBoxFromPath(path);
             }
             else
             {
+                Log.Information("Dateityp ist 'diagram'.");
+
                 path = System.IO.Path.Combine(projectPath, "diagram.pdf");
                 var fileBox = new FileBoxControl("diagram", "diagram.pdf", path);
                 AddFileBoxFromPath(path);
@@ -48,6 +53,7 @@ namespace Structurio.Pages
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Back Button wurde geklickt.");
             NavigationService?.Navigate(new ProjectFoldersPage());
         }
 
@@ -58,11 +64,15 @@ namespace Structurio.Pages
             var query = searchBox.Text.ToLower();
             var filtered = allFileBoxes.Where(f => f.FileName.Replace(".pdf", "").Contains(query)).ToList();
 
+            Log.Information($"Suche wurde gestartet mit dem Query={query}.");
+
             RenderBoxes(filtered);
         }
 
         private void UploadBox_Click(object sender, MouseButtonEventArgs e)
         {
+            Log.Information("UploadBox wurde geklickt.");
+
             var dialog = new OpenFileDialog
             {
                 Filter = "PDF-Dateien (*.pdf)|*.pdf",
@@ -90,6 +100,7 @@ namespace Structurio.Pages
                 if (files.Length > 0)
                 {
                     string extension = System.IO.Path.GetExtension(files[0]).ToLower();
+                    Log.Information($"Empfangene Datei={files[0]}.");
 
                     if (extension == ".pdf")
                     {
@@ -97,6 +108,7 @@ namespace Structurio.Pages
                     }
                     else
                     {
+                        Log.Warning("Ungültiger Dateityp.");
                         MessageBox.Show("Fehler nur pdfs erlaubt!");
                     }
                 }
@@ -109,6 +121,7 @@ namespace Structurio.Pages
 
             if (extension != ".pdf")
             {
+                Log.Warning("Ungültiger Dateityp.");
                 MessageBox.Show("Fehler nur pdfs erlaubt!");
                 return;
             }
@@ -134,11 +147,14 @@ namespace Structurio.Pages
                     {
                         Stretch = Stretch.UniformToFill
                     };
+
+                    Log.Information("FilePreviewWindow wurde erfolgreich generiert.");
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message);
+                Log.Error($"{ex.Message}, Fehler beim laden oder rendern der Datei.");
+                MessageBox.Show(ex.Message);
                 return;
             }
 
@@ -153,6 +169,8 @@ namespace Structurio.Pages
 
             allFileBoxes.Add(fileBox);
             fileBoxPanel.Children.Add(fileBox);
+
+            Log.Information($"FileBox wurde hinzugefügt die den Pfad={filePath} hat.");
         }
 
         private void RenderBoxes(IEnumerable<FileBoxControl> boxes)
