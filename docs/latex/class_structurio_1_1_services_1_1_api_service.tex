@@ -1,0 +1,194 @@
+\doxysection{Structurio.\+Services.\+Api\+Service Class Reference}
+\hypertarget{class_structurio_1_1_services_1_1_api_service}{}\label{class_structurio_1_1_services_1_1_api_service}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+Inheritance diagram for Structurio.\+Services.\+Api\+Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_structurio_1_1_services_1_1_api_service}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a3ef054654c3002dc976179dee40a6476}{Api\+Service}} (Http\+Client? injected\+Client=null)
+\item 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_login_response}{Login\+Response}}?$>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a210fe938ae1efeb686006e97dc8af6e6}{Login\+Async}} (string email, string password)
+\begin{DoxyCompactList}\small\item\em Login mit EMail und Passwort. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_ac5f0be77fdd1cf1640a79375649d3058}{Register\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_register_request}{Register\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Registrierung von neuem \doxylink{class_structurio_1_1_classes_1_1_user}{User}. \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_project}{Project}}?$>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a8d27bf542892fd0d61abd38df0eb66b3}{Create\+Project\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_project_request}{Project\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Erstellt neues Projekt. \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_issue}{Issue}}?$>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a25680516cbb94370efc8266708fb8f0e}{Add\+Issue\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_add_issue_request}{Add\+Issue\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Fügt neues \doxylink{class_structurio_1_1_classes_1_1_issue}{Issue} hinzu. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a9480f2e4be65f6f46d605ed300e1e1eb}{Update\+Issue\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_update_issue_request}{Update\+Issue\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Ändert ein \doxylink{class_structurio_1_1_classes_1_1_issue}{Issue}. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a61e8fc8d0b3073824e454ff07cd970ea}{Delete\+Issue\+Async}} (int id)
+\begin{DoxyCompactList}\small\item\em Löscht ein \doxylink{class_structurio_1_1_classes_1_1_issue}{Issue}. \end{DoxyCompactList}\item 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_column}{Column}}?$>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_ad305af48823c57f44f3ef51c4c9daaea}{Add\+Column\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_add_column_request}{Add\+Column\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Fügt neue Spalte hinzu. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a7f1747093677716c25186c2befd3f1e1}{Update\+Column\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_update_column_request}{Update\+Column\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Ändert Spaltennamen. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_ae5330640d99a796cc142c56b74d885d4}{Delete\+Project\+Async}} (int project\+Id)
+\begin{DoxyCompactList}\small\item\em Löscht Projekt. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_api_service_a0c51b46494bf2aa98fbfaba26e7e19f4}{Update\+Project\+Async}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_project}{Project}} project)
+\begin{DoxyCompactList}\small\item\em Ändert ein Projekt. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a3ef054654c3002dc976179dee40a6476}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!ApiService@{ApiService}}
+\index{ApiService@{ApiService}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{ApiService()}{ApiService()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a3ef054654c3002dc976179dee40a6476} 
+Structurio.\+Services.\+Api\+Service.\+Api\+Service (\begin{DoxyParamCaption}\item[{Http\+Client?}]{injected\+Client}{ = {\ttfamily null}}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_ad305af48823c57f44f3ef51c4c9daaea}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!AddColumnAsync@{AddColumnAsync}}
+\index{AddColumnAsync@{AddColumnAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{AddColumnAsync()}{AddColumnAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_ad305af48823c57f44f3ef51c4c9daaea} 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_column}{Column}}?$>$ Structurio.\+Services.\+Api\+Service.\+Add\+Column\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_add_column_request}{Add\+Column\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Fügt neue Spalte hinzu. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_af94a9a93e121e6af363f0a0992e40f46}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a25680516cbb94370efc8266708fb8f0e}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!AddIssueAsync@{AddIssueAsync}}
+\index{AddIssueAsync@{AddIssueAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{AddIssueAsync()}{AddIssueAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a25680516cbb94370efc8266708fb8f0e} 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_issue}{Issue}}?$>$ Structurio.\+Services.\+Api\+Service.\+Add\+Issue\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_add_issue_request}{Add\+Issue\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Fügt neues \doxylink{class_structurio_1_1_classes_1_1_issue}{Issue} hinzu. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_accf2d2b5c77dc0763d49ad1cc047534b}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a8d27bf542892fd0d61abd38df0eb66b3}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!CreateProjectAsync@{CreateProjectAsync}}
+\index{CreateProjectAsync@{CreateProjectAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{CreateProjectAsync()}{CreateProjectAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a8d27bf542892fd0d61abd38df0eb66b3} 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_project}{Project}}?$>$ Structurio.\+Services.\+Api\+Service.\+Create\+Project\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_project_request}{Project\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Erstellt neues Projekt. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_a41a20b5b86dc0c3e704f24e1a76b0050}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a61e8fc8d0b3073824e454ff07cd970ea}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!DeleteIssueAsync@{DeleteIssueAsync}}
+\index{DeleteIssueAsync@{DeleteIssueAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{DeleteIssueAsync()}{DeleteIssueAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a61e8fc8d0b3073824e454ff07cd970ea} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Api\+Service.\+Delete\+Issue\+Async (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})}
+
+
+
+Löscht ein \doxylink{class_structurio_1_1_classes_1_1_issue}{Issue}. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_a35baa8a83c5756b8d58ec3fa8db74789}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_ae5330640d99a796cc142c56b74d885d4}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!DeleteProjectAsync@{DeleteProjectAsync}}
+\index{DeleteProjectAsync@{DeleteProjectAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{DeleteProjectAsync()}{DeleteProjectAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_ae5330640d99a796cc142c56b74d885d4} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Api\+Service.\+Delete\+Project\+Async (\begin{DoxyParamCaption}\item[{int}]{project\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Löscht Projekt. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_a497fd71318f0f15639a11c7c5eb17758}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a210fe938ae1efeb686006e97dc8af6e6}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!LoginAsync@{LoginAsync}}
+\index{LoginAsync@{LoginAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{LoginAsync()}{LoginAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a210fe938ae1efeb686006e97dc8af6e6} 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_login_response}{Login\+Response}}?$>$ Structurio.\+Services.\+Api\+Service.\+Login\+Async (\begin{DoxyParamCaption}\item[{string}]{email}{, }\item[{string}]{password}{}\end{DoxyParamCaption})}
+
+
+
+Login mit EMail und Passwort. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_a1ac018eefecc75f40cfec9787c9a8d6b}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_ac5f0be77fdd1cf1640a79375649d3058}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!RegisterAsync@{RegisterAsync}}
+\index{RegisterAsync@{RegisterAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{RegisterAsync()}{RegisterAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_ac5f0be77fdd1cf1640a79375649d3058} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Api\+Service.\+Register\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_register_request}{Register\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Registrierung von neuem \doxylink{class_structurio_1_1_classes_1_1_user}{User}. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_aeef8a1a29f36934162964fdbf0885e97}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a7f1747093677716c25186c2befd3f1e1}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!UpdateColumnAsync@{UpdateColumnAsync}}
+\index{UpdateColumnAsync@{UpdateColumnAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{UpdateColumnAsync()}{UpdateColumnAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a7f1747093677716c25186c2befd3f1e1} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Api\+Service.\+Update\+Column\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_update_column_request}{Update\+Column\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Ändert Spaltennamen. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_ac8cf0b79e37c6e346e8c578e201259cf}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a9480f2e4be65f6f46d605ed300e1e1eb}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!UpdateIssueAsync@{UpdateIssueAsync}}
+\index{UpdateIssueAsync@{UpdateIssueAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{UpdateIssueAsync()}{UpdateIssueAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a9480f2e4be65f6f46d605ed300e1e1eb} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Api\+Service.\+Update\+Issue\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_update_issue_request}{Update\+Issue\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Ändert ein \doxylink{class_structurio_1_1_classes_1_1_issue}{Issue}. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_aefc2fef5a47ca4c687bd1608929f4d2d}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_api_service_a0c51b46494bf2aa98fbfaba26e7e19f4}\index{Structurio.Services.ApiService@{Structurio.Services.ApiService}!UpdateProjectAsync@{UpdateProjectAsync}}
+\index{UpdateProjectAsync@{UpdateProjectAsync}!Structurio.Services.ApiService@{Structurio.Services.ApiService}}
+\doxysubsubsection{\texorpdfstring{UpdateProjectAsync()}{UpdateProjectAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_api_service_a0c51b46494bf2aa98fbfaba26e7e19f4} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Api\+Service.\+Update\+Project\+Async (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_project}{Project}}}]{project}{}\end{DoxyParamCaption})}
+
+
+
+Ändert ein Projekt. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service_a24870056eb1b1f690243309c35c4b1a9}{Structurio.\+Interfaces.\+IApi\+Service}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+frontend/\+Structurio/\+Services/\mbox{\hyperlink{_api_service_8cs}{Api\+Service.\+cs}}\end{DoxyCompactItemize}

@@ -32,6 +32,9 @@ namespace Structurio.Pages
         private Regex emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
         private Regex passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z0-9]).{8,64}$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// Initialisiert die Anmeldeseite.
+        /// </summary>
         public SignInPage(LoginWindow loginWindow, IApiService api)
         {
             InitializeComponent();
@@ -46,6 +49,9 @@ namespace Structurio.Pages
             CommandManager.AddPreviewExecutedHandler(passwordTextBox, BlockCopyPasteCommand);
         }
 
+        /// <summary>
+        /// Blockiert Copy, Cut und Paste in Passwortfeldern.
+        /// </summary>
         private void BlockCopyPasteCommand(object sender, ExecutedRoutedEventArgs e)
         {
             if (e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
@@ -55,17 +61,27 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Navigiert zur Passwort-zurücksetzen-Seite.
+        /// </summary>
         private void forgotPassword_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Gehe zur PasswordResetPage.");
             loginWindow.GoToPasswordResetPage();
         }
 
+        /// <summary>
+        /// Navigiert zur Registrierungsseite.
+        /// </summary>
         private void GoToSignUp_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Gehe zur SignUpPage.");
             loginWindow.GoToSignUpPage();
         }
+
+        /// <summary>
+        /// Setzt E-Mail-Feld visuell zurück.
+        /// </summary>
         private void emailBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             emailBox.Background = Brushes.White;
@@ -73,6 +89,9 @@ namespace Structurio.Pages
             emailInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Setzt Passwortfeld (versteckt) visuell zurück.
+        /// </summary>
         private void passwordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             passwordBox.Background = Brushes.White;
@@ -80,6 +99,9 @@ namespace Structurio.Pages
             passwordInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Setzt Passwortfeld (sichtbar) visuell zurück.
+        /// </summary>
         private void passwordTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             passwordTextBox.Background = Brushes.White;
@@ -87,6 +109,9 @@ namespace Structurio.Pages
             passwordInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Schaltet die Passwortanzeige um.
+        /// </summary>
         private void togglePasswordButton_Click(object sender, RoutedEventArgs e)
         {
             Log.Information($"Passwortanzeige wurde umgeschalten zu {isPasswordVisible}.");
@@ -111,6 +136,9 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Führt Validierung durch und versucht den Login über die API.
+        /// </summary>
         private async void login_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Login Button wurde geklickt.");

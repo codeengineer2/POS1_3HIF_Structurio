@@ -16,19 +16,36 @@ using System.Windows.Shapes;
 namespace Structurio.Windows
 {
     /// <summary>
-    /// Interaktionslogik für CreateProjectWindow.xaml
+    /// Fenster zur Erstellung eines neuen Projekts.
     /// </summary>
     public partial class CreateProjectWindow : Window
     {
+        /// <summary>
+        /// Projektname (max. 5 Zeichen, Pflichtfeld).
+        /// </summary>
         public string ProjectName { get; private set; }
+
+        /// <summary>
+        /// Projektbeschreibung (max. 200 Zeichen, Pflichtfeld).
+        /// </summary>
         public string ProjectDescription { get; private set; }
+
+        /// <summary>
+        /// Farbwert des Projekts als Hex-String.
+        /// </summary>
         public string ProjectColor { get; private set; }
 
+        /// <summary>
+        /// Initialisiert das Fenster.
+        /// </summary>
         public CreateProjectWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Prüft Eingaben und erstellt bei Gültigkeit das Projekt.
+        /// </summary>
         private void Create_Click(object sender, RoutedEventArgs e)
         {
             bool valid = true;
@@ -93,6 +110,9 @@ namespace Structurio.Windows
             Close();
         }
 
+        /// <summary>
+        /// Setzt Namensfeld-Fehlermeldung zurück.
+        /// </summary>
         private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             nameBox.ClearValue(BackgroundProperty);
@@ -100,6 +120,9 @@ namespace Structurio.Windows
             nameInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Setzt Beschreibungsfeld-Fehlermeldung zurück.
+        /// </summary>
         private void DescriptionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             descriptionBox.ClearValue(BackgroundProperty);

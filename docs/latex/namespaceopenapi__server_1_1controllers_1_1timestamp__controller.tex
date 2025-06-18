@@ -1,0 +1,124 @@
+\doxysection{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller Namespace Reference}
+\hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller}{}\label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a0f17e694917057258366359d027f1a0e}{get\+\_\+connection}} ()
+\begin{DoxyCompactList}\small\item\em Stellt eine Verbindung zur Postgre\+SQL-\/\+Datenbank her. \end{DoxyCompactList}\item 
+dict \mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_af051be57f7a9e55c61d8985e90ab2633}{\+\_\+serialize\+\_\+timestamp\+\_\+record}} (dict record)
+\begin{DoxyCompactList}\small\item\em Serialisiert einen Zeitstempel-\/\+Datensatz. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a01dfa41f34653326232d6400380d7717}{get\+\_\+timestamps\+\_\+by\+\_\+user}} (uid)
+\begin{DoxyCompactList}\small\item\em Gibt alle Zeitstempel eines Benutzers zurück. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_ad0c30cb8cf69fda574a37af736c5f254}{create\+\_\+timestamp}} ()
+\begin{DoxyCompactList}\small\item\em Erstellt einen neuen Zeitstempel. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a8a9e2847dc79d38b376e19c278c74c2d}{get\+\_\+timestamp\+\_\+by\+\_\+id}} (zid)
+\begin{DoxyCompactList}\small\item\em Gibt einen Zeitstempel anhand der ID zurück. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a7d58d1a74d49641f2594091689f99313}{update\+\_\+timestamp}} (uid, zid)
+\begin{DoxyCompactList}\small\item\em Aktualisiert einen bestehenden Zeitstempel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_af051be57f7a9e55c61d8985e90ab2633}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}!\_serialize\_timestamp\_record@{\_serialize\_timestamp\_record}}
+\index{\_serialize\_timestamp\_record@{\_serialize\_timestamp\_record}!openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection{\texorpdfstring{\_serialize\_timestamp\_record()}{\_serialize\_timestamp\_record()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_af051be57f7a9e55c61d8985e90ab2633} 
+ dict openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+\_\+serialize\+\_\+timestamp\+\_\+record (\begin{DoxyParamCaption}\item[{dict}]{record}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Serialisiert einen Zeitstempel-\/\+Datensatz. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em record} & Dictionary mit Datenbankwerten. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Serialisiertes Dictionary mit Datum/\+Zeit als String. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_ad0c30cb8cf69fda574a37af736c5f254}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}!create\_timestamp@{create\_timestamp}}
+\index{create\_timestamp@{create\_timestamp}!openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection{\texorpdfstring{create\_timestamp()}{create\_timestamp()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_ad0c30cb8cf69fda574a37af736c5f254} 
+openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+create\+\_\+timestamp (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Erstellt einen neuen Zeitstempel. 
+
+\begin{DoxyReturn}{Returns}
+JSON-\/\+Antwort mit dem neu erstellten Zeitstempel oder Fehlermeldung. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a0f17e694917057258366359d027f1a0e}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}!get\_connection@{get\_connection}}
+\index{get\_connection@{get\_connection}!openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_connection()}{get\_connection()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a0f17e694917057258366359d027f1a0e} 
+openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+get\+\_\+connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stellt eine Verbindung zur Postgre\+SQL-\/\+Datenbank her. 
+
+\begin{DoxyReturn}{Returns}
+psycopg2-\/\+Verbindung
+\end{DoxyReturn}
+\begin{DoxyVerb}Stellt eine Verbindung zur Neon-Postgres-Datenbank her.
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a8a9e2847dc79d38b376e19c278c74c2d}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}!get\_timestamp\_by\_id@{get\_timestamp\_by\_id}}
+\index{get\_timestamp\_by\_id@{get\_timestamp\_by\_id}!openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_timestamp\_by\_id()}{get\_timestamp\_by\_id()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a8a9e2847dc79d38b376e19c278c74c2d} 
+openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+get\+\_\+timestamp\+\_\+by\+\_\+id (\begin{DoxyParamCaption}\item[{}]{zid}{}\end{DoxyParamCaption})}
+
+
+
+Gibt einen Zeitstempel anhand der ID zurück. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em zid} & Zeitstempel-\/\+ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON-\/\+Antwort mit Zeitstempeldaten oder 404 bei Fehler. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a01dfa41f34653326232d6400380d7717}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}!get\_timestamps\_by\_user@{get\_timestamps\_by\_user}}
+\index{get\_timestamps\_by\_user@{get\_timestamps\_by\_user}!openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_timestamps\_by\_user()}{get\_timestamps\_by\_user()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a01dfa41f34653326232d6400380d7717} 
+openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+get\+\_\+timestamps\+\_\+by\+\_\+user (\begin{DoxyParamCaption}\item[{}]{uid}{}\end{DoxyParamCaption})}
+
+
+
+Gibt alle Zeitstempel eines Benutzers zurück. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Benutzer-\/\+ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON-\/\+Antwort mit Zeitstempeldaten oder 404 bei Fehler. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a7d58d1a74d49641f2594091689f99313}\index{openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}!update\_timestamp@{update\_timestamp}}
+\index{update\_timestamp@{update\_timestamp}!openapi\_server.controllers.timestamp\_controller@{openapi\_server.controllers.timestamp\_controller}}
+\doxysubsubsection{\texorpdfstring{update\_timestamp()}{update\_timestamp()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a7d58d1a74d49641f2594091689f99313} 
+openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+update\+\_\+timestamp (\begin{DoxyParamCaption}\item[{}]{uid}{, }\item[{}]{zid}{}\end{DoxyParamCaption})}
+
+
+
+Aktualisiert einen bestehenden Zeitstempel. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Benutzer-\/\+ID. \\
+\hline
+{\em zid} & Zeitstempel-\/\+ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON-\/\+Antwort mit aktualisierten Daten oder 404 bei Fehler. 
+\end{DoxyReturn}

@@ -1,0 +1,61 @@
+\doxysection{openapi\+\_\+server.\+controllers.\+user\+\_\+controller Namespace Reference}
+\hypertarget{namespaceopenapi__server_1_1controllers_1_1user__controller}{}\label{namespaceopenapi__server_1_1controllers_1_1user__controller}\index{openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1user__controller_acd95132d590d8b54f450f09b7db7cac8}{get\+\_\+connection}} ()
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1user__controller_a79836b77b2cf76114a402b375bf24cff}{auth\+\_\+check\+\_\+email\+\_\+post}} (body)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1user__controller_a38909af922d5387595f73b80770ad038}{auth\+\_\+login\+\_\+post}} (body)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1user__controller_a659b8b6b663027294ef4c4a4f4ee863a}{auth\+\_\+register\+\_\+post}} (body)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1user__controller_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1user__controller_a79836b77b2cf76114a402b375bf24cff}\index{openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}!auth\_check\_email\_post@{auth\_check\_email\_post}}
+\index{auth\_check\_email\_post@{auth\_check\_email\_post}!openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}}
+\doxysubsubsection{\texorpdfstring{auth\_check\_email\_post()}{auth\_check\_email\_post()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1user__controller_a79836b77b2cf76114a402b375bf24cff} 
+openapi\+\_\+server.\+controllers.\+user\+\_\+controller.\+auth\+\_\+check\+\_\+email\+\_\+post (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Prüft ob eine bestimmte EMail existiert.
+
+@param body: EmailRequest-Objekt oder dict mit email
+@return: JSON mit Erfolgsmeldung
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1user__controller_a38909af922d5387595f73b80770ad038}\index{openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}!auth\_login\_post@{auth\_login\_post}}
+\index{auth\_login\_post@{auth\_login\_post}!openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}}
+\doxysubsubsection{\texorpdfstring{auth\_login\_post()}{auth\_login\_post()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1user__controller_a38909af922d5387595f73b80770ad038} 
+openapi\+\_\+server.\+controllers.\+user\+\_\+controller.\+auth\+\_\+login\+\_\+post (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Führt einen Anmeldevorgang mit EMail und Passwort durch.
+Gibt bei Erfolg vollständige Benutzerdaten und Projektdaten zurück sonst Fehlermeldung.
+
+@param body: LoginRequest-Objekt oder dict mit email und password
+@return: JSON mit Benutzer und Projekten oder Fehlermeldung
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1user__controller_a659b8b6b663027294ef4c4a4f4ee863a}\index{openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}!auth\_register\_post@{auth\_register\_post}}
+\index{auth\_register\_post@{auth\_register\_post}!openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}}
+\doxysubsubsection{\texorpdfstring{auth\_register\_post()}{auth\_register\_post()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1user__controller_a659b8b6b663027294ef4c4a4f4ee863a} 
+openapi\+\_\+server.\+controllers.\+user\+\_\+controller.\+auth\+\_\+register\+\_\+post (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Erstellt einen Benutzer mit den übergebenen Daten.
+
+@param body: RegisterRequest-Objekt oder dict mit Vorname, Nachname, Email, Passwort, Geburtsdatum
+@return: JSON mit Benutzer oder Fehlermeldung
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1user__controller_acd95132d590d8b54f450f09b7db7cac8}\index{openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}!get\_connection@{get\_connection}}
+\index{get\_connection@{get\_connection}!openapi\_server.controllers.user\_controller@{openapi\_server.controllers.user\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_connection()}{get\_connection()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1user__controller_acd95132d590d8b54f450f09b7db7cac8} 
+openapi\+\_\+server.\+controllers.\+user\+\_\+controller.\+get\+\_\+connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Stellt eine Verbindung zur Neon-Datenbank her.
+\end{DoxyVerb}
+ 

@@ -5,7 +5,7 @@ from openapi_server.models.update_issue_request import UpdateIssueRequest
 
 def get_connection():
     """
-    Stellt eine Verbindung zur Neon-Datenbank her.
+    @brief Stellt eine Verbindung zur Neon-Datenbank her.
     """
     # egal weil egal
     conn_str = (
@@ -17,10 +17,10 @@ def get_connection():
 
 def add_issue(body):
     """
-    Erstellt ein neues Issue.
+    @brief Erstellt ein neues Issue.
 
-    :param body: JSON mit description und column_id
-    :return: JSON mit Erfolgsmeldung und issue_id
+    @param body: JSON mit description und column_id
+    @return: JSON mit Erfolgsmeldung und issue_id
     """
     description = body.get("description")
     column_id = body.get("column_id")
@@ -54,10 +54,10 @@ def add_issue(body):
 
 def update_issue(body):
     """
-    Aktualisiert die Beschreibung eines Issues.
+    @brief Aktualisiert die Beschreibung eines Issues.
 
-    :param body: JSON mit issue_id und description
-    :return: JSON mit Erfolgsmeldung
+    @param body: JSON mit issue_id und description
+    @return: JSON mit Erfolgsmeldung
     """
     issue_id = body.get("id")
     new_description = body.get("description")
@@ -90,10 +90,10 @@ def update_issue(body):
 
 def delete_issue(id_):
     """
-    Löscht ein Issue.
+    @brief Löscht ein Issue.
 
-    :param id_: iid
-    :return: JSON mit Erfolgsmeldung
+    @param id_: iid
+    @return: JSON mit Erfolgsmeldung
     """
     conn = get_connection()
 

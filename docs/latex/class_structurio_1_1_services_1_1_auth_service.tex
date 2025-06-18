@@ -1,0 +1,106 @@
+\doxysection{Structurio.\+Services.\+Auth\+Service Class Reference}
+\hypertarget{class_structurio_1_1_services_1_1_auth_service}{}\label{class_structurio_1_1_services_1_1_auth_service}\index{Structurio.Services.AuthService@{Structurio.Services.AuthService}}
+Inheritance diagram for Structurio.\+Services.\+Auth\+Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_structurio_1_1_services_1_1_auth_service}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_structurio_1_1_services_1_1_auth_service_a9cc75f71af57227f2d427cc4afd6946c}{Auth\+Service}} (\mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service}{IApi\+Service}} api\+Service)
+\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_auth_service_aa2cedd50b6676b2aecfa86fca8b85c61}{Try\+Login}} (string email, string password)
+\begin{DoxyCompactList}\small\item\em Versucht Login mit EMail und Passwort. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \mbox{\hyperlink{class_structurio_1_1_services_1_1_auth_service_a84aa46901672ac11b888d372f6573d34}{Register}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_register_request}{Register\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Registriert neuen \doxylink{class_structurio_1_1_classes_1_1_user}{User}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_structurio_1_1_services_1_1_auth_service_a073951ca22716740ad9cd78a858dda90}{Logout}} ()
+\begin{DoxyCompactList}\small\item\em Loggt den \doxylink{class_structurio_1_1_classes_1_1_user}{User} aus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_structurio_1_1_classes_1_1_user}{User}}? \mbox{\hyperlink{class_structurio_1_1_services_1_1_auth_service_a8057a2c0367e62f7baa91606fba139f6}{Current\+User}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Der aktuell eingeloggte \doxylink{class_structurio_1_1_classes_1_1_user}{User}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-constructors}
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_a9cc75f71af57227f2d427cc4afd6946c}\index{Structurio.Services.AuthService@{Structurio.Services.AuthService}!AuthService@{AuthService}}
+\index{AuthService@{AuthService}!Structurio.Services.AuthService@{Structurio.Services.AuthService}}
+\doxysubsubsection{\texorpdfstring{AuthService()}{AuthService()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_auth_service_a9cc75f71af57227f2d427cc4afd6946c} 
+Structurio.\+Services.\+Auth\+Service.\+Auth\+Service (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_api_service}{IApi\+Service}}}]{api\+Service}{}\end{DoxyParamCaption})}
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_a073951ca22716740ad9cd78a858dda90}\index{Structurio.Services.AuthService@{Structurio.Services.AuthService}!Logout@{Logout}}
+\index{Logout@{Logout}!Structurio.Services.AuthService@{Structurio.Services.AuthService}}
+\doxysubsubsection{\texorpdfstring{Logout()}{Logout()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_auth_service_a073951ca22716740ad9cd78a858dda90} 
+void Structurio.\+Services.\+Auth\+Service.\+Logout (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Loggt den \doxylink{class_structurio_1_1_classes_1_1_user}{User} aus. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_auth_service_a7b8852b576c4845be1224083e09f62b0}{Structurio.\+Interfaces.\+IAuth\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_a84aa46901672ac11b888d372f6573d34}\index{Structurio.Services.AuthService@{Structurio.Services.AuthService}!Register@{Register}}
+\index{Register@{Register}!Structurio.Services.AuthService@{Structurio.Services.AuthService}}
+\doxysubsubsection{\texorpdfstring{Register()}{Register()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_auth_service_a84aa46901672ac11b888d372f6573d34} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Auth\+Service.\+Register (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_register_request}{Register\+Request}}}]{request}{}\end{DoxyParamCaption})}
+
+
+
+Registriert neuen \doxylink{class_structurio_1_1_classes_1_1_user}{User}. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_auth_service_ae06ab89c12d5232237eadab541432f81}{Structurio.\+Interfaces.\+IAuth\+Service}}.
+
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_aa2cedd50b6676b2aecfa86fca8b85c61}\index{Structurio.Services.AuthService@{Structurio.Services.AuthService}!TryLogin@{TryLogin}}
+\index{TryLogin@{TryLogin}!Structurio.Services.AuthService@{Structurio.Services.AuthService}}
+\doxysubsubsection{\texorpdfstring{TryLogin()}{TryLogin()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_auth_service_aa2cedd50b6676b2aecfa86fca8b85c61} 
+async Task$<$ bool $>$ Structurio.\+Services.\+Auth\+Service.\+Try\+Login (\begin{DoxyParamCaption}\item[{string}]{email}{, }\item[{string}]{password}{}\end{DoxyParamCaption})}
+
+
+
+Versucht Login mit EMail und Passwort. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_auth_service_a42676a119741e9f2d7ee1485aa5e27af}{Structurio.\+Interfaces.\+IAuth\+Service}}.
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_structurio_1_1_services_1_1_auth_service_a8057a2c0367e62f7baa91606fba139f6}\index{Structurio.Services.AuthService@{Structurio.Services.AuthService}!CurrentUser@{CurrentUser}}
+\index{CurrentUser@{CurrentUser}!Structurio.Services.AuthService@{Structurio.Services.AuthService}}
+\doxysubsubsection{\texorpdfstring{CurrentUser}{CurrentUser}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_services_1_1_auth_service_a8057a2c0367e62f7baa91606fba139f6} 
+\mbox{\hyperlink{class_structurio_1_1_classes_1_1_user}{User}}? Structurio.\+Services.\+Auth\+Service.\+Current\+User\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+Der aktuell eingeloggte \doxylink{class_structurio_1_1_classes_1_1_user}{User}. 
+
+
+
+Implements \mbox{\hyperlink{interface_structurio_1_1_interfaces_1_1_i_auth_service_a131e70daa1ec2954ad17747766ab5a8b}{Structurio.\+Interfaces.\+IAuth\+Service}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+frontend/\+Structurio/\+Services/\mbox{\hyperlink{_auth_service_8cs}{Auth\+Service.\+cs}}\end{DoxyCompactItemize}

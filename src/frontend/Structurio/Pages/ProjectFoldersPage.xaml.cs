@@ -19,12 +19,15 @@ using Structurio.Controls;
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaktionslogik für ProjectFoldersPage.xaml
+    /// Zeigt Projektordner wie "Dateien" und "Diagramme" an.
     /// </summary>
     public partial class ProjectFoldersPage : Page
     {
         private List<FolderBoxControl> allFolderBoxes = new();
 
+        /// <summary>
+        /// Initialisiert die Seite mit zwei vordefinierten Ordnern.
+        /// </summary>
         public ProjectFoldersPage()
         {
             InitializeComponent();
@@ -41,6 +44,9 @@ namespace Structurio.Pages
             filesWrapPanel.Children.Add(folder2);
         }
 
+        /// <summary>
+        /// Filtert die sichtbaren Ordner basierend auf der Sucheingabe.
+        /// </summary>
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;

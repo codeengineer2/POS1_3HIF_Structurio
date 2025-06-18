@@ -1,0 +1,135 @@
+\doxysection{openapi\+\_\+server.\+util Namespace Reference}
+\hypertarget{namespaceopenapi__server_1_1util}{}\label{namespaceopenapi__server_1_1util}\index{openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_a62fed3613c112ed7d1c413c6c67558e7}{\+\_\+deserialize}} (data, klass)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_ad53c138b737d8012ca8045999a53bb92}{\+\_\+deserialize\+\_\+primitive}} (data, klass)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_a45a9bd08ed30ba3ccbf8bd2d3623538f}{\+\_\+deserialize\+\_\+object}} (value)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_a8a158b8713fbdc05ab8318bb95cea910}{deserialize\+\_\+date}} (string)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_afaf4a045c883e044ba7602866d7a4276}{deserialize\+\_\+datetime}} (string)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_a42d149a2ed2814cfefb54794304afd38}{deserialize\+\_\+model}} (data, klass)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_af02aea57cde192f18881869604ca5c02}{\+\_\+deserialize\+\_\+list}} (data, boxed\+\_\+type)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1util_a5af83395e936e3733a7d1b99a6156d7c}{\+\_\+deserialize\+\_\+dict}} (data, boxed\+\_\+type)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceopenapi__server_1_1util_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceopenapi__server_1_1util_a62fed3613c112ed7d1c413c6c67558e7}\index{openapi\_server.util@{openapi\_server.util}!\_deserialize@{\_deserialize}}
+\index{\_deserialize@{\_deserialize}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{\_deserialize()}{\_deserialize()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_a62fed3613c112ed7d1c413c6c67558e7} 
+openapi\+\_\+server.\+util.\+\_\+deserialize (\begin{DoxyParamCaption}\item[{}]{data}{, }\item[{}]{klass}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Deserializes dict, list, str into an object.
+
+:param data: dict, list or str.
+:param klass: class literal, or string of class name.
+
+:return: object.
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_a5af83395e936e3733a7d1b99a6156d7c}\index{openapi\_server.util@{openapi\_server.util}!\_deserialize\_dict@{\_deserialize\_dict}}
+\index{\_deserialize\_dict@{\_deserialize\_dict}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{\_deserialize\_dict()}{\_deserialize\_dict()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_a5af83395e936e3733a7d1b99a6156d7c} 
+openapi\+\_\+server.\+util.\+\_\+deserialize\+\_\+dict (\begin{DoxyParamCaption}\item[{}]{data}{, }\item[{}]{boxed\+\_\+type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Deserializes a dict and its elements.
+
+:param data: dict to deserialize.
+:type data: dict
+:param boxed_type: class literal.
+
+:return: deserialized dict.
+:rtype: dict
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_af02aea57cde192f18881869604ca5c02}\index{openapi\_server.util@{openapi\_server.util}!\_deserialize\_list@{\_deserialize\_list}}
+\index{\_deserialize\_list@{\_deserialize\_list}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{\_deserialize\_list()}{\_deserialize\_list()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_af02aea57cde192f18881869604ca5c02} 
+openapi\+\_\+server.\+util.\+\_\+deserialize\+\_\+list (\begin{DoxyParamCaption}\item[{}]{data}{, }\item[{}]{boxed\+\_\+type}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Deserializes a list and its elements.
+
+:param data: list to deserialize.
+:type data: list
+:param boxed_type: class literal.
+
+:return: deserialized list.
+:rtype: list
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_a45a9bd08ed30ba3ccbf8bd2d3623538f}\index{openapi\_server.util@{openapi\_server.util}!\_deserialize\_object@{\_deserialize\_object}}
+\index{\_deserialize\_object@{\_deserialize\_object}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{\_deserialize\_object()}{\_deserialize\_object()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_a45a9bd08ed30ba3ccbf8bd2d3623538f} 
+openapi\+\_\+server.\+util.\+\_\+deserialize\+\_\+object (\begin{DoxyParamCaption}\item[{}]{value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return an original value.
+
+:return: object.
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_ad53c138b737d8012ca8045999a53bb92}\index{openapi\_server.util@{openapi\_server.util}!\_deserialize\_primitive@{\_deserialize\_primitive}}
+\index{\_deserialize\_primitive@{\_deserialize\_primitive}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{\_deserialize\_primitive()}{\_deserialize\_primitive()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_ad53c138b737d8012ca8045999a53bb92} 
+openapi\+\_\+server.\+util.\+\_\+deserialize\+\_\+primitive (\begin{DoxyParamCaption}\item[{}]{data}{, }\item[{}]{klass}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Deserializes to primitive type.
+
+:param data: data to deserialize.
+:param klass: class literal.
+
+:return: int, long, float, str, bool.
+:rtype: int | long | float | str | bool
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_a8a158b8713fbdc05ab8318bb95cea910}\index{openapi\_server.util@{openapi\_server.util}!deserialize\_date@{deserialize\_date}}
+\index{deserialize\_date@{deserialize\_date}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{deserialize\_date()}{deserialize\_date()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_a8a158b8713fbdc05ab8318bb95cea910} 
+openapi\+\_\+server.\+util.\+deserialize\+\_\+date (\begin{DoxyParamCaption}\item[{}]{string}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Deserializes string to date.
+
+:param string: str.
+:type string: str
+:return: date.
+:rtype: date
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_afaf4a045c883e044ba7602866d7a4276}\index{openapi\_server.util@{openapi\_server.util}!deserialize\_datetime@{deserialize\_datetime}}
+\index{deserialize\_datetime@{deserialize\_datetime}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{deserialize\_datetime()}{deserialize\_datetime()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_afaf4a045c883e044ba7602866d7a4276} 
+openapi\+\_\+server.\+util.\+deserialize\+\_\+datetime (\begin{DoxyParamCaption}\item[{}]{string}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Deserializes string to datetime.
+
+The string should be in iso8601 datetime format.
+
+:param string: str.
+:type string: str
+:return: datetime.
+:rtype: datetime
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1util_a42d149a2ed2814cfefb54794304afd38}\index{openapi\_server.util@{openapi\_server.util}!deserialize\_model@{deserialize\_model}}
+\index{deserialize\_model@{deserialize\_model}!openapi\_server.util@{openapi\_server.util}}
+\doxysubsubsection{\texorpdfstring{deserialize\_model()}{deserialize\_model()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1util_a42d149a2ed2814cfefb54794304afd38} 
+openapi\+\_\+server.\+util.\+deserialize\+\_\+model (\begin{DoxyParamCaption}\item[{}]{data}{, }\item[{}]{klass}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Deserializes list or dict to model.
+
+:param data: dict, list.
+:type data: dict | list
+:param klass: class literal.
+:return: model object.
+\end{DoxyVerb}
+ 

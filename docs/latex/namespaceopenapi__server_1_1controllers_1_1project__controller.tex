@@ -1,0 +1,60 @@
+\doxysection{openapi\+\_\+server.\+controllers.\+project\+\_\+controller Namespace Reference}
+\hypertarget{namespaceopenapi__server_1_1controllers_1_1project__controller}{}\label{namespaceopenapi__server_1_1controllers_1_1project__controller}\index{openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1project__controller_ae9a5c4da7fcfbb2156f246c784cd64a7}{get\+\_\+connection}} ()
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1project__controller_a17765fcecd9c5b92a3164d0ea3259aa2}{create\+\_\+project}} (body)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1project__controller_a9288cca834095f23c8312449e0719e2b}{update\+\_\+project}} (body)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1project__controller_a193378c1b88962aa9c6db360edec1f8c}{delete\+\_\+project}} (pid)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1project__controller_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1project__controller_a17765fcecd9c5b92a3164d0ea3259aa2}\index{openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}!create\_project@{create\_project}}
+\index{create\_project@{create\_project}!openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}}
+\doxysubsubsection{\texorpdfstring{create\_project()}{create\_project()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1project__controller_a17765fcecd9c5b92a3164d0ea3259aa2} 
+openapi\+\_\+server.\+controllers.\+project\+\_\+controller.\+create\+\_\+project (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Erstellt ein neues Projekt und ein leeres Board.
+
+@param body: JSON mit name, description, color und owner_uid
+@return: JSON mit Erfolgsmeldung, pid und board-ID
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1project__controller_a193378c1b88962aa9c6db360edec1f8c}\index{openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}!delete\_project@{delete\_project}}
+\index{delete\_project@{delete\_project}!openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}}
+\doxysubsubsection{\texorpdfstring{delete\_project()}{delete\_project()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1project__controller_a193378c1b88962aa9c6db360edec1f8c} 
+openapi\+\_\+server.\+controllers.\+project\+\_\+controller.\+delete\+\_\+project (\begin{DoxyParamCaption}\item[{}]{pid}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Löscht ein Projekt.
+
+@param pid: Die Project-ID
+@return: JSON mit Erfolgsmeldung
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1project__controller_ae9a5c4da7fcfbb2156f246c784cd64a7}\index{openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}!get\_connection@{get\_connection}}
+\index{get\_connection@{get\_connection}!openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_connection()}{get\_connection()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1project__controller_ae9a5c4da7fcfbb2156f246c784cd64a7} 
+openapi\+\_\+server.\+controllers.\+project\+\_\+controller.\+get\+\_\+connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Stellt eine Verbindung zur Neon-Datenbank her.
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1project__controller_a9288cca834095f23c8312449e0719e2b}\index{openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}!update\_project@{update\_project}}
+\index{update\_project@{update\_project}!openapi\_server.controllers.project\_controller@{openapi\_server.controllers.project\_controller}}
+\doxysubsubsection{\texorpdfstring{update\_project()}{update\_project()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1project__controller_a9288cca834095f23c8312449e0719e2b} 
+openapi\+\_\+server.\+controllers.\+project\+\_\+controller.\+update\+\_\+project (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Aktualisiert die Attribute eines Projekts.
+
+@param body: JSON mit pid, name, description, color
+@return: JSON mit Erfolgsmeldung
+\end{DoxyVerb}
+ 

@@ -1,0 +1,39 @@
+\doxysection{backend/\+Swagger/openapi\+\_\+server/controllers/timestamp\+\_\+controller.py File Reference}
+\hypertarget{timestamp__controller_8py}{}\label{timestamp__controller_8py}\index{backend/Swagger/openapi\_server/controllers/timestamp\_controller.py@{backend/Swagger/openapi\_server/controllers/timestamp\_controller.py}}
+
+
+API-\/\+Endpunkte für die Verwaltung von Zeitstempeln.  
+
+
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceopenapi__server}{openapi\+\_\+server}}
+\item 
+namespace \mbox{\hyperlink{namespaceopenapi__server_1_1controllers}{openapi\+\_\+server.\+controllers}}
+\item 
+namespace \mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller}}
+\item 
+namespace \mbox{\hyperlink{namespacetimestamp__controller}{timestamp\+\_\+controller}}
+\begin{DoxyCompactList}\small\item\em Modul zur Verwaltung von Zeitstempeldaten in einer Postgre\+SQL-\/\+Datenbank. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a0f17e694917057258366359d027f1a0e}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+get\+\_\+connection}} ()
+\begin{DoxyCompactList}\small\item\em Stellt eine Verbindung zur Postgre\+SQL-\/\+Datenbank her. \end{DoxyCompactList}\item 
+dict \mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_af051be57f7a9e55c61d8985e90ab2633}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+\_\+serialize\+\_\+timestamp\+\_\+record}} (dict record)
+\begin{DoxyCompactList}\small\item\em Serialisiert einen Zeitstempel-\/\+Datensatz. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a01dfa41f34653326232d6400380d7717}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+get\+\_\+timestamps\+\_\+by\+\_\+user}} (uid)
+\begin{DoxyCompactList}\small\item\em Gibt alle Zeitstempel eines Benutzers zurück. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_ad0c30cb8cf69fda574a37af736c5f254}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+create\+\_\+timestamp}} ()
+\begin{DoxyCompactList}\small\item\em Erstellt einen neuen Zeitstempel. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a8a9e2847dc79d38b376e19c278c74c2d}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+get\+\_\+timestamp\+\_\+by\+\_\+id}} (zid)
+\begin{DoxyCompactList}\small\item\em Gibt einen Zeitstempel anhand der ID zurück. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1timestamp__controller_a7d58d1a74d49641f2594091689f99313}{openapi\+\_\+server.\+controllers.\+timestamp\+\_\+controller.\+update\+\_\+timestamp}} (uid, zid)
+\begin{DoxyCompactList}\small\item\em Aktualisiert einen bestehenden Zeitstempel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+API-\/\+Endpunkte für die Verwaltung von Zeitstempeln. 
+
+Dieses Modul verwaltet Zeitstempel für Benutzeraktivitäten in Projekten. 

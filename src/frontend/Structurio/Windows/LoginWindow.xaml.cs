@@ -21,12 +21,15 @@ using Serilog;
 namespace Structurio.Windows
 {
     /// <summary>
-    /// Interaktionslogik für LoginWindow.xaml
+    /// Fenster zur Benutzeranmeldung.
     /// </summary>
     public partial class LoginWindow : Window
     {
         private IApiService api = new ApiService();
 
+        /// <summary>
+        /// Initialisiert das Login-Fenster und zeigt die Anmeldeseite.
+        /// </summary>
         public LoginWindow()
         {
             InitializeComponent();
@@ -36,6 +39,11 @@ namespace Structurio.Windows
             loginFrame.Navigate(new SignInPage(this, api));
         }
 
+        /// <summary>
+        /// Öffnet die Hauptanwendung nach erfolgreichem Login.
+        /// </summary>
+        /// <param name="user">Eingeloggter Benutzer.</param>
+        /// <param name="projects">Zugehörige Projekte.</param>
         public void GoToMainWindow(User user, List<Project> projects)
         {
             Log.Information($"Erfolgreich eingeloggt als Benutzer mit der Email={user.Email} und mit {projects.Count} Projekten.");
@@ -45,18 +53,27 @@ namespace Structurio.Windows
             this.Close();
         }
 
+        /// <summary>
+        /// Navigiert zur Seite für Passwort-Zurücksetzung.
+        /// </summary>
         public void GoToPasswordResetPage()
         {
             Log.Information("Navigiert zur PasswordResetPage.");
             loginFrame.Navigate(new PasswordResetPage(this));
         }
 
+        /// <summary>
+        /// Navigiert zur Anmeldeseite.
+        /// </summary>
         public void GoToSignInPage()
         {
             Log.Information("Navigiert zur SignInPage.");
             loginFrame.Navigate(new SignInPage(this, api));
         }
 
+        /// <summary>
+        /// Navigiert zur Registrierungsseite.
+        /// </summary>
         public void GoToSignUpPage()
         {
             Log.Information("Navigiert zur SignUpPage.");

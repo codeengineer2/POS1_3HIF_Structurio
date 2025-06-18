@@ -16,16 +16,21 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using Serilog;
 using Structurio.Controls;
-    
+
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaktionslogik für FilesPage.xaml
+    /// Seite zur Verwaltung und Anzeige von PDF-Dateien (Diagramme oder reguläre Dateien).
+    /// Unterstützt Upload, Drag & Drop, Vorschau und Suche.
     /// </summary>
     public partial class FilesPage : Page
     {
         private List<FileBoxControl> allFileBoxes = new();
 
+        /// <summary>
+        /// Initialisiert die FilesPage mit dem übergebenen Typ ("file" oder "diagram").
+        /// </summary>
+        /// <param name="type">Art der Datei, entweder "file" oder "diagram"</param>
         public FilesPage(string type)
         {
             InitializeComponent();
@@ -51,12 +56,18 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Navigiert zurück zur Projektordnerübersicht.
+        /// </summary>
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Back Button wurde geklickt.");
             NavigationService?.Navigate(new ProjectFoldersPage());
         }
 
+        /// <summary>
+        /// Reagiert auf Texteingabe in der Suchbox und filtert Dateiboxen.
+        /// </summary>
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;
@@ -69,6 +80,9 @@ namespace Structurio.Pages
             RenderBoxes(filtered);
         }
 
+        /// <summary>
+        /// Öffnet einen Dialog zum Hochladen einer PDF-Datei.
+        /// </summary>
         private void UploadBox_Click(object sender, MouseButtonEventArgs e)
         {
             Log.Information("UploadBox wurde geklickt.");
@@ -85,12 +99,18 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Ermöglicht Drag & Drop über die UploadBox.
+        /// </summary>
         private void UploadBox_DragOver(object sender, DragEventArgs e)
         {
             e.Effects = DragDropEffects.Copy;
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Behandelt das Ablegen einer Datei in die UploadBox.
+        /// </summary>
         private void UploadBox_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -115,6 +135,10 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Fügt eine Datei als neue FileBox hinzu und generiert ggf. eine Vorschau.
+        /// </summary>
+        /// <param name="filePath">Pfad zur PDF-Datei</param>
         private void AddFileBoxFromPath(string filePath)
         {
             string extension = System.IO.Path.GetExtension(filePath).ToLower();
@@ -173,6 +197,10 @@ namespace Structurio.Pages
             Log.Information($"FileBox wurde hinzugefügt die den Pfad={filePath} hat.");
         }
 
+        /// <summary>
+        /// Zeichnet alle übergebenen FileBoxControls in die Ansicht.
+        /// </summary>
+        /// <param name="boxes">Liste von FileBoxControl-Elementen</param>
         private void RenderBoxes(IEnumerable<FileBoxControl> boxes)
         {
             fileBoxPanel.Children.Clear();

@@ -1,0 +1,60 @@
+\doxysection{openapi\+\_\+server.\+controllers.\+issue\+\_\+controller Namespace Reference}
+\hypertarget{namespaceopenapi__server_1_1controllers_1_1issue__controller}{}\label{namespaceopenapi__server_1_1controllers_1_1issue__controller}\index{openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1issue__controller_aee46b025ccd30844cab2baf31fe897da}{get\+\_\+connection}} ()
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1issue__controller_ac72668887c781156601b8d127e7752c2}{add\+\_\+issue}} (body)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1issue__controller_a945c90cc58c8a224549720e1e2f77b29}{update\+\_\+issue}} (body)
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1issue__controller_aedea5e730aa479767c832bb97493d707}{delete\+\_\+issue}} (id\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1issue__controller_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1issue__controller_ac72668887c781156601b8d127e7752c2}\index{openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}!add\_issue@{add\_issue}}
+\index{add\_issue@{add\_issue}!openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}}
+\doxysubsubsection{\texorpdfstring{add\_issue()}{add\_issue()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1issue__controller_ac72668887c781156601b8d127e7752c2} 
+openapi\+\_\+server.\+controllers.\+issue\+\_\+controller.\+add\+\_\+issue (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Erstellt ein neues Issue.
+
+@param body: JSON mit description und column_id
+@return: JSON mit Erfolgsmeldung und issue_id
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1issue__controller_aedea5e730aa479767c832bb97493d707}\index{openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}!delete\_issue@{delete\_issue}}
+\index{delete\_issue@{delete\_issue}!openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}}
+\doxysubsubsection{\texorpdfstring{delete\_issue()}{delete\_issue()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1issue__controller_aedea5e730aa479767c832bb97493d707} 
+openapi\+\_\+server.\+controllers.\+issue\+\_\+controller.\+delete\+\_\+issue (\begin{DoxyParamCaption}\item[{}]{id\+\_\+}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Löscht ein Issue.
+
+@param id_: iid
+@return: JSON mit Erfolgsmeldung
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1issue__controller_aee46b025ccd30844cab2baf31fe897da}\index{openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}!get\_connection@{get\_connection}}
+\index{get\_connection@{get\_connection}!openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_connection()}{get\_connection()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1issue__controller_aee46b025ccd30844cab2baf31fe897da} 
+openapi\+\_\+server.\+controllers.\+issue\+\_\+controller.\+get\+\_\+connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Stellt eine Verbindung zur Neon-Datenbank her.
+\end{DoxyVerb}
+ \Hypertarget{namespaceopenapi__server_1_1controllers_1_1issue__controller_a945c90cc58c8a224549720e1e2f77b29}\index{openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}!update\_issue@{update\_issue}}
+\index{update\_issue@{update\_issue}!openapi\_server.controllers.issue\_controller@{openapi\_server.controllers.issue\_controller}}
+\doxysubsubsection{\texorpdfstring{update\_issue()}{update\_issue()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1issue__controller_a945c90cc58c8a224549720e1e2f77b29} 
+openapi\+\_\+server.\+controllers.\+issue\+\_\+controller.\+update\+\_\+issue (\begin{DoxyParamCaption}\item[{}]{body}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}@brief Aktualisiert die Beschreibung eines Issues.
+
+@param body: JSON mit issue_id und description
+@return: JSON mit Erfolgsmeldung
+\end{DoxyVerb}
+ 

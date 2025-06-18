@@ -18,7 +18,7 @@ using Structurio.Pages;
 namespace Structurio.Controls
 {
     /// <summary>
-    /// Interaktionslogik für FolderBoxControl.xaml
+    /// UI-Komponente für Ordner-Vorschau (Dateien oder Diagramme).
     /// </summary>
     public partial class FolderBoxControl : UserControl
     {
@@ -26,6 +26,9 @@ namespace Structurio.Controls
         private string type;
         public string Name;
 
+        /// <summary>
+        /// Erstellt einen neuen FolderBoxControl für „Dateien“ oder „Diagramme“.
+        /// </summary>
         public FolderBoxControl(string title)
         {
             InitializeComponent();
@@ -36,18 +39,27 @@ namespace Structurio.Controls
             Log.Information($"Ordner erstellt mit Typ={type}.");
         }
 
+        /// <summary>
+        /// Navigiert zur FilesPage beim Klick auf den Ordner.
+        /// </summary>
         private void FolderBox_Click(object sender, MouseButtonEventArgs e)
         {
             Log.Information("Benutzer klickt auf den Ordner.");
             NavigationService.GetNavigationService(this)?.Navigate(new FilesPage(type));
         }
 
+        /// <summary>
+        /// Hover-Effekt beim Betreten des Ordners.
+        /// </summary>
         private void FolderBox_MouseEnter(object sender, MouseEventArgs e)
         {
             outerBorder.Background = new SolidColorBrush(Color.FromRgb(245, 245, 245));
             outerBorder.BorderBrush = new SolidColorBrush(Color.FromRgb(100, 149, 237));
         }
 
+        /// <summary>
+        /// Hover-Effekt beim Verlassen des Ordners.
+        /// </summary>
         private void FolderBox_MouseLeave(object sender, MouseEventArgs e)
         {
             outerBorder.Background = Brushes.White;
