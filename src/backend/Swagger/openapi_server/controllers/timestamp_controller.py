@@ -1,9 +1,16 @@
+## @file timestamp_controller.py
+#  @brief API-Endpunkte für die Verwaltung von Zeitstempeln.
+#  @details Dieses Modul verwaltet Zeitstempel für Benutzeraktivitäten in Projekten.
+
+## @package timestamp_controller
+#  @brief Modul zur Verwaltung von Zeitstempeldaten in einer PostgreSQL-Datenbank.
 import psycopg2
 import psycopg2.extras
 from flask import jsonify, request, abort
 from datetime import date, time
 
-
+## @brief Stellt eine Verbindung zur PostgreSQL-Datenbank her.
+#  @return psycopg2-Verbindung
 def get_connection():
     """
     Stellt eine Verbindung zur Neon-Postgres-Datenbank her.
@@ -15,7 +22,9 @@ def get_connection():
     )
     return psycopg2.connect(conn_str)
 
-
+## @brief Serialisiert einen Zeitstempel-Datensatz.
+#  @param record Dictionary mit Datenbankwerten.
+#  @return Serialisiertes Dictionary mit Datum/Zeit als String.
 def _serialize_timestamp_record(record: dict) -> dict:
    
     serialized = {}
@@ -28,7 +37,9 @@ def _serialize_timestamp_record(record: dict) -> dict:
             serialized[key] = value
     return serialized
 
-
+## @brief Gibt alle Zeitstempel eines Benutzers zurück.
+#  @param uid Benutzer-ID.
+#  @return JSON-Antwort mit Zeitstempeldaten oder 404 bei Fehler.
 def get_timestamps_by_user(uid):
     conn = get_connection()
     try:
@@ -52,7 +63,8 @@ def get_timestamps_by_user(uid):
 
     return jsonify([_serialize_timestamp_record(r) for r in rows]), 200
 
-
+## @brief Erstellt einen neuen Zeitstempel.
+#  @return JSON-Antwort mit dem neu erstellten Zeitstempel oder Fehlermeldung.
 def create_timestamp():
 
     data = request.get_json(force=True)
@@ -88,7 +100,9 @@ def create_timestamp():
     serialized = _serialize_timestamp_record(row)
     return jsonify(serialized), 201
 
-
+## @brief Gibt einen Zeitstempel anhand der ID zurück.
+#  @param zid Zeitstempel-ID.
+#  @return JSON-Antwort mit Zeitstempeldaten oder 404 bei Fehler.
 def get_timestamp_by_id(zid):
     conn = get_connection()
     try:
@@ -112,7 +126,10 @@ def get_timestamp_by_id(zid):
     serialized = _serialize_timestamp_record(row)
     return jsonify(serialized), 200
 
-
+## @brief Aktualisiert einen bestehenden Zeitstempel.
+#  @param uid Benutzer-ID.
+#  @param zid Zeitstempel-ID.
+#  @return JSON-Antwort mit aktualisierten Daten oder 404 bei Fehler.
 def update_timestamp(uid, zid):
     data = request.get_json(force=True)
     for field in ('datum_in','checkin','datum_out','checkout','duration'):

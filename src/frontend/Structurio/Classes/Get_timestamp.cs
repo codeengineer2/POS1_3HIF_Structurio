@@ -9,11 +9,20 @@ using System.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+/// @file Get_timestamp.cs
+/// @brief HTTP-Client für Zeitstempelabrufe.
 
 namespace Structurio
 {
+    /// @class Get_timestamp
+    /// @brief Holt alle Zeitstempel eines Benutzers von der API.
     public class Get_timestamp
     {
+
+        /// @brief Ruft Zeitstempelliste für einen Benutzer ab.
+        /// @param httpClient Die HTTP-Verbindung.
+        /// @param uid Benutzer-ID.
+        /// @return Liste von Zeitstempeln.
         public static async Task<List<Timestamp_Json>> GetAsync(HttpClient httpClient, int uid)
         {
             Log.Information(":Get_timestamp: Für  User={UserId}", uid);

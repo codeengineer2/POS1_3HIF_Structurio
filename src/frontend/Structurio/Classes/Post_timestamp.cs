@@ -6,11 +6,21 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+/// @file Post_timestamp.cs
+/// @brief HTTP-Client zur Erstellung eines Zeitstempels.
+
 
 namespace Structurio
 {
+    /// @class Post_timestamp
+    /// @brief Verwaltet das Erstellen eines neuen Check-in-Zeitstempels.
     public class Post_timestamp
     {
+        /// @brief Sendet neuen Timestamp an den Server.
+        /// @param httpClient Die HTTP-Verbindung.
+        /// @param uid Benutzer-ID.
+        /// @param checkIn Check-in Zeitpunkt.
+        /// @return Der erstellte Zeitstempel.
         public static async Task<Timestamp_Json> CreateAsync(HttpClient httpClient, int uid, DateTime checkIn)
         {
             try

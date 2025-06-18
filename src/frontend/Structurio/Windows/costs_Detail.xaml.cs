@@ -17,11 +17,17 @@ using IOPath = System.IO.Path;
 using System.IO;
 using Serilog;
 
+/// @file costs_Detail.xaml.cs
+/// @brief Detailansicht für einzelne Kosten.
+
+
 namespace Structurio
 {
     /// <summary>
     /// Interaktionslogik für Costs_Detail.xaml
     /// </summary>
+    /// @class Costs_Detail
+    /// @brief Fenster zum Anzeigen eines einzelnen Abrechnungseintrags mit PDF-Vorschau.
     public partial class Costs_Detail : Window
     {
 
@@ -30,6 +36,9 @@ namespace Structurio
         private readonly double kosten;
         private readonly DateTime datum;
 
+        /// @brief Konstruktor, initialisiert GUI mit Abrechnungsdaten.
+        /// @param finance Abrechnungsobjekt mit Name, Preis, Kategorie usw.
+        /// @return Kein Rückgabewert.
         public Costs_Detail(Finance finance)
         {
             InitializeComponent();
@@ -50,7 +59,10 @@ namespace Structurio
             _ = PdfView.EnsureCoreWebView2Async();
             Log.Information("Costs_Detail.xaml: Window initialisiert");
         }
-
+        /// @brief Initialisiert die PDF-Vorschau mit WebView2 oder zeigt Fehler.
+        /// @param sender Event-Quelle.
+        /// @param e Enthält Erfolg oder Fehlerstatus der Initialisierung.
+        /// @return Kein Rückgabewert.
         private void WebViewReady(object? sender, CoreWebView2InitializationCompletedEventArgs e)
         {
             if (!e.IsSuccess)

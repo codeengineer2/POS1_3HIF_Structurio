@@ -16,11 +16,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+/// @file edittime.xaml.cs
+/// @brief Fenster zur Bearbeitung einzelner Zeitstempel.
 namespace Structurio
 {
     /// <summary>
     /// Interaction logic for edittime.xaml
     /// </summary>
+    /// @class edittime
+    /// @brief Popup zur Eingabe und Validierung von Ein- und Ausstempelzeiten.
     public partial class edittime : Window
     {
         public int Index;
@@ -29,6 +33,13 @@ namespace Structurio
         private readonly HttpClient httpClient;
         private int uid = 1;
         private MainWindow mainWindow;
+        /// @brief Konstruktor, initialisiert das Formular mit bestehendem Zeitwert.
+        /// @param id Benutzer-ID.
+        /// @param entry Liste aller Einträge.
+        /// @param index Der zu bearbeitende Index.
+        /// @param times DataGrid mit Zeiten.
+        /// @param httpClient HTTP-Verbindung zur Swagger API.
+        /// @return Kein Rückgabewert.
         public edittime(int id, ObservableCollection<Timecheckin> entry, int index, DataGrid times, HttpClient httpClient)
         {
             InitializeComponent();
@@ -50,7 +61,10 @@ namespace Structurio
             Log.Information("EditTime.xaml: Window initialisiert");
 
         }
-
+        /// @brief Validiert Eingaben und speichert geänderte Zeitwerte über die API.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
             try
