@@ -1,0 +1,57 @@
+\doxysection{Structurio.\+Post\+\_\+\+Abrechnung Class Reference}
+\hypertarget{class_structurio_1_1_post___abrechnung}{}\label{class_structurio_1_1_post___abrechnung}\index{Structurio.Post\_Abrechnung@{Structurio.Post\_Abrechnung}}
+
+
+Sendet neue Abrechnungsdaten im JSON-\/\+Format an den Server.  
+
+
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static async Task$<$ \mbox{\hyperlink{class_structurio_1_1_abrechnung___j_s_o_n}{Abrechnung\+\_\+\+JSON}} $>$ \mbox{\hyperlink{class_structurio_1_1_post___abrechnung_a02d0a4c487a6e219b0d6f44205c0b352}{Create\+Async}} (Http\+Client http\+Client, int uid, int pid, string name, Date\+Time date, double price, string category, string rechnung\+Path)
+\begin{DoxyCompactList}\small\item\em Erstellt einen neuen Abrechnungseintrag auf dem Server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sendet neue Abrechnungsdaten im JSON-\/\+Format an den Server. 
+
+\label{doc-func-members}
+\Hypertarget{class_structurio_1_1_post___abrechnung_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_structurio_1_1_post___abrechnung_a02d0a4c487a6e219b0d6f44205c0b352}\index{Structurio.Post\_Abrechnung@{Structurio.Post\_Abrechnung}!CreateAsync@{CreateAsync}}
+\index{CreateAsync@{CreateAsync}!Structurio.Post\_Abrechnung@{Structurio.Post\_Abrechnung}}
+\doxysubsubsection{\texorpdfstring{CreateAsync()}{CreateAsync()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_post___abrechnung_a02d0a4c487a6e219b0d6f44205c0b352} 
+async Task$<$ \mbox{\hyperlink{class_structurio_1_1_abrechnung___j_s_o_n}{Abrechnung\+\_\+\+JSON}} $>$ Structurio.\+Post\+\_\+\+Abrechnung.\+Create\+Async (\begin{DoxyParamCaption}\item[{Http\+Client}]{http\+Client}{, }\item[{int}]{uid}{, }\item[{int}]{pid}{, }\item[{string}]{name}{, }\item[{Date\+Time}]{date}{, }\item[{double}]{price}{, }\item[{string}]{category}{, }\item[{string}]{rechnung\+Path}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Erstellt einen neuen Abrechnungseintrag auf dem Server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em http\+Client} & Die HTTP-\/\+Verbindung. \\
+\hline
+{\em uid} & Benutzer-\/\+ID. \\
+\hline
+{\em pid} & Projekt-\/\+ID. \\
+\hline
+{\em name} & Name der Abrechnung. \\
+\hline
+{\em date} & Datum. \\
+\hline
+{\em price} & Preis. \\
+\hline
+{\em category} & Kategorie. \\
+\hline
+{\em rechnung\+Path} & Pfad zur Rechnung. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Die erstellte Abrechnung. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+frontend/\+Structurio/\+Classes/\mbox{\hyperlink{_post___abrechnung_8cs}{Post\+\_\+\+Abrechnung.\+cs}}\end{DoxyCompactItemize}

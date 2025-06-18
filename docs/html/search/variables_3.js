@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['description_0',['description',['../classopenapi__server_1_1models_1_1add__issue__request_1_1_add_issue_request.html#a534dfac2447c395122e6041a3451868f',1,'openapi_server.models.add_issue_request.AddIssueRequest.description'],['../classopenapi__server_1_1models_1_1project__request_1_1_project_request.html#abd7872bb7287d99633682dedc378eb0d',1,'openapi_server.models.project_request.ProjectRequest.description'],['../classopenapi__server_1_1models_1_1update__issue__request_1_1_update_issue_request.html#a626da89bbb442a5811d7d507c290ce02',1,'openapi_server.models.update_issue_request.UpdateIssueRequest.description'],['../classopenapi__server_1_1models_1_1update__project__request_1_1_update_project_request.html#a554a9a1592dcf05b20cd78c0af5e9db9',1,'openapi_server.models.update_project_request.UpdateProjectRequest.description'],['../namespacesetup.html#aedf461ec52a946bda975938ba0b93ec0',1,'setup.description']]]
+];

@@ -1,0 +1,136 @@
+\doxysection{Structurio.\+Pages.\+Kanban\+Page Class Reference}
+\hypertarget{class_structurio_1_1_pages_1_1_kanban_page}{}\label{class_structurio_1_1_pages_1_1_kanban_page}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+
+
+\doxylink{class_structurio_1_1_pages_1_1_kanban_page}{Kanban\+Page}.  
+
+
+Inheritance diagram for Structurio.\+Pages.\+Kanban\+Page\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.551724cm]{class_structurio_1_1_pages_1_1_kanban_page}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_structurio_1_1_pages_1_1_kanban_page_1_1_p_o_i_n_t}{POINT}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_ad043d4cb89334ed8c6e05d924095da48}{Initialize\+Component}} ()
+\begin{DoxyCompactList}\small\item\em Initialize\+Component. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_ad043d4cb89334ed8c6e05d924095da48}{Initialize\+Component}} ()
+\begin{DoxyCompactList}\small\item\em Initialize\+Component. \end{DoxyCompactList}\item 
+static bool \mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_a7f9f77c9240e684c7043d0c75217c786}{Get\+Cursor\+Pos}} (out \mbox{\hyperlink{struct_structurio_1_1_pages_1_1_kanban_page_1_1_p_o_i_n_t}{POINT}} lp\+Point)
+\item 
+\mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_a2a0c2424a6fa1dcde652cc4fde0272d8}{Kanban\+Page}} (\mbox{\hyperlink{class_structurio_1_1_classes_1_1_project}{Project}} project)
+\begin{DoxyCompactList}\small\item\em Initialisiert die Kanban-\/\+Seite mit den Daten des übergebenen Projekts. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_a933f67aaa809971bf27e8a09d336f7d6}{Start\+Auto\+Scroll}} ()
+\begin{DoxyCompactList}\small\item\em Startet das automatische horizontale Scrollen beim Draggen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_a8a1e1a17231ebec63cf6d1e2744b1330}{Stop\+Auto\+Scroll}} ()
+\begin{DoxyCompactList}\small\item\em Stoppt das automatische Scrollen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Observable\+Collection$<$ \mbox{\hyperlink{class_structurio_1_1_classes_1_1_column_wrapper}{Column\+Wrapper}} $>$ \mbox{\hyperlink{class_structurio_1_1_pages_1_1_kanban_page_aee687a087ef407539c68752d649fa388}{Columns}} = new()\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Enthält die sichtbaren Spalten inkl. deren Issues. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_structurio_1_1_pages_1_1_kanban_page}{Kanban\+Page}. 
+
+Repräsentiert eine interaktive Kanban-\/\+Seite zur Verwaltung von Spalten und Issues. Unterstützt Drag\&Drop, automatisches Scrollen, Spalten-\//\+Issue-\/\+Erstellung und -\/Aktualisierung. 
+
+\label{doc-constructors}
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_a2a0c2424a6fa1dcde652cc4fde0272d8}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!KanbanPage@{KanbanPage}}
+\index{KanbanPage@{KanbanPage}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{KanbanPage()}{KanbanPage()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_a2a0c2424a6fa1dcde652cc4fde0272d8} 
+Structurio.\+Pages.\+Kanban\+Page.\+Kanban\+Page (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_structurio_1_1_classes_1_1_project}{Project}}}]{project}{}\end{DoxyParamCaption})}
+
+
+
+Initialisiert die Kanban-\/\+Seite mit den Daten des übergebenen Projekts. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em project} & Projekt mit \doxylink{class_structurio_1_1_classes_1_1_board}{Board} und Columns\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_a7f9f77c9240e684c7043d0c75217c786}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!GetCursorPos@{GetCursorPos}}
+\index{GetCursorPos@{GetCursorPos}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{GetCursorPos()}{GetCursorPos()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_a7f9f77c9240e684c7043d0c75217c786} 
+bool Structurio.\+Pages.\+Kanban\+Page.\+Get\+Cursor\+Pos (\begin{DoxyParamCaption}\item[{out \mbox{\hyperlink{struct_structurio_1_1_pages_1_1_kanban_page_1_1_p_o_i_n_t}{POINT}}}]{lp\+Point}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_ad043d4cb89334ed8c6e05d924095da48}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!InitializeComponent@{InitializeComponent}}
+\index{InitializeComponent@{InitializeComponent}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{InitializeComponent()}{InitializeComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_ad043d4cb89334ed8c6e05d924095da48} 
+void Structurio.\+Pages.\+Kanban\+Page.\+Initialize\+Component (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize\+Component. 
+
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_ad043d4cb89334ed8c6e05d924095da48}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!InitializeComponent@{InitializeComponent}}
+\index{InitializeComponent@{InitializeComponent}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{InitializeComponent()}{InitializeComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_ad043d4cb89334ed8c6e05d924095da48} 
+void Structurio.\+Pages.\+Kanban\+Page.\+Initialize\+Component (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initialize\+Component. 
+
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_a933f67aaa809971bf27e8a09d336f7d6}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!StartAutoScroll@{StartAutoScroll}}
+\index{StartAutoScroll@{StartAutoScroll}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{StartAutoScroll()}{StartAutoScroll()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_a933f67aaa809971bf27e8a09d336f7d6} 
+void Structurio.\+Pages.\+Kanban\+Page.\+Start\+Auto\+Scroll (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Startet das automatische horizontale Scrollen beim Draggen. 
+
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_a8a1e1a17231ebec63cf6d1e2744b1330}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!StopAutoScroll@{StopAutoScroll}}
+\index{StopAutoScroll@{StopAutoScroll}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{StopAutoScroll()}{StopAutoScroll()}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_a8a1e1a17231ebec63cf6d1e2744b1330} 
+void Structurio.\+Pages.\+Kanban\+Page.\+Stop\+Auto\+Scroll (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stoppt das automatische Scrollen. 
+
+
+
+\label{doc-property-members}
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_doc-property-members}
+\doxysubsection{Property Documentation}
+\Hypertarget{class_structurio_1_1_pages_1_1_kanban_page_aee687a087ef407539c68752d649fa388}\index{Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}!Columns@{Columns}}
+\index{Columns@{Columns}!Structurio.Pages.KanbanPage@{Structurio.Pages.KanbanPage}}
+\doxysubsubsection{\texorpdfstring{Columns}{Columns}}
+{\footnotesize\ttfamily \label{class_structurio_1_1_pages_1_1_kanban_page_aee687a087ef407539c68752d649fa388} 
+Observable\+Collection$<$\mbox{\hyperlink{class_structurio_1_1_classes_1_1_column_wrapper}{Column\+Wrapper}}$>$ Structurio.\+Pages.\+Kanban\+Page.\+Columns = new()\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Enthält die sichtbaren Spalten inkl. deren Issues. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+frontend/\+Structurio/obj/\+Debug/net8.\+0-\/windows/\+Pages/\mbox{\hyperlink{_kanban_page_8g_8cs}{Kanban\+Page.\+g.\+cs}}\item 
+frontend/\+Structurio/obj/\+Debug/net8.\+0-\/windows/\+Pages/\mbox{\hyperlink{_kanban_page_8g_8i_8cs}{Kanban\+Page.\+g.\+i.\+cs}}\item 
+frontend/\+Structurio/\+Pages/\mbox{\hyperlink{_kanban_page_8xaml_8cs}{Kanban\+Page.\+xaml.\+cs}}\end{DoxyCompactItemize}

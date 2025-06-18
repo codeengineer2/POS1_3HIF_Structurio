@@ -1,0 +1,85 @@
+\doxysection{openapi\+\_\+server.\+controllers.\+abrechnung\+\_\+controller Namespace Reference}
+\hypertarget{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller}{}\label{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller}\index{openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_ae1383e12376976c6c667c21908342328}{get\+\_\+connection}} ()
+\begin{DoxyCompactList}\small\item\em Stellt eine Verbindung zur Postgre\+SQL-\/\+Datenbank her. \end{DoxyCompactList}\item 
+dict \mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a283091452276b4c752a5c286559bf847}{\+\_\+serialize\+\_\+record}} (dict record)
+\begin{DoxyCompactList}\small\item\em Serialisiert ein Datenbank-\/\+Record-\/\+Dictionary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a762f13c0978721e86c4f4bd0fc8f1d74}{get\+\_\+abrechnungen}} (uid, pid)
+\begin{DoxyCompactList}\small\item\em Holt alle Abrechnungen für einen Benutzer und ein Projekt. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a2c919461f95bc76a9fc9515364f7b4a0}{create\+\_\+abrechnung}} ()
+\begin{DoxyCompactList}\small\item\em Erstellt einen neuen Abrechnungseintrag. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a283091452276b4c752a5c286559bf847}\index{openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}!\_serialize\_record@{\_serialize\_record}}
+\index{\_serialize\_record@{\_serialize\_record}!openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}}
+\doxysubsubsection{\texorpdfstring{\_serialize\_record()}{\_serialize\_record()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a283091452276b4c752a5c286559bf847} 
+ dict openapi\+\_\+server.\+controllers.\+abrechnung\+\_\+controller.\+\_\+serialize\+\_\+record (\begin{DoxyParamCaption}\item[{dict}]{record}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Serialisiert ein Datenbank-\/\+Record-\/\+Dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em record} & Dictionary mit Datenbankwerten. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Serialisiertes Dictionary mit Datum/\+Zeit als String. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a2c919461f95bc76a9fc9515364f7b4a0}\index{openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}!create\_abrechnung@{create\_abrechnung}}
+\index{create\_abrechnung@{create\_abrechnung}!openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}}
+\doxysubsubsection{\texorpdfstring{create\_abrechnung()}{create\_abrechnung()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a2c919461f95bc76a9fc9515364f7b4a0} 
+openapi\+\_\+server.\+controllers.\+abrechnung\+\_\+controller.\+create\+\_\+abrechnung (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Erstellt einen neuen Abrechnungseintrag. 
+
+\begin{DoxyReturn}{Returns}
+JSON-\/\+Antwort mit dem neu erstellten Abrechnungseintrag oder Fehlermeldung. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a762f13c0978721e86c4f4bd0fc8f1d74}\index{openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}!get\_abrechnungen@{get\_abrechnungen}}
+\index{get\_abrechnungen@{get\_abrechnungen}!openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_abrechnungen()}{get\_abrechnungen()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_a762f13c0978721e86c4f4bd0fc8f1d74} 
+openapi\+\_\+server.\+controllers.\+abrechnung\+\_\+controller.\+get\+\_\+abrechnungen (\begin{DoxyParamCaption}\item[{}]{uid}{, }\item[{}]{pid}{}\end{DoxyParamCaption})}
+
+
+
+Holt alle Abrechnungen für einen Benutzer und ein Projekt. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em uid} & Benutzer-\/\+ID. \\
+\hline
+{\em pid} & Projekt-\/\+ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+JSON-\/\+Antwort mit Abrechnungsdaten oder 404 bei Fehler. 
+\end{DoxyReturn}
+\Hypertarget{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_ae1383e12376976c6c667c21908342328}\index{openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}!get\_connection@{get\_connection}}
+\index{get\_connection@{get\_connection}!openapi\_server.controllers.abrechnung\_controller@{openapi\_server.controllers.abrechnung\_controller}}
+\doxysubsubsection{\texorpdfstring{get\_connection()}{get\_connection()}}
+{\footnotesize\ttfamily \label{namespaceopenapi__server_1_1controllers_1_1abrechnung__controller_ae1383e12376976c6c667c21908342328} 
+openapi\+\_\+server.\+controllers.\+abrechnung\+\_\+controller.\+get\+\_\+connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stellt eine Verbindung zur Postgre\+SQL-\/\+Datenbank her. 
+
+\begin{DoxyReturn}{Returns}
+psycopg2-\/\+Verbindung
+\end{DoxyReturn}
+\begin{DoxyVerb}Stellt eine Verbindung zur Neon-Postgres-Datenbank her.
+\end{DoxyVerb}
+ 
