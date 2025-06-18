@@ -5,7 +5,7 @@ from openapi_server.models.update_project_request import UpdateProjectRequest
 
 def get_connection():
     """
-    Stellt eine Verbindung zur Neon-Datenbank her.
+    @brief Stellt eine Verbindung zur Neon-Datenbank her.
     """
     # egal weil egal
     conn_str = (
@@ -17,10 +17,10 @@ def get_connection():
 
 def create_project(body):
     """
-    Erstellt ein neues Projekt und ein leeres Board.
+    @brief Erstellt ein neues Projekt und ein leeres Board.
 
-    :param body: JSON mit name, description, color und owner_uid
-    :return: JSON mit Erfolgsmeldung, pid und board-ID
+    @param body: JSON mit name, description, color und owner_uid
+    @return: JSON mit Erfolgsmeldung, pid und board-ID
     """
     name = body.get("name")
     description = body.get("description")
@@ -66,10 +66,10 @@ def create_project(body):
 
 def update_project(body):
     """
-    Aktualisiert die Attribute eines Projekts.
+    @brief Aktualisiert die Attribute eines Projekts.
 
-    :param body: JSON mit pid, name, description, color
-    :return: JSON mit Erfolgsmeldung
+    @param body: JSON mit pid, name, description, color
+    @return: JSON mit Erfolgsmeldung
     """
     pid = body.get("pid")
     name = body.get("name")
@@ -108,10 +108,10 @@ def update_project(body):
 
 def delete_project(pid):
     """
-    Löscht ein Projekt.
+    @brief Löscht ein Projekt.
 
-    :param pid: Die Project-ID
-    :return: JSON mit Erfolgsmeldung
+    @param pid: Die Project-ID
+    @return: JSON mit Erfolgsmeldung
     """
     conn = get_connection()
 

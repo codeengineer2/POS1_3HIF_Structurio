@@ -5,7 +5,7 @@ from openapi_server.models.update_column_request import UpdateColumnRequest
 
 def get_connection():
     """
-    Stellt eine Verbindung zur Neon-Datenbank her.
+    @brief Stellt eine Verbindung zur Neon-Datenbank her.
     """
     # egal weil egal
     conn_str = (
@@ -17,10 +17,10 @@ def get_connection():
 
 def add_column(body):
     """
-    Erstellt eine neue Spalte.
+    @brief Erstellt eine neue Spalte.
 
-    :param body: JSON mit board_id und name
-    :return: JSON mit neuer Column-ID und Name
+    @param body: JSON mit board_id und name
+    @return: JSON mit neuer Column-ID und Name
     """
     board_id = body.get("board_id")
     name = body.get("name")
@@ -50,10 +50,10 @@ def add_column(body):
 
 def update_column(body):
     """
-    Aktualisiert den Namen einer Spalte.
+    @brief Aktualisiert den Namen einer Spalte.
 
-    :param body: JSON mit cid und name
-    :return: JSON mit Erfolgsmeldung
+    @param body: JSON mit cid und name
+    @return: JSON mit Erfolgsmeldung
     """
     cid = body.get("id")
     name = body.get("name")
