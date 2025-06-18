@@ -73,8 +73,14 @@ namespace Structurio.Pages
         {
             Log.Information($"Delete Button wurde geklickt für Projekt mit dem Namen={project.Name}");
 
-            var confirmed = MessageBox.Show("Wirklich löschen?", "Bestätigen", MessageBoxButton.YesNo);
+            if (mainWindow.CurrentUser.Id != project.OwnerUid)
+            {
+                Log.Warning("Löschversuch fehlgeschlagen weil du nicht der Eigentümer des Projekts bist.");
+                MessageBox.Show("Du darfst dieses Projekt nicht löschen. Es gehört dir nicht.");
+                return;
+            }
 
+            var confirmed = MessageBox.Show("Wirklich löschen?", "Bestätigen", MessageBoxButton.YesNo);
             if (confirmed != MessageBoxResult.Yes)
             {
                 Log.Information("Löschung vom Benutzer abgebrochen.");
@@ -100,11 +106,18 @@ namespace Structurio.Pages
         }
 
         /// <summary>
-        /// Validiert und speichert Änderungen am Projekt.
+        /// Validiert und speichert Änderungen am Projekt, wenn der Benutzer der Besitzer ist.
         /// </summary>
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             Log.Information($"Save Button wurde geklickt für das Projekt mit dem Namen={project.Name}.");
+
+            if (mainWindow.CurrentUser.Id != project.OwnerUid)
+            {
+                Log.Warning($"Benutzer mit der ID={mainWindow.CurrentUser.Id} versucht das Projekt mit dem Namen={project.Name} zu ändern obwohl er nicht der Besitzer ist.");
+                MessageBox.Show("Sie sind nicht der Besitzer dieses Projekts. Änderungen sind daher nicht erlaubt.");
+                return;
+            }
 
             bool valid = true;
 
@@ -170,7 +183,7 @@ namespace Structurio.Pages
                 }
                 else
                 {
-                    Log.Error($"Fehler beim aktualisieren des Projekts mit dem Namen={project.Name}.");
+                    Log.Error($"Fehler beim Aktualisieren des Projekts mit dem Namen={project.Name}.");
                     MessageBox.Show("Fehler beim Speichern des Projekts.");
                 }
             });

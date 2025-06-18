@@ -1,5 +1,6 @@
 import psycopg2
 import logging
+import hashlib
 from openapi_server.models.email_request import EmailRequest
 from openapi_server.models.login_request import LoginRequest
 from openapi_server.models.register_request import RegisterRequest
@@ -18,6 +19,26 @@ def get_connection():
         "structure?sslmode=require"
     )
     return psycopg2.connect(conn_str)
+
+def hash_password(password):
+    """
+    @brief Hash das Passwort mit SHA-256.
+    
+    @details Diese Methode nimmt ein Passwort als Eingabe, hasht es mit dem SHA-256-Algorithmus
+    und gibt den Hashwert als hexadezimale Zeichenkette zurück. Der Hashing-Prozess wird im Log protokolliert.
+
+    @param password: Das zu hashende Passwort. (String)
+    @type password: str
+    @return: Der gehashte Passwortwert als hexadezimale Zeichenkette.
+    @rtype: str
+    """
+    logging.info("Starte Hashing des Passworts.")
+    
+    hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+    
+    logging.info("Passwort wurde erfolgreich gehasht.")
+    
+    return hashed_password
 
 def auth_check_email_post(body):
     """
@@ -59,13 +80,13 @@ def auth_login_post(body):
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT uid, firstname, lastname, email, birthdate
+        SELECT uid, firstname, lastname, email, password_hash, birthdate
         FROM users
-        WHERE email = %s AND password_hash = %s
-    """, (email, password))
+        WHERE email = %s
+    """, (email,))
     user_row = cur.fetchone()
 
-    if not user_row:
+    if not user_row or user_row[4] != hash_password(password):
         cur.close()
         conn.close()
         logging.warning("Login fehlgeschlagen.")
@@ -139,6 +160,8 @@ def auth_register_post(body):
     password = body.get("password") if isinstance(body, dict) else body.password
     birthdate = body.get("birthdate") if isinstance(body, dict) else body.birthdate
 
+    hashed_password = hash_password(password)
+
     conn = get_connection()
     cur = conn.cursor()
     
@@ -149,7 +172,7 @@ def auth_register_post(body):
             VALUES (%s, %s, %s, %s, %s)
             RETURNING uid
             """,
-            (firstname, lastname, email, password, birthdate)
+            (firstname, lastname, email, hashed_password, birthdate)
         )
         uid = cur.fetchone()[0]
         conn.commit()
