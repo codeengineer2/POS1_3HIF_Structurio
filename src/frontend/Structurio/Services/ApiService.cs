@@ -14,7 +14,12 @@ namespace Structurio.Services
 {
     public class ApiService : IApiService
     {
-        private static readonly HttpClient client = new();
+        private readonly HttpClient client;
+
+        public ApiService(HttpClient? injectedClient = null)
+        {
+            client = injectedClient ?? new HttpClient();
+        }
 
         public async Task<LoginResponse?> LoginAsync(string email, string password)
         {
