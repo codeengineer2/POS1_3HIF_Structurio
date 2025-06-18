@@ -84,3 +84,4 @@ Das Structurio-Projekt ist eine modulare WPF-Anwendung, die sich in mehrere funk
 
 ---
 ![Klassendiagramme](image.png)
+![ER-Diagramm](er_erm_diagram.png)

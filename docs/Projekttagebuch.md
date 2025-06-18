@@ -18,8 +18,8 @@
 | 13.06.2025 | Farbe der Timestamps und EditTime angepasst, Merge branch 'main'         |
 | 14.06.2025 | Post Methode für Abrechnung erstellt (Backend und Frontend), Design angepasst Costs, Windows zu Pages geändert, Merge branch 'main' |
 | 15.06.2025 | Methodenname geändert, Detail Window Costs - Design Änderung und Responsive, Responsive in der Cost Page verbessert, Merge branch 'main', Backend Abrechnungsfehler ausgebessert im Endpunkt pid uid, Costs_Detail Window erstellt und PDF eingebunden für LiveAnsicht,  Merge branch 'main', Timestamp ist jetzt unabhängig vom Projekt |
-| 17.06.2025 | Strukturiert Costs und Timestamp                                         |
-| 18.06.2025 | UniTests für Backend und Frontend erstellt, Logging im Backend, Doxygen Dokumentation erstellt, und die Restliche Doku erstellt|
+| 17.06.2025 | Strukturiert Costs und Timestamp, Logging im Frontend und Dokumentiert  |
+| 18.06.2025 | UniTests für Backend und Frontend erstellt, Logging im Backend, Doxygen Dokumentation erstellt, Pflichtenheft, Readme, Lastenheft, Betriebsanleitung|
 
 
 

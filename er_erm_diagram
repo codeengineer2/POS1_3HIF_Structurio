@@ -1,0 +1,18 @@
+// ER Diagram
+digraph {
+	fontsize=12 rankdir=LR
+	users [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>users</B></TD></TR><TR><TD PORT='uid'><U>uid</U></TD><TD>PK</TD></TR><TR><TD PORT='firstname'>firstname</TD><TD>VARCHAR(100)</TD></TR><TR><TD PORT='lastname'>lastname</TD><TD>VARCHAR(100)</TD></TR><TR><TD PORT='email'>email</TD><TD>VARCHAR(150) UNIQUE</TD></TR><TR><TD PORT='password_hash'>password_hash</TD><TD>TEXT</TD></TR><TR><TD PORT='birthdate'>birthdate</TD><TD>DATE</TD></TR></TABLE>> shape=plaintext]
+	projects [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>projects</B></TD></TR><TR><TD PORT='pid'><U>pid</U></TD><TD>PK</TD></TR><TR><TD PORT='name'>name</TD><TD>VARCHAR(100)</TD></TR><TR><TD PORT='description'>description</TD><TD>TEXT</TD></TR><TR><TD PORT='color'>color</TD><TD>VARCHAR(20)</TD></TR><TR><TD PORT='owner_uid'><I>owner_uid</I></TD><TD>FK users(uid)</TD></TR></TABLE>> shape=plaintext]
+	abrechnung [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>abrechnung</B></TD></TR><TR><TD PORT='aid'><U>aid</U></TD><TD>PK</TD></TR><TR><TD PORT='uid'><I>uid</I></TD><TD>FK users(uid)</TD></TR><TR><TD PORT='pid'><I>pid</I></TD><TD>FK projects(pid)</TD></TR><TR><TD PORT='name'>name</TD><TD>VARCHAR(100)</TD></TR><TR><TD PORT='date'>date</TD><TD>DATE</TD></TR><TR><TD PORT='price'>price</TD><TD>REAL</TD></TR><TR><TD PORT='category'>category</TD><TD>VARCHAR(100)</TD></TR><TR><TD PORT='rechnung'>rechnung</TD><TD>VARCHAR(100)</TD></TR></TABLE>> shape=plaintext]
+	boards [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>boards</B></TD></TR><TR><TD PORT='bid'><U>bid</U></TD><TD>PK</TD></TR><TR><TD PORT='pid'><I>pid</I></TD><TD>FK projects(pid)</TD></TR></TABLE>> shape=plaintext]
+	columns [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>columns</B></TD></TR><TR><TD PORT='cid'><U>cid</U></TD><TD>PK</TD></TR><TR><TD PORT='name'>name</TD><TD>VARCHAR(100)</TD></TR><TR><TD PORT='bid'><I>bid</I></TD><TD>FK boards(bid)</TD></TR></TABLE>> shape=plaintext]
+	issues [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>issues</B></TD></TR><TR><TD PORT='iid'><U>iid</U></TD><TD>PK</TD></TR><TR><TD PORT='description'>description</TD><TD>TEXT</TD></TR><TR><TD PORT='cid'><I>cid</I></TD><TD>FK columns(cid)</TD></TR></TABLE>> shape=plaintext]
+	zeitstempel [label=<<TABLE BORDER='1' CELLBORDER='1' CELLSPACING='0'><TR><TD COLSPAN='2'><B>zeitstempel</B></TD></TR><TR><TD PORT='zid'><U>zid</U></TD><TD>PK</TD></TR><TR><TD PORT='uid'><I>uid</I></TD><TD>FK users(uid)</TD></TR><TR><TD PORT='checkin'>checkin</TD><TD>TIME</TD></TR><TR><TD PORT='checkout'>checkout</TD><TD>TIME</TD></TR><TR><TD PORT='datum_in'>datum_in</TD><TD>DATE</TD></TR><TR><TD PORT='duration'>duration</TD><TD>VARCHAR(50)</TD></TR><TR><TD PORT='datum_out'>datum_out</TD><TD>DATE</TD></TR></TABLE>> shape=plaintext]
+	projects:owner_uid -> users:uid [arrowhead=normal]
+	abrechnung:uid -> users:uid [arrowhead=normal]
+	abrechnung:pid -> projects:pid [arrowhead=normal]
+	boards:pid -> projects:pid [arrowhead=normal]
+	columns:bid -> boards:bid [arrowhead=normal]
+	issues:cid -> columns:cid [arrowhead=normal]
+	zeitstempel:uid -> users:uid [arrowhead=normal]
+}
