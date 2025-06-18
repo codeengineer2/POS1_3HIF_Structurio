@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,15 @@ namespace Structurio.Windows
         {
             InitializeComponent();
 
-            contentPresenter.Content = visual;
+            if (visual != null)
+            {
+                contentPresenter.Content = visual;
+                Log.Debug("GhostWindow wurde erfolgreich geladen.");
+            }
+            else
+            {
+                Log.Warning("GhostWindow wurde nicht korrekt geladen.");
+            }
         }
     }
 }

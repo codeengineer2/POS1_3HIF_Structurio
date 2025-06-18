@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -78,12 +79,15 @@ namespace Structurio.Windows
 
             if (!valid)
             {
+                Log.Warning("Projekt konnte nicht erstellt werden.");
                 return;
             }
 
             ProjectName = nameText;
             ProjectDescription = descriptionText;
             ProjectColor = (colorPicker.SelectedColor ?? Colors.LightGray).ToString();
+
+            Log.Information($"Neues Projekt wurde erstellt mit dem Namen={ProjectName}.");
 
             DialogResult = true;
             Close();

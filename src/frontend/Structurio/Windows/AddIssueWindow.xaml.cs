@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,6 +53,8 @@ namespace Structurio.Windows
                 descriptionInfo.Foreground = Brushes.DarkRed;
                 return;
             }
+
+            Log.Information($"Neues Issue wurde hinzugefügt mit der Beschreibung={IssueDescription}");
 
             DialogResult = true;
             Close();

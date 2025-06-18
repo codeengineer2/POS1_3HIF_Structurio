@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Serilog;
 using Structurio.Classes;
 
 namespace Structurio.Windows
@@ -27,8 +28,11 @@ namespace Structurio.Windows
         public UpdateIssueWindow(Issue issue)
         {
             InitializeComponent();
+
             this.issue = issue;
             descriptionBox.Text = issue.Description;
+
+            Log.Information($"UpdateIssueWindow wurde geöffnet für das Issue mit der Beschreibung={issue.Description}");
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)
@@ -49,6 +53,8 @@ namespace Structurio.Windows
                 return;
             }
 
+            Log.Information($"Beschreibung von dem Issue mit der Beschreibung={text} wurde erfolgreich aktualisiert.");
+
             UpdatedDescription = text;
             DialogResult = true;
             Close();
@@ -56,6 +62,8 @@ namespace Structurio.Windows
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
+            Log.Warning($"Das Issue mit der Beschreibung={issue.Description} wurde gelöscht.");
+
             IsDeleted = true;
             DialogResult = true;
             Close();

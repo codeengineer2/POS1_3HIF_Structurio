@@ -38,7 +38,7 @@ namespace Structurio
             StartTimer();
 
             Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("log.txt", rollingInterval: RollingInterval.Day).CreateLogger();
-            Log.Information($"MainWindow gestartet vom Benutzer mit Email {CurrentUser.Email} mit {projects.Count} Projekten.");
+            Log.Information($"MainWindow wurde gestartet vom Benutzer mit Email={CurrentUser.Email} und mit {projects.Count} Projekten.");
 
             this.MainFramePublic = this.mainFrame;
             mainFrame.Navigate(new ProjectsPage(this, projects));
@@ -103,7 +103,6 @@ namespace Structurio
 
             this.projectsButton.IsChecked = true;
         }
-
 
         private void StartTimer()
         {

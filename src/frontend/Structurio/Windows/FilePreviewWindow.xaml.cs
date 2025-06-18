@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,18 @@ namespace Structurio.Windows
         public FilePreviewWindow(ImageSource imageSource)
         {
             InitializeComponent();
-            previewImage.Source = imageSource;
+
+            if (imageSource != null)
+            {
+                previewImage.Source = imageSource;
+                Log.Information("Dateivorschau wurde geöffnet.");
+            }
+            else
+            {
+                Log.Warning("Dateivorschau konnte nicht geöffnet werden.");
+                MessageBox.Show("Kein Bild vorhanden.");
+                Close();
+            }
         }
     }
 }
