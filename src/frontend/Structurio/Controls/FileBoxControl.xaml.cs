@@ -19,7 +19,7 @@ using Serilog;
 namespace Structurio.Controls
 {
     /// <summary>
-    /// Interaktionslogik für FileBoxControl.xaml
+    /// Anzeige und Verwaltung einer Datei-Vorschau im UI.
     /// </summary>
     public partial class FileBoxControl : UserControl
     {
@@ -27,6 +27,9 @@ namespace Structurio.Controls
         private string filePath;
         public string FileName;
 
+        /// <summary>
+        /// Initialisiert die FileBoxControl mit Dateityp, Namen und Pfad.
+        /// </summary>
         public FileBoxControl(string type, string fileName = "Dateiname", string path = "")
         {
             InitializeComponent();
@@ -41,6 +44,9 @@ namespace Structurio.Controls
             Log.Information($"Datei erstellt mit Dateiname={FileName} und Pfad={filePath}.");
         }
 
+        /// <summary>
+        /// Setzt den Hintergrund oder das Vorschau-Bild.
+        /// </summary>
         public void SetBackground(Brush brush)
         {
             if (brush is ImageBrush imageBrush && imageBrush.ImageSource != null)
@@ -54,6 +60,9 @@ namespace Structurio.Controls
             }
         }
 
+        /// <summary>
+        /// Öffnet die Datei in einem Vorschaufenster.
+        /// </summary>
         private void FileBox_Click(object sender, MouseButtonEventArgs e)
         {
             if (previewImage.Source != null)
@@ -65,6 +74,9 @@ namespace Structurio.Controls
             }
         }
 
+        /// <summary>
+        /// Öffnet die Datei mit dem Standardprogramm.
+        /// </summary>
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -91,6 +103,9 @@ namespace Structurio.Controls
             }
         }
 
+        /// <summary>
+        /// Löscht das UI-Element nach Bestätigung.
+        /// </summary>
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Möchten Sie diese Datei wirklich löschen?", "Löschen bestätigen", MessageBoxButton.YesNo, MessageBoxImage.Warning);

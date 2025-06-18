@@ -16,10 +16,14 @@ using System.Windows.Shapes;
 namespace Structurio.Windows
 {
     /// <summary>
-    /// Interaktionslogik für GhostWindow.xaml
+    /// Fenster für Drag Vorschau eines Elements.
     /// </summary>
     public partial class GhostWindow : Window
     {
+        /// <summary>
+        /// Zeigt das übergebene UI Element im GhostWindow an.
+        /// </summary>
+        /// <param name="visual">Das Element zur Vorschau.</param>
         public GhostWindow(UIElement visual)
         {
             InitializeComponent();

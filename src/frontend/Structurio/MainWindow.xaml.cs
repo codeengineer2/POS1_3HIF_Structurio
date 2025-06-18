@@ -20,17 +20,38 @@ using Serilog.Core;
 namespace Structurio
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Hauptfenster für die Benutzeroberfläche.
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Startzeit für den Timer.
+        /// </summary>
         private DateTime startTime;
+
+        /// <summary>
+        /// DispatcherTimer für Laufzeitanzeige.
+        /// </summary>
         private DispatcherTimer timer;
 
+        /// <summary>
+        /// Öffentlicher Zugriff auf das MainFrame.
+        /// </summary>
         public Frame MainFramePublic;
+
+        /// <summary>
+        /// Aktuell eingeloggter Benutzer.
+        /// </summary>
         public User CurrentUser;
+
+        /// <summary>
+        /// Liste der Benutzerprojekte.
+        /// </summary>
         public List<Project> UserProjects;
-        
+
+        /// <summary>
+        /// Konstruktor im Livebetrieb mit Userdaten.
+        /// </summary>
         public MainWindow(User user, List<Project> projects)
         {
             InitializeComponent();
@@ -49,7 +70,9 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
         }
 
-        // übergangs lösung
+        /// <summary>
+        /// Konstruktor für Entwicklermodus mit Testdaten.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -59,7 +82,6 @@ namespace Structurio
             Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("log.txt", rollingInterval: RollingInterval.Day).CreateLogger();
             Log.Warning("MainWindow wurde im Entwicklermodus gestartet.");
 
-            // Testdaten
             var testProjects = new List<Project>
             {
                 new Project
@@ -104,6 +126,9 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
         }
 
+        /// <summary>
+        /// Startet den Zeitmesser.
+        /// </summary>
         private void StartTimer()
         {
             startTime = DateTime.Now;
@@ -119,12 +144,18 @@ namespace Structurio
             timer.Start();
         }
 
+        /// <summary>
+        /// Aktualisiert die Zeitdarstellung.
+        /// </summary>
         private void timer_Tick(object sender, EventArgs e)
         {
             var elapsed = DateTime.Now - startTime;
             timeText.Text = $"{elapsed:hh\\:mm\\:ss}";
         }
 
+        /// <summary>
+        /// Deaktiviert alle Menübuttons außer dem aktiven.
+        /// </summary>
         private void UncheckAllMenuItems(object sender)
         {
             foreach (var child in LogicalTreeHelper.GetChildren(SidebarMenuPanel))
@@ -136,6 +167,9 @@ namespace Structurio
             }
         }
 
+        /// <summary>
+        /// Öffnet die Projektübersicht.
+        /// </summary>
         private void projects_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as ToggleButton;
@@ -147,6 +181,9 @@ namespace Structurio
             button.IsChecked = true;
         }
 
+        /// <summary>
+        /// Öffnet die Zeitstempelansicht.
+        /// </summary>
         private void timestamp_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as ToggleButton;
@@ -158,11 +195,17 @@ namespace Structurio
             button.IsChecked = true;
         }
 
+        /// <summary>
+        /// Öffnet die Einstellungen (noch leer).
+        /// </summary>
         private void settings_Click(object sender, RoutedEventArgs e)
         {
             UncheckAllMenuItems(sender);
         }
 
+        /// <summary>
+        /// Führt Logout durch und öffnet das Loginfenster.
+        /// </summary>
         private void logout_Click(object sender, RoutedEventArgs e)
         {
             Log.Information($"Benutzer mit Email={CurrentUser.Email} hat sich abgemeldet.");
@@ -172,6 +215,9 @@ namespace Structurio
             this.Close();
         }
 
+        /// <summary>
+        /// Entfernt ein Projekt anhand der ID.
+        /// </summary>
         public void RemoveProjectById(int pid)
         {
             var projectToRemove = UserProjects.FirstOrDefault(p => p.Id == pid);

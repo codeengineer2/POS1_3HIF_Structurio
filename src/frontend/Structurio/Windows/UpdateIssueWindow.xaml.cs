@@ -17,14 +17,22 @@ using Structurio.Classes;
 namespace Structurio.Windows
 {
     /// <summary>
-    /// Interaktionslogik für UpdateIssueWindow.xaml
+    /// Fenster zum Bearbeiten oder Löschen eines bestehenden Issues.
     /// </summary>
     public partial class UpdateIssueWindow : Window
     {
+        /// <summary>Aktualisierte Beschreibung des Issues.</summary>
         public string UpdatedDescription { get; private set; }
+
+        /// <summary>Gibt an, ob das Issue gelöscht wurde.</summary>
         public bool IsDeleted { get; private set; } = false;
+
         private Issue issue;
 
+        /// <summary>
+        /// Initialisiert das Fenster mit einem bestehenden Issue.
+        /// </summary>
+        /// <param name="issue">Das zu bearbeitende Issue.</param>
         public UpdateIssueWindow(Issue issue)
         {
             InitializeComponent();
@@ -35,6 +43,9 @@ namespace Structurio.Windows
             Log.Information($"UpdateIssueWindow wurde geöffnet für das Issue mit der Beschreibung={issue.Description}");
         }
 
+        /// <summary>
+        /// Speichert die aktualisierte Beschreibung, wenn gültig.
+        /// </summary>
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             var text = descriptionBox.Text.Trim();
@@ -60,6 +71,9 @@ namespace Structurio.Windows
             Close();
         }
 
+        /// <summary>
+        /// Löscht das Issue.
+        /// </summary>
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             Log.Warning($"Das Issue mit der Beschreibung={issue.Description} wurde gelöscht.");
@@ -69,7 +83,10 @@ namespace Structurio.Windows
             Close();
         }
 
-        private void DescriptionBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        /// <summary>
+        /// Setzt die Fehleranzeige beim Ändern des Beschreibungstextes zurück.
+        /// </summary>
+        private void DescriptionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             descriptionBox.ClearValue(BackgroundProperty);
             descriptionInfo.Text = "* erforderlich";

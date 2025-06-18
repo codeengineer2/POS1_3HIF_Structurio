@@ -12,14 +12,18 @@ using System.Windows.Input;
 
 namespace Structurio.Classes
 {
+    /// <summary>
+    /// Zeigt eine Ladeanimation im Kreis
+    /// </summary>
     public static class LoadingAnimation
     {
+        /// <summary>
+        /// Startet die Animation auf dem Canvas
+        /// </summary>
         public static void Start(Canvas canvas, Grid overlay)
         {
             if (canvas == null || overlay == null)
-            {
                 return;
-            }
 
             canvas.Children.Clear();
             overlay.Visibility = Visibility.Visible;
@@ -61,17 +65,21 @@ namespace Structurio.Classes
             }
         }
 
+        /// <summary>
+        /// Stoppt die Animation und blendet Overlay aus
+        /// </summary>
         public static void Stop(Canvas canvas, Grid overlay)
         {
             if (canvas == null || overlay == null)
-            {
                 return;
-            }
 
             canvas.Children.Clear();
             overlay.Visibility = Visibility.Collapsed;
         }
 
+        /// <summary>
+        /// Führt async Aktion mit Ladeanimation aus
+        /// </summary>
         public static async Task RunAsync(Canvas canvas, Grid overlay, Func<Task> action)
         {
             Mouse.OverrideCursor = Cursors.Wait;

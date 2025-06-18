@@ -16,17 +16,26 @@ using System.Windows.Shapes;
 namespace Structurio.Windows
 {
     /// <summary>
-    /// Interaction logic for AddIssueWindow.xaml
+    /// Fenster zum Erstellen eines neuen Issues.
     /// </summary>
     public partial class AddIssueWindow : Window
     {
+        /// <summary>
+        /// Beschreibung des neuen Issues.
+        /// </summary>
         public string IssueDescription { get; private set; }
 
+        /// <summary>
+        /// Initialisiert das Fenster.
+        /// </summary>
         public AddIssueWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Rücksetzt Info-Text und Hintergrund bei Texteingabe.
+        /// </summary>
         private void descriptionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             descriptionBox.ClearValue(BackgroundProperty);
@@ -34,6 +43,9 @@ namespace Structurio.Windows
             descriptionInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Validiert Eingabe und bestätigt bei Erfolg.
+        /// </summary>
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             IssueDescription = descriptionBox.Text.Trim();

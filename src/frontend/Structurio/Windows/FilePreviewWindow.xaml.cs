@@ -16,10 +16,14 @@ using System.Windows.Shapes;
 namespace Structurio.Windows
 {
     /// <summary>
-    /// Interaktionslogik für FilePreviewWindow.xaml
+    /// Fenster zur Vorschau einer Bilddatei.
     /// </summary>
     public partial class FilePreviewWindow : Window
     {
+        /// <summary>
+        /// Initialisiert das Fenster mit einem Bild oder zeigt eine Fehlermeldung.
+        /// </summary>
+        /// <param name="imageSource">Das anzuzeigende Bild.</param>
         public FilePreviewWindow(ImageSource imageSource)
         {
             InitializeComponent();

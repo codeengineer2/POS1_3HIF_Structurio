@@ -9,9 +9,14 @@ using System.Windows.Media;
 
 namespace Structurio.Classes
 {
-    // some class parts from stackoverflow
+    /// <summary>
+    /// Macht aus Farbe im Text eine Brush
+    /// </summary>
     public class ColorToBrushConverter : IValueConverter
     {
+        /// <summary>
+        /// Wandelt Hex-String in Brush um
+        /// </summary>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is string hex)
@@ -21,6 +26,9 @@ namespace Structurio.Classes
             return Brushes.DarkGray;
         }
 
+        /// <summary>
+        /// Zurückwandeln nicht gemacht
+        /// </summary>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();

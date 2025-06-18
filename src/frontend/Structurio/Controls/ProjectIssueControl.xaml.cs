@@ -22,13 +22,16 @@ using Serilog;
 namespace Structurio.Controls
 {
     /// <summary>
-    /// Interaktionslogik für ProjectIssueControl.xaml
+    /// UI-Element zur Darstellung und Bearbeitung eines einzelnen Issues inkl. Drag & Drop.
     /// </summary>
     public partial class ProjectIssueControl : UserControl
     {
         private bool isMouseDown = false;
         private GhostWindow ghostWindow = null;
 
+        /// <summary>
+        /// Gibt das aktuelle Issue-Objekt zurück.
+        /// </summary>
         public Issue Issue => this.DataContext as Issue;
 
         [StructLayout(LayoutKind.Sequential)]
@@ -49,6 +52,9 @@ namespace Structurio.Controls
         const int LOGPIXELSX = 88;
         const int LOGPIXELSY = 90;
 
+        /// <summary>
+        /// Gibt die skalierte Cursorposition zurück.
+        /// </summary>
         public static Point GetCursorPositionScaled()
         {
             GetCursorPos(out POINT point);
@@ -63,6 +69,9 @@ namespace Structurio.Controls
             return new Point(point.X / scaleX, point.Y / scaleY);
         }
 
+        /// <summary>
+        /// Initialisiert das ProjectIssueControl.
+        /// </summary>
         public ProjectIssueControl()
         {
             InitializeComponent();
@@ -162,18 +171,12 @@ namespace Structurio.Controls
 
         private void IssueControl_Drop(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent("Issue"))
-            {
-                return;
-            }
+            if (!e.Data.GetDataPresent("Issue")) return;
 
             var sourceIssue = e.Data.GetData("Issue") as Issue;
             var targetIssue = DataContext as Issue;
 
-            if (sourceIssue == null || targetIssue == null || sourceIssue == targetIssue)
-            {
-                return;
-            }
+            if (sourceIssue == null || targetIssue == null || sourceIssue == targetIssue) return;
 
             if (sourceIssue.ColumnId == targetIssue.ColumnId)
             {
@@ -187,7 +190,6 @@ namespace Structurio.Controls
                     {
                         column.Items.Move(oldIndex, newIndex);
                         e.Handled = true;
-
                         Log.Information($"Issue wird verschoben innerhalb einer Spalte.");
                     }
                 }
@@ -199,10 +201,7 @@ namespace Structurio.Controls
             DependencyObject parent = this;
             while (parent != null)
             {
-                if (parent is ItemsControl itemsControl)
-                {
-                    return itemsControl;
-                }
+                if (parent is ItemsControl itemsControl) return itemsControl;
                 parent = VisualTreeHelper.GetParent(parent);
             }
             return null;
@@ -212,15 +211,9 @@ namespace Structurio.Controls
         {
             Log.Information($"UpdateIssueWindow wurde geöffnet für das Issue mit der Beschreibung={Issue.Description}.");
 
-            var window = new UpdateIssueWindow(this.Issue)
-            {
-                Owner = Window.GetWindow(this)
-            };
+            var window = new UpdateIssueWindow(this.Issue) { Owner = Window.GetWindow(this) };
 
-            if (window.ShowDialog() != true)
-            {
-                return;
-            }
+            if (window.ShowDialog() != true) return;
 
             var kanbanPage = FindParentPage<KanbanPage>();
             if (kanbanPage == null)
@@ -242,7 +235,6 @@ namespace Structurio.Controls
                     if (success)
                     {
                         Log.Information($"Issue mit der Beschreibung={Issue.Description} wurde erfolgreich gelöscht.");
-
                         var column = FindParentColumn();
                         column?.Original.Issues.Remove(this.Issue);
                         column?.Items.Remove(this.Issue);
@@ -255,11 +247,7 @@ namespace Structurio.Controls
                 }
                 else
                 {
-                    var updateRequest = new UpdateIssueRequest
-                    {
-                        Id = this.Issue.Id,
-                        Description = window.UpdatedDescription
-                    };
+                    var updateRequest = new UpdateIssueRequest { Id = this.Issue.Id, Description = window.UpdatedDescription };
 
                     Log.Information($"Versuch zum aktualisieren eines Issues mit der Beschreibung={Issue.Description}.");
 
@@ -284,9 +272,7 @@ namespace Structurio.Controls
             while (parent != null)
             {
                 if (parent is FrameworkElement frameworkElement && frameworkElement.DataContext is ColumnWrapper column)
-                {
                     return column;
-                }
                 parent = VisualTreeHelper.GetParent(parent);
             }
             return null;
@@ -297,10 +283,7 @@ namespace Structurio.Controls
             DependencyObject parent = this;
             while (parent != null)
             {
-                if (parent is T page)
-                {
-                    return page;
-                }
+                if (parent is T page) return page;
                 parent = VisualTreeHelper.GetParent(parent);
             }
             return null;
