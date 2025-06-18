@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Serilog;
 using Structurio.Classes;
 
 namespace Structurio.Controls
@@ -51,6 +52,7 @@ namespace Structurio.Controls
     
         private void ProjectCard_Click(object sender, MouseButtonEventArgs e)
         {
+            Log.Information($"ProjectCard wurde geklickt mit Name={Project.Name}.");
             Clicked?.Invoke(this, EventArgs.Empty);
         }
 

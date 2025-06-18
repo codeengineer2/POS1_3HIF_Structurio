@@ -17,6 +17,7 @@ using Structurio.Services;
 using Structurio.Windows;
 using System.Runtime.InteropServices;
 using Structurio.Pages;
+using Serilog;
 
 namespace Structurio.Controls
 {
@@ -124,6 +125,8 @@ namespace Structurio.Controls
                 var issue = DataContext as Issue;
                 if (issue != null)
                 {
+                    Log.Information($"Issue wird verschoben mit Beschreibung={issue.Description}.");
+
                     Mouse.OverrideCursor = Cursors.Hand;
                     DragDrop.DoDragDrop(this, new DataObject("Issue", issue), DragDropEffects.Move);
                     Mouse.OverrideCursor = null;
@@ -184,6 +187,8 @@ namespace Structurio.Controls
                     {
                         column.Items.Move(oldIndex, newIndex);
                         e.Handled = true;
+
+                        Log.Information($"Issue wird verschoben innerhalb einer Spalte.");
                     }
                 }
             }
@@ -205,6 +210,8 @@ namespace Structurio.Controls
 
         private async void InfoButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"UpdateIssueWindow wurde geöffnet für das Issue mit der Beschreibung={Issue.Description}.");
+
             var window = new UpdateIssueWindow(this.Issue)
             {
                 Owner = Window.GetWindow(this)
@@ -218,6 +225,7 @@ namespace Structurio.Controls
             var kanbanPage = FindParentPage<KanbanPage>();
             if (kanbanPage == null)
             {
+                Log.Error("Kanban-Seite wurde nicht gefunden.");
                 MessageBox.Show("Konnte Kanban-Seite nicht finden.");
                 return;
             }
@@ -228,15 +236,20 @@ namespace Structurio.Controls
 
                 if (window.IsDeleted)
                 {
+                    Log.Information($"Versuch zum löschen eines Issues mit der Beschreibung={Issue.Description}.");
+
                     var success = await api.DeleteIssueAsync(this.Issue.Id);
                     if (success)
                     {
+                        Log.Information($"Issue mit der Beschreibung={Issue.Description} wurde erfolgreich gelöscht.");
+
                         var column = FindParentColumn();
                         column?.Original.Issues.Remove(this.Issue);
                         column?.Items.Remove(this.Issue);
                     }
                     else
                     {
+                        Log.Error($"Fehler beim Löschen des Issues mit der Beschreibung={Issue.Description}.");
                         MessageBox.Show("Fehler beim Löschen des Issues!");
                     }
                 }
@@ -248,13 +261,17 @@ namespace Structurio.Controls
                         Description = window.UpdatedDescription
                     };
 
+                    Log.Information($"Versuch zum aktualisieren eines Issues mit der Beschreibung={Issue.Description}.");
+
                     var success = await api.UpdateIssueAsync(updateRequest);
                     if (success)
                     {
+                        Log.Information($"Issue mit der Beschreibung={Issue.Description} wurde erfolgreich aktualisiert");
                         this.Issue.Description = window.UpdatedDescription;
                     }
                     else
                     {
+                        Log.Error($"Fehler beim aktualisieren des Issues mit der Beschreibung={Issue.Description}.");
                         MessageBox.Show("Fehler beim Aktualisieren des Issues!");
                     }
                 }

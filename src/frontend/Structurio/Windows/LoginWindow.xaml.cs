@@ -16,6 +16,7 @@ using Structurio.Pages;
 using Structurio.Classes;
 using Structurio.Interfaces;
 using Structurio.Services;
+using Serilog;
 
 namespace Structurio.Windows
 {
@@ -29,11 +30,16 @@ namespace Structurio.Windows
         public LoginWindow()
         {
             InitializeComponent();
+
+            Log.Information("LoginWindow wurde geöffnet.");
+
             loginFrame.Navigate(new SignInPage(this, api));
         }
 
         public void GoToMainWindow(User user, List<Project> projects)
         {
+            Log.Information($"Erfolgreich eingeloggt als Benutzer mit der Email={user.Email} und mit {projects.Count} Projekten.");
+
             var mainWindow = new MainWindow(user, projects);
             mainWindow.Show();
             this.Close();
@@ -41,16 +47,19 @@ namespace Structurio.Windows
 
         public void GoToPasswordResetPage()
         {
+            Log.Information("Navigiert zur PasswordResetPage.");
             loginFrame.Navigate(new PasswordResetPage(this));
         }
 
         public void GoToSignInPage()
         {
+            Log.Information("Navigiert zur SignInPage.");
             loginFrame.Navigate(new SignInPage(this, api));
         }
 
         public void GoToSignUpPage()
         {
+            Log.Information("Navigiert zur SignUpPage.");
             loginFrame.Navigate(new SignUpPage(this, api));
         }
     }

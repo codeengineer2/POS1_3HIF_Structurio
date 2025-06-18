@@ -14,8 +14,9 @@ using System.Windows.Threading;
 using Structurio.Pages;
 using Structurio.Windows;
 using Structurio.Classes;
-using Serilog.Core;
 using Serilog;
+using Serilog.Core;
+
 namespace Structurio
 {
     /// <summary>
@@ -25,6 +26,7 @@ namespace Structurio
     {
         private DateTime startTime;
         private DispatcherTimer timer;
+
         public Frame MainFramePublic;
         public User CurrentUser;
         public List<Project> UserProjects;
@@ -32,33 +34,39 @@ namespace Structurio
         public MainWindow(User user, List<Project> projects)
         {
             InitializeComponent();
+
             StartTimer();
+
+            Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("log.txt", rollingInterval: RollingInterval.Day).CreateLogger();
+            Log.Information($"MainWindow wurde gestartet vom Benutzer mit Email={CurrentUser.Email} und mit {projects.Count} Projekten.");
+
             this.MainFramePublic = this.mainFrame;
             mainFrame.Navigate(new ProjectsPage(this, projects));
-            this.projectsButton.IsChecked = true;
+
             CurrentUser = user;
             UserProjects = projects;
-            Log.Logger = new LoggerConfiguration()
-            .WriteTo.Console()
-            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
+
+            this.projectsButton.IsChecked = true;
         }
 
         // übergangs lösung
         public MainWindow()
         {
             InitializeComponent();
-            StartTimer();
-            this.MainFramePublic = this.mainFrame;
 
-            // testdaten von chatgpt
+            StartTimer();
+
+            Log.Logger = new LoggerConfiguration().WriteTo.Console().WriteTo.File("log.txt", rollingInterval: RollingInterval.Day).CreateLogger();
+            Log.Warning("MainWindow wurde im Entwicklermodus gestartet.");
+
+            // Testdaten
             var testProjects = new List<Project>
             {
                 new Project
                 {
                         Id = 1,
                         Name = "HTL",
-                        Description = "Redesign der Schulwebseite",
+                        Description = "Besseres Design der Schulwebseite",
                         Color = "#FF5733",
                         OwnerUid = 1,
                         Board = new Board
@@ -69,17 +77,17 @@ namespace Structurio
                                 new Column
                                 {
                                     Id = 1,
-                                    Name = "Backlog",
+                                    Name = "Aufgaben",
                                     Issues = new List<Issue>
                                     {
-                                        new Issue { Id = 1, Description = "Erste Aufgabe", ColumnId = 1, Name="HTL"},
-                                        new Issue { Id = 2, Description = "Zweite Aufgabe", ColumnId = 1, Name="HTL"}
+                                        new Issue { Id = 1, Description = "Aufgabe1", ColumnId = 1, Name="HTL"},
+                                        new Issue { Id = 2, Description = "Aufgabe2", ColumnId = 1, Name="HTL"}
                                     }
                                 },
                                 new Column
                                 {
                                     Id = 2,
-                                    Name = "In Progress",
+                                    Name = "Erledigt",
                                     Issues = new List<Issue>()
                                 }
                             }
@@ -87,20 +95,20 @@ namespace Structurio
                     }
             };
 
+            this.MainFramePublic = this.mainFrame;
+            mainFrame.Navigate(new ProjectsPage(this, testProjects));
+
             CurrentUser = null;
             UserProjects = testProjects;
-            mainFrame.Navigate(new ProjectsPage(this, testProjects));
-            this.projectsButton.IsChecked = true;
-            // Window costs = new Costs();
-            // costs.Show();
-            // Window timestamp = new TimeStamp();
-            // timestamp.ShowDialog();
-        }
 
+            this.projectsButton.IsChecked = true;
+        }
 
         private void StartTimer()
         {
             startTime = DateTime.Now;
+
+            Log.Debug($"Timer wurde gestartet: {startTime}");
 
             timer = new DispatcherTimer
             {
@@ -133,6 +141,8 @@ namespace Structurio
             var button = sender as ToggleButton;
             UncheckAllMenuItems(button);
 
+            Log.Information($"Benutzer hat auf das Menü Element namens Projekte geklickt.");
+
             mainFrame.Navigate(new ProjectsPage(this, this.UserProjects));
             button.IsChecked = true;
         }
@@ -141,6 +151,8 @@ namespace Structurio
         {
             var button = sender as ToggleButton;
             UncheckAllMenuItems(button);
+
+            Log.Information("Benutzer hat auf das Menü Element namens Zeitstempeln geklickt.");
 
             mainFrame.Navigate(new TimeStamp(CurrentUser));
             button.IsChecked = true;
@@ -153,6 +165,8 @@ namespace Structurio
 
         private void logout_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"Benutzer mit Email={CurrentUser.Email} hat sich abgemeldet.");
+
             var loginWindow = new LoginWindow();
             loginWindow.Show();
             this.Close();
@@ -163,8 +177,13 @@ namespace Structurio
             var projectToRemove = UserProjects.FirstOrDefault(p => p.Id == pid);
             if (projectToRemove != null)
             {
+                Log.Information($"Projekt entfernt: ID={pid}, Name={projectToRemove}.");
                 UserProjects.Remove(projectToRemove);
                 mainFrame.Navigate(new ProjectsPage(this, UserProjects));
+            }
+            else
+            {
+                Log.Error($"Projekt mit ID={pid} nicht gefunden.");
             }
         }
     }
