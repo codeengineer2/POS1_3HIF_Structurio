@@ -83,4 +83,4 @@ Das Structurio-Projekt ist eine modulare WPF-Anwendung, die sich in mehrere funk
 * **Unit-Tests:** Einige Backend-Services (nicht in den hochgeladenen Dateien enthalten) basieren vermutlich auf Swagger-generierten Endpunkten und wurden extern validiert.
 
 ---
-
+![Klassendiagramme](image.png)
