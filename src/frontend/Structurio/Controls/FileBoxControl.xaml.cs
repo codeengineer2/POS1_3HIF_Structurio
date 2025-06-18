@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Structurio.Windows;
 using System.IO;
+using Serilog;
 
 namespace Structurio.Controls
 {
@@ -36,6 +37,8 @@ namespace Structurio.Controls
 
             Width = 200;
             Height = 250;
+
+            Log.Information($"Datei erstellt mit Dateiname={FileName} und Pfad={filePath}.");
         }
 
         public void SetBackground(Brush brush)
@@ -55,6 +58,7 @@ namespace Structurio.Controls
         {
             if (previewImage.Source != null)
             {
+                Log.Information($"Datei (in Edge wenn vorhanden) geöffnet mit Dateiname={FileName}.");
                 var previewWindow = new FilePreviewWindow(previewImage.Source);
                 previewWindow.Owner = Window.GetWindow(this);
                 previewWindow.ShowDialog();
@@ -65,6 +69,8 @@ namespace Structurio.Controls
         {
             try
             {
+                Log.Information($"Versuch die Datei zu öffnen mit Pfad={filePath}");
+
                 if (File.Exists(filePath))
                 {
                     System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(filePath)
@@ -74,11 +80,13 @@ namespace Structurio.Controls
                 }
                 else
                 {
+                    Log.Warning($"Datei wurde nicht gefunden mit Pfad={filePath}");
                     MessageBox.Show("Datei wurde nicht gefunden!");
                 }
             }
             catch (Exception ex)
             {
+                Log.Error($"{ex.Message}, Fehler beim öffnen der Datei mit Pfad = {filePath}");
                 MessageBox.Show(ex.Message);
             }
         }
@@ -89,6 +97,7 @@ namespace Structurio.Controls
 
             if (result == MessageBoxResult.Yes)
             {
+                Log.Information($"Datei wurde gelöscht mit Dateinamen=FileName {FileName}.");
                 var parent = this.Parent as Panel;
                 parent?.Children.Remove(this);
             }

@@ -1,5 +1,4 @@
-﻿using Structurio.Pages;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Serilog;
 using Structurio.Pages;
 
 namespace Structurio.Controls
@@ -29,13 +29,16 @@ namespace Structurio.Controls
         public FolderBoxControl(string title)
         {
             InitializeComponent();
+
             type = title.ToLower().Contains("file") ? "file" : "diagram";
             titleText.Text = type == "file" ? "📁 Dateien" : "📊 Diagramme";
             this.Name = titleText.Text.ToLower();
+            Log.Information($"Ordner erstellt mit Typ={type}.");
         }
 
         private void FolderBox_Click(object sender, MouseButtonEventArgs e)
         {
+            Log.Information("Benutzer klickt auf den Ordner.");
             NavigationService.GetNavigationService(this)?.Navigate(new FilesPage(type));
         }
 
