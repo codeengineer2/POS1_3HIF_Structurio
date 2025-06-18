@@ -21,8 +21,9 @@ using Structurio.Interfaces;
 using Structurio.Services;
 using Structurio.Windows;
 using System.Runtime.InteropServices;
-namespace Structurio.Pages
+using Serilog;
 
+namespace Structurio.Pages
 {
     /// <summary>
     /// Interaction logic for KanbanPage.xaml
@@ -48,6 +49,9 @@ namespace Structurio.Pages
         public KanbanPage(Project project)
         {
             InitializeComponent();
+
+            Log.Information($"KanbanPage wurde geladen für das Projekt mit dem Namen={project.Name}.");
+
             this.project = project;
 
             foreach (var column in project.Board.Columns)
@@ -60,6 +64,8 @@ namespace Structurio.Pages
 
         public void StartAutoScroll()
         {
+            Log.Debug("AutoScroll gestartet.");
+
             if (autoScrollTimer == null)
             {
                 autoScrollTimer = new DispatcherTimer();
@@ -71,6 +77,7 @@ namespace Structurio.Pages
 
         public void StopAutoScroll()
         {
+            Log.Debug("AutoScroll gestoppt.");
             autoScrollTimer?.Stop();
         }
 
@@ -94,6 +101,8 @@ namespace Structurio.Pages
         {
             if (sender is Button button && button.DataContext is ColumnWrapper column)
             {
+                Log.Information($"AddIssue Event für die Spalte mit der ID={{column.Original.Id}} ausgelöst.");
+
                 var window = new AddIssueWindow { Owner = Window.GetWindow(this) };
                 window.DataContext = column.Original;
 
@@ -112,6 +121,8 @@ namespace Structurio.Pages
                         var newIssue = await api.AddIssueAsync(request);
                         if (newIssue != null)
                         {
+                            Log.Information($"Issue wurde erstellt mit der ID={newIssue.Id} in der Spalte mit der ID={column.Original.Id}.");
+
                             newIssue.Name = project.Name;
 
                             column.Original.Issues.Add(newIssue);
@@ -119,6 +130,7 @@ namespace Structurio.Pages
                         }
                         else
                         {
+                            Log.Warning($"Fehler beim erstellen des Issues in Spalte mit der ID={column.Original.Id}.");
                             MessageBox.Show("Fehler beim Erstellen des Issues!");
                         }
                     });
@@ -138,17 +150,22 @@ namespace Structurio.Pages
                 Name = $"Spalte {number}"
             };
 
+            Log.Information($"Neue Spalte wird erstellt mit dem Namen={request.Name}.");
+
             await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
             {
                 var newColumn = await api.AddColumnAsync(request);
                 if (newColumn != null)
                 {
+                    Log.Information($"Spalte wurde erfolgreich erstellt mit dem Namen={newColumn.Id}.");
+
                     newColumn.BoardId = project.Board.Id;
                     project.Board.Columns.Add(newColumn);
                     Columns.Add(new ColumnWrapper(newColumn));
                 }
                 else
                 {
+                    Log.Warning($"Fehler beim erstellen der Spalte mit dem Namen={request.Name}.");
                     MessageBox.Show("Fehler beim Erstellen der Spalte!");
                 }
             });
@@ -176,6 +193,8 @@ namespace Structurio.Pages
                     Name = newName
                 };
 
+                Log.Information($"Von der Spalte mit der ID={column.Original.Id} wird der Name zu {newName} geändert.");
+
                 await LoadingAnimation.RunAsync(loadingCanvas, loadingGrid, async () =>
                 {
                     var api = new ApiService();
@@ -183,6 +202,7 @@ namespace Structurio.Pages
                     var success = await api.UpdateColumnAsync(updateRequest);
                     if (!success)
                     {
+                        Log.Warning($"Spalte mit der ID={column.Original.Id} konnte nicht aktualisiert werden.");
                         MessageBox.Show("Spaltenname konnte nicht gespeichert werden!");
                     }
                 });
@@ -207,6 +227,8 @@ namespace Structurio.Pages
 
                 if (targetColumn != null && issue != null)
                 {
+                    Log.Information($"Issue mit der ID{issue.Id} wird gedroppt auf die Spalte mit der ID= {targetColumn.Original.Id}.");
+
                     issueBeingMoved = issue;
                     var currentColumn = Columns.FirstOrDefault(ContainsIssue);
                     issueBeingMoved = null;
@@ -251,6 +273,8 @@ namespace Structurio.Pages
 
                         if (currentColumn != null && currentColumn != targetColumn)
                         {
+                            Log.Information($"Issue mit der ID={issue.Id} von der Spalte mit der ID={currentColumn.Original.Id} zu der Spalte mit der ID={targetColumn.Original.Id} verschoben.");
+
                             currentColumn.Items.Remove(issue);
                             currentColumn.Original.Issues.Remove(issue);
 

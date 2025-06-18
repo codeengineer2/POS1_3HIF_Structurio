@@ -19,6 +19,7 @@ using Structurio.Services;
 using Structurio.Interfaces;
 using Newtonsoft.Json;
 using System.Net.Http;
+using Serilog;
 
 namespace Structurio.Pages
 {
@@ -37,6 +38,9 @@ namespace Structurio.Pages
         public SignUpPage(LoginWindow loginWindow, IApiService api)
         {
             InitializeComponent();
+
+            Log.Information("SignUpPage wurde geladen.");
+
             this.loginWindow = loginWindow;
             this.api = api;
 
@@ -48,12 +52,14 @@ namespace Structurio.Pages
         {
             if (e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
             {
+                Log.Debug("Copy oder Paste oder Cut wurde in der Passwortbox verhindert.");
                 e.Handled = true;
             }
         }
 
         private void GoToSignInPage_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Gehe zur SignInPage.");
             loginWindow.GoToSignInPage();
         }
 
@@ -94,6 +100,8 @@ namespace Structurio.Pages
 
         private void togglePasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"Passwortanzeige wurde umgeschalten zu {isPasswordVisible}.");
+
             isPasswordVisible = !isPasswordVisible;
 
             if (isPasswordVisible)
@@ -118,6 +126,8 @@ namespace Structurio.Pages
 
         private async Task<bool> CheckEmailAsync(string email)
         {
+            Log.Information($"Schaue nach ob es die EMail={email} gibt.");
+
             var mail = new { email };
             var json = JsonConvert.SerializeObject(mail);
 
@@ -127,16 +137,20 @@ namespace Structurio.Pages
             try
             {
                 var response = await client.PostAsync("http://localhost:8080/auth/check-email", content);
+                Log.Information($"CheckEmailAsync abgeschlossen, StatusCode={response.StatusCode}.");
                 return response.IsSuccessStatusCode;
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Error($"{ex.Message}, Fehler bei CheckEmailAsync für die EMail={email}.");
                 return false;
             }
         }
 
         private async void register_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Register Button geklickt und somit die Registrierung gestartet.");
+
             bool valid = true;
 
             int recommendedNameLength = 10;
@@ -149,6 +163,8 @@ namespace Structurio.Pages
             string firstName = firstNameBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(firstName))
             {
+                Log.Warning($"Ungültiger Vorname={firstName}.");
+
                 firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 firstNameInfo.Text = "Bitte ausfüllen!";
                 firstNameInfo.Foreground = Brushes.DarkRed;
@@ -156,6 +172,8 @@ namespace Structurio.Pages
             }
             else if (firstName.Length > 50)
             {
+                Log.Warning($"Ungültiger Vorname={firstName}.");
+
                 firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 firstNameInfo.Text = "Vorname darf maximal 50 Zeichen haben.";
                 firstNameInfo.Foreground = Brushes.DarkRed;
@@ -163,6 +181,8 @@ namespace Structurio.Pages
             }
             else if (!nameRegex.IsMatch(firstName))
             {
+                Log.Warning($"Ungültiger Vorname={firstName}.");
+
                 firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 firstNameInfo.Text = "Nur Buchstaben, Leerzeichen, - und ' erlaubt.";
                 firstNameInfo.Foreground = Brushes.DarkRed;
@@ -170,6 +190,8 @@ namespace Structurio.Pages
             }
             else if (firstName.Length > recommendedNameLength)
             {
+                Log.Warning($"Ungültiger Vorname={firstName}.");
+
                 firstNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 245, 200));
                 firstNameInfo.Text = $"Vorname ist ungewöhnlich lang (max. {recommendedNameLength} empfohlen)";
                 firstNameInfo.Foreground = Brushes.DarkOrange;
@@ -178,6 +200,8 @@ namespace Structurio.Pages
             string lastName = lastNameBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(lastName))
             {
+                Log.Warning($"Ungültiger Nachname={lastName}.");
+
                 lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 lastNameInfo.Text = "Bitte ausfüllen!";
                 lastNameInfo.Foreground = Brushes.DarkRed;
@@ -185,6 +209,8 @@ namespace Structurio.Pages
             }
             else if (lastName.Length > 50)
             {
+                Log.Warning($"Ungültiger Nachname={lastName}.");
+
                 lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 lastNameInfo.Text = "Nachname darf maximal 50 Zeichen haben.";
                 lastNameInfo.Foreground = Brushes.DarkRed;
@@ -192,6 +218,8 @@ namespace Structurio.Pages
             }
             else if (!nameRegex.IsMatch(lastName))
             {
+                Log.Warning($"Ungültiger Nachname={lastName}.");
+
                 lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 lastNameInfo.Text = "Nur Buchstaben, Leerzeichen, - und ' erlaubt.";
                 lastNameInfo.Foreground = Brushes.DarkRed;
@@ -199,6 +227,8 @@ namespace Structurio.Pages
             }
             else if (lastName.Length > recommendedNameLength)
             {
+                Log.Warning($"Ungültiger Nachname={lastName}.");
+
                 lastNameBox.Background = new SolidColorBrush(Color.FromRgb(255, 245, 200));
                 lastNameInfo.Text = $"Nachname ist ungewöhnlich lang (max. {recommendedNameLength} empfohlen)";
                 lastNameInfo.Foreground = Brushes.DarkOrange;
@@ -207,6 +237,8 @@ namespace Structurio.Pages
             DateTime? birthDate = birthDatePicker.SelectedDate;
             if (birthDate == null)
             {
+                Log.Warning($"Ungültiges Geburtsdatum={birthDate}.");
+
                 birthDatePicker.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 birthDateInfo.Text = "Bitte auswählen!";
                 birthDateInfo.Foreground = Brushes.DarkRed;
@@ -214,6 +246,8 @@ namespace Structurio.Pages
             }
             else if (birthDate < minBirthdate)
             {
+                Log.Warning($"Ungültiges Geburtsdatum={birthDate}.");
+
                 birthDatePicker.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 birthDateInfo.Text = "Bitte wähle ein realistisches Geburtsdatum ab dem Jahr 1900.";
                 birthDateInfo.Foreground = Brushes.DarkRed;
@@ -221,6 +255,8 @@ namespace Structurio.Pages
             }
             else if (birthDate > maxBirthdate)
             {
+                Log.Warning($"Ungültiges Geburtsdatum={birthDate}.");
+
                 birthDatePicker.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 birthDateInfo.Text = "Du musst mindestens 13 Jahre alt sein.";
                 birthDateInfo.Foreground = Brushes.DarkRed;
@@ -230,6 +266,8 @@ namespace Structurio.Pages
             string email = emailBox.Text.Trim();
             if (string.IsNullOrWhiteSpace(email))
             {
+                Log.Warning($"Ungültige EMail={email}.");
+
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Bitte ausfüllen!";
                 emailInfo.Foreground = Brushes.DarkRed;
@@ -237,6 +275,8 @@ namespace Structurio.Pages
             }
             else if (email.Length > maxEmailLength)
             {
+                Log.Warning($"Ungültige EMail={email}.");
+
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "E-Mail ist zu lang (maximal 150 Zeichen erlaubt).";
                 emailInfo.Foreground = Brushes.DarkRed;
@@ -244,6 +284,8 @@ namespace Structurio.Pages
             }
             else if (!emailRegex.IsMatch(email))
             {
+                Log.Warning($"Ungültige EMail={email}.");
+
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Ungültiges Format (z. B. name@domain.com)";
                 emailInfo.Foreground = Brushes.DarkRed;
@@ -253,6 +295,8 @@ namespace Structurio.Pages
             string password = isPasswordVisible ? passwordTextBox.Text.Trim() : passwordBox.Password.Trim();
             if (string.IsNullOrWhiteSpace(password))
             {
+                Log.Warning("Ungültiges Passwort.");
+
                 if (isPasswordVisible)
                 {
                     passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
@@ -268,6 +312,8 @@ namespace Structurio.Pages
             }
             else if (password.Length < minPasswordLength || password.Length > maxPasswordLength)
             {
+                Log.Warning("Ungültiges Passwort.");
+
                 if (isPasswordVisible)
                 {
                     passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
@@ -283,6 +329,8 @@ namespace Structurio.Pages
             }
             else if (!passwordRegex.IsMatch(password))
             {
+                Log.Warning("Ungültiges Passwort.");
+
                 if (isPasswordVisible)
                 {
                     passwordTextBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
@@ -300,6 +348,7 @@ namespace Structurio.Pages
 
             if (!valid)
             {
+                Log.Information("Registrierung abgebrochen wegen Validierungsfehlern in der SignUpPage.");
                 return;
             }
 
@@ -308,6 +357,8 @@ namespace Structurio.Pages
                 bool alreadyExists = await CheckEmailAsync(email);
                 if (alreadyExists)
                 {
+                    Log.Warning($"Registrierung abgebrochen da die EMail={email} bereits vorhanden ist.");
+
                     emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                     emailInfo.Text = "Diese E-Mail ist bereits vergeben!";
                     emailInfo.Foreground = Brushes.DarkRed;
@@ -323,21 +374,28 @@ namespace Structurio.Pages
                     Birthdate = birthDate?.ToString("yyyy-MM-dd") ?? ""
                 };
 
+                Log.Information($"Sende eine Registrierungsanfrage an Swagger für die EMail={email}.");
+
                 bool success = await api.RegisterAsync(request);
                 if (success)
                 {
+                    Log.Information($"Registrierung erfolgreich für EMail{email}.");
+
                     var loginResult = await api.LoginAsync(email, password);
                     if (loginResult?.Success == true)
                     {
+                        Log.Information($"Login nach Registrierung erfolgreich für die EMail={email}.");
                         loginWindow.GoToMainWindow(loginResult.User, loginResult.Projects);
                     }
                     else
                     {
+                        Log.Error("Login nach erfolgreicher Registrierung fehlgeschlagen.");
                         MessageBox.Show("Fehler beim Login.");
                     }
                 }
                 else
                 {
+                    Log.Error($"Registrierung fehlgeschlagen für die EMail={email}.");
                     MessageBox.Show("Registrierung fehlgeschlagen. Bitte versuche es erneut.");
                 }
             });

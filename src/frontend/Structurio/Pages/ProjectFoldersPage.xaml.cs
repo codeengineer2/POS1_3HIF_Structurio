@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Serilog;
 using Structurio.Classes;
 using Structurio.Controls;
 
@@ -27,6 +28,8 @@ namespace Structurio.Pages
         public ProjectFoldersPage()
         {
             InitializeComponent();
+
+            Log.Information("Initialisiere die ProjectFoldersPage.");
 
             var folder1 = new FolderBoxControl("file");
             var folder2 = new FolderBoxControl("diagram");
@@ -44,6 +47,8 @@ namespace Structurio.Pages
 
             var query = searchBox.Text.ToLower();
             var filtered = allFolderBoxes.Where(f => f.Name.Contains(query)).ToList();
+
+            Log.Information($"Suche wurde gestartet mit dem Query={query}.");
 
             filesWrapPanel.Children.Clear();
             foreach (var folder in filtered)

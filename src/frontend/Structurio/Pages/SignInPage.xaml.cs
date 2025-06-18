@@ -17,6 +17,7 @@ using Structurio.Classes;
 using Structurio.Services;
 using Structurio.Interfaces;
 using System.Text.RegularExpressions;
+using Serilog;
 
 namespace Structurio.Pages
 {
@@ -34,10 +35,13 @@ namespace Structurio.Pages
         public SignInPage(LoginWindow loginWindow, IApiService api)
         {
             InitializeComponent();
+
+            Log.Information("SignInPage wurde geladen.");
+
             this.loginWindow = loginWindow;
             this.api = api;
 
-            // blockiert copy/paste
+            // blockiert copy/paste/cut
             CommandManager.AddPreviewExecutedHandler(passwordBox, BlockCopyPasteCommand);
             CommandManager.AddPreviewExecutedHandler(passwordTextBox, BlockCopyPasteCommand);
         }
@@ -46,17 +50,20 @@ namespace Structurio.Pages
         {
             if (e.Command == ApplicationCommands.Copy || e.Command == ApplicationCommands.Cut || e.Command == ApplicationCommands.Paste)
             {
+                Log.Debug("Copy oder Paste oder Cut wurde in der Passwortbox verhindert.");
                 e.Handled = true;
             }
         }
 
         private void forgotPassword_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Gehe zur PasswordResetPage.");
             loginWindow.GoToPasswordResetPage();
         }
 
         private void GoToSignUp_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Gehe zur SignUpPage.");
             loginWindow.GoToSignUpPage();
         }
         private void emailBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -82,6 +89,8 @@ namespace Structurio.Pages
 
         private void togglePasswordButton_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information($"Passwortanzeige wurde umgeschalten zu {isPasswordVisible}.");
+
             isPasswordVisible = !isPasswordVisible;
 
             if (isPasswordVisible)
@@ -104,6 +113,8 @@ namespace Structurio.Pages
 
         private async void login_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Login Button wurde geklickt.");
+
             bool valid = true;
 
             int maxEmailLength = 100;
@@ -123,6 +134,8 @@ namespace Structurio.Pages
 
             if (string.IsNullOrWhiteSpace(email))
             {
+                Log.Warning($"EMail={email} ist leer.");
+
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Bitte ausfüllen!";
                 emailInfo.Foreground = Brushes.DarkRed;
@@ -130,6 +143,8 @@ namespace Structurio.Pages
             }
             else if (email.Length > maxEmailLength)
             {
+                Log.Warning($"EMail={email} ist zu lang.");
+
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = $"E-Mail darf maximal {maxEmailLength} Zeichen haben.";
                 emailInfo.Foreground = Brushes.DarkRed;
@@ -137,6 +152,8 @@ namespace Structurio.Pages
             }
             else if (!emailRegex.IsMatch(email))
             {
+                Log.Warning($"Format von EMail={email} ist falsch.");
+
                 emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 emailInfo.Text = "Ungültiges Format (z. B. name@domain.com)";
                 emailInfo.Foreground = Brushes.DarkRed;
@@ -154,6 +171,8 @@ namespace Structurio.Pages
                     passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 }
 
+                Log.Warning($"Passwort={password} ist leer.");
+
                 passwordInfo.Text = "Bitte ausfüllen!";
                 passwordInfo.Foreground = Brushes.DarkRed;
                 valid = false;
@@ -168,6 +187,8 @@ namespace Structurio.Pages
                 {
                     passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 }
+
+                Log.Warning($"Passwort={password} ist zu lang.");
 
                 passwordInfo.Text = $"Maximal {maxPasswordLength} Zeichen erlaubt.";
                 passwordInfo.Foreground = Brushes.DarkRed;
@@ -184,6 +205,8 @@ namespace Structurio.Pages
                     passwordBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
                 }
 
+                Log.Warning($"Format von Passwort={password} ist falsch.");
+
                 passwordInfo.Text = "Mind. 1 Groß-, 1 Kleinbuchstabe, Zahl, Sonderzeichen";
                 passwordInfo.Foreground = Brushes.DarkRed;
                 valid = false;
@@ -191,18 +214,24 @@ namespace Structurio.Pages
 
             if (!valid)
             {
+                Log.Information("Login fehlgeschlagen wegen Validierungsfehler in der SignInPage");
                 return;
             }
+
+            Log.Information($"Login probiert für den Benutzer mit der Email={email}.");
 
             await LoadingAnimation.RunAsync(loginWindow.loadingAnimationCanvas, loginWindow.loadingGrid, async () =>
             {
                 var result = await api.LoginAsync(email, password);
                 if (result != null && result.Success)
                 {
+                    Log.Information($"Login erfolgreich für den Benutzer der Email={email}.");
                     loginWindow.GoToMainWindow(result.User, result.Projects);
                 }
                 else
                 {
+                    Log.Warning($"Login fehlgeschlagen für Benutzer mit der Email={email}.");
+
                     emailBox.Background = new SolidColorBrush(Color.FromRgb(255, 235, 235));
 
                     if (isPasswordVisible)
