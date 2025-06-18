@@ -26,7 +26,8 @@ using Serilog;
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaction logic for KanbanPage.xaml
+    /// Repräsentiert eine interaktive Kanban-Seite zur Verwaltung von Spalten und Issues.
+    /// Unterstützt Drag&Drop, automatisches Scrollen, Spalten-/Issue-Erstellung und -Aktualisierung.
     /// </summary>
     public partial class KanbanPage : Page
     {
@@ -38,6 +39,9 @@ namespace Structurio.Pages
         private double ScrollThreshold = 60;
         private double ScrollSpeed = 20;
 
+        /// <summary>
+        /// Enthält die sichtbaren Spalten inkl. deren Issues.
+        /// </summary>
         public ObservableCollection<ColumnWrapper> Columns { get; set; } = new();
 
         [DllImport("user32.dll")]
@@ -46,6 +50,10 @@ namespace Structurio.Pages
         [StructLayout(LayoutKind.Sequential)]
         public struct POINT { public int X; public int Y; }
 
+        /// <summary>
+        /// Initialisiert die Kanban-Seite mit den Daten des übergebenen Projekts.
+        /// </summary>
+        /// <param name="project">Projekt mit Board und Columns</param>
         public KanbanPage(Project project)
         {
             InitializeComponent();
@@ -62,6 +70,9 @@ namespace Structurio.Pages
             kanbanItemsControl.ItemsSource = Columns;
         }
 
+        /// <summary>
+        /// Startet das automatische horizontale Scrollen beim Draggen.
+        /// </summary>
         public void StartAutoScroll()
         {
             Log.Debug("AutoScroll gestartet.");
@@ -75,6 +86,9 @@ namespace Structurio.Pages
             autoScrollTimer.Start();
         }
 
+        /// <summary>
+        /// Stoppt das automatische Scrollen.
+        /// </summary>
         public void StopAutoScroll()
         {
             Log.Debug("AutoScroll gestoppt.");
@@ -97,6 +111,9 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Öffnet ein Fenster zum Erstellen eines neuen Issues und fügt es zur Spalte hinzu.
+        /// </summary>
         private async void addItem_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.DataContext is ColumnWrapper column)
@@ -138,6 +155,9 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Fügt dem Board eine neue Spalte hinzu.
+        /// </summary>
         private async void addColumn_Click(object sender, RoutedEventArgs e)
         {
             var api = new ApiService();
@@ -171,6 +191,9 @@ namespace Structurio.Pages
             });
         }
 
+        /// <summary>
+        /// Speichert den geänderten Namen einer Spalte nach dem Verlassen des Textfeldes.
+        /// </summary>
         private async void titleBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox textBox && textBox.DataContext is ColumnWrapper column)
@@ -256,6 +279,9 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Behandelt das Drop-Event auf eine Spalte und aktualisiert das Issue.
+        /// </summary>
         private async void Column_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent("Issue") && sender is Border border)

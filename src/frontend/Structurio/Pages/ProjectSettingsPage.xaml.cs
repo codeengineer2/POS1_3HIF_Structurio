@@ -21,7 +21,7 @@ using static OpenTK.Graphics.OpenGL.GL;
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaktionslogik für ProjectSettingsPage.xaml
+    /// Detaileinstellungen für ein Projekt (Name, Beschreibung, Farbe, Löschen).
     /// </summary>
     public partial class ProjectSettingsPage : Page
     {
@@ -29,6 +29,9 @@ namespace Structurio.Pages
         private IApiService apiService;
         private Project project;
 
+        /// <summary>
+        /// Initialisiert die ProjectSettingsPage mit Projekt und MainWindow.
+        /// </summary>
         public ProjectSettingsPage(MainWindow mainWindow, Project project)
         {
             InitializeComponent();
@@ -43,6 +46,9 @@ namespace Structurio.Pages
             colorPicker.SelectedColor = (Color)ColorConverter.ConvertFromString(project.Color);
         }
 
+        /// <summary>
+        /// Setzt Fehlermarkierungen beim Namensfeld zurück.
+        /// </summary>
         private void NameBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             nameBox.ClearValue(BackgroundProperty);
@@ -50,6 +56,9 @@ namespace Structurio.Pages
             nameInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Setzt Fehlermarkierungen beim Beschreibungsfeld zurück.
+        /// </summary>
         private void DescriptionBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             descriptionBox.ClearValue(BackgroundProperty);
@@ -57,6 +66,9 @@ namespace Structurio.Pages
             descriptionInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Löscht das aktuelle Projekt nach Bestätigung.
+        /// </summary>
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             Log.Information($"Delete Button wurde geklickt für Projekt mit dem Namen={project.Name}");
@@ -87,6 +99,9 @@ namespace Structurio.Pages
             });
         }
 
+        /// <summary>
+        /// Validiert und speichert Änderungen am Projekt.
+        /// </summary>
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             Log.Information($"Save Button wurde geklickt für das Projekt mit dem Namen={project.Name}.");

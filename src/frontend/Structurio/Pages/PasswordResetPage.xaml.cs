@@ -22,13 +22,17 @@ using Serilog;
 namespace Structurio.Pages
 {
     /// <summary>
-    /// Interaktionslogik für PasswordResetPage.xaml
+    /// Repräsentiert die Seite zum Zurücksetzen des Passworts in der Login-Ansicht.
     /// </summary>
     public partial class PasswordResetPage : Page
     {
         private LoginWindow loginWindow;
         private Regex emailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", RegexOptions.Compiled);
 
+        /// <summary>
+        /// Initialisiert die Reset-Page mit Bezug auf das LoginWindow.
+        /// </summary>
+        /// <param name="loginWindow">Login-Fenster, das die Seite hostet</param>
         public PasswordResetPage(LoginWindow loginWindow)
         {
             InitializeComponent();
@@ -38,12 +42,18 @@ namespace Structurio.Pages
             this.loginWindow = loginWindow;
         }
 
+        /// <summary>
+        /// Wechsel zurück zur Anmeldeseite.
+        /// </summary>
         private void back_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Zurück zur SignInPage gewechselt.");
             loginWindow.GoToSignInPage();
         }
 
+        /// <summary>
+        /// Setzt Validierungsanzeige zurück, sobald der Benutzer in das E-Mail-Feld schreibt.
+        /// </summary>
         private void emailBox_TextChanged(object sender, RoutedEventArgs e)
         {
             emailBox.Background = Brushes.White;
@@ -51,6 +61,11 @@ namespace Structurio.Pages
             emailInfo.Foreground = Brushes.Gray;
         }
 
+        /// <summary>
+        /// Überprüft, ob die angegebene E-Mail im System existiert.
+        /// </summary>
+        /// <param name="email">E-Mail-Adresse</param>
+        /// <returns>true, wenn E-Mail existiert; sonst false</returns>
         private async Task<bool> CheckEmailAsync(string email)
         {
             var mail = new { email };
@@ -73,10 +88,12 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Validiert die Eingabe, überprüft die Existenz der E-Mail und zeigt Rückmeldung an.
+        /// </summary>
         private async void send_Click(object sender, RoutedEventArgs e)
         {
             int maxEmailLength = 100;
-
             string email = emailBox.Text.Trim();
 
             emailBox.Background = Brushes.White;

@@ -20,12 +20,20 @@ using Structurio.Windows;
 
 namespace Structurio.Pages
 {
+    /// <summary>
+    /// Zeigt alle Projekte eines Benutzers in Kartenform an und ermöglicht die Suche sowie das Erstellen neuer Projekte.
+    /// </summary>
     public partial class ProjectsPage : Page
     {
         private MainWindow mainWindow;
         private List<Project> allProjects;
-        private List<ProjectCard> allProjectCards = new ();
+        private List<ProjectCard> allProjectCards = new();
 
+        /// <summary>
+        /// Initialisiert die Seite mit vorhandenen Projekten.
+        /// </summary>
+        /// <param name="mainWindow">Referenz auf das MainWindow.</param>
+        /// <param name="projects">Liste aller Projekte.</param>
         public ProjectsPage(MainWindow mainWindow, List<Project> projects)
         {
             InitializeComponent();
@@ -39,6 +47,10 @@ namespace Structurio.Pages
             RenderProjects(allProjectCards);
         }
 
+        /// <summary>
+        /// Fügt eine Projektkarte dem Panel hinzu und bindet die Navigation an.
+        /// </summary>
+        /// <param name="card">Darzustellende Projektkarte.</param>
         private void AddCardToPanel(ProjectCard card)
         {
             card.Clicked += (sender, args) =>
@@ -52,22 +64,25 @@ namespace Structurio.Pages
             projectsWrapPanel.Children.Add(card);
         }
 
+        /// <summary>
+        /// Lädt alle Projektkarten aus der Projektliste.
+        /// </summary>
         private void LoadProjects()
         {
             Log.Information("Lade alle Projekte in Projektkarten.");
 
             foreach (var project in allProjects)
             {
-                var card = new ProjectCard
-                {
-                    Project = project
-                };
-                    
+                var card = new ProjectCard { Project = project };
                 allProjectCards.Add(card);
                 AddCardToPanel(card);
             }
         }
 
+        /// <summary>
+        /// Zeigt alle übergebenen Projektkarten im Panel an.
+        /// </summary>
+        /// <param name="cards">Zu rendernde Karten.</param>
         private void RenderProjects(IEnumerable<ProjectCard> cards)
         {
             Log.Information("Rendert alle Projektkarten und zeigt sie in der UI an.");
@@ -80,6 +95,9 @@ namespace Structurio.Pages
             }
         }
 
+        /// <summary>
+        /// Filtert die Projektkarten nach Suchtext.
+        /// </summary>
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             placeholderText.Visibility = string.IsNullOrWhiteSpace(searchBox.Text) ? Visibility.Visible : Visibility.Collapsed;
@@ -92,6 +110,9 @@ namespace Structurio.Pages
             RenderProjects(filtered);
         }
 
+        /// <summary>
+        /// Öffnet das Fenster zum Erstellen eines Projekts und sendet es ans Backend.
+        /// </summary>
         private async void CreateProjectButton_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("CreateProjectButton wurde geklickt.");
