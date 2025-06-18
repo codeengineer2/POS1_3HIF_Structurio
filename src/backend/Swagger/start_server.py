@@ -29,5 +29,8 @@ dictConfig({
         "level": "DEBUG",
     },
 })
+
 if __name__ == "__main__":
     main.main()
+
+# $env:PYTHONPATH="."; python -m unittest discover openapi_server/test

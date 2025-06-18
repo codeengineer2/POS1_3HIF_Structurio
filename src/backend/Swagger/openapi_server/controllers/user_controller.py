@@ -1,12 +1,16 @@
 import psycopg2
+import logging
 from openapi_server.models.email_request import EmailRequest
 from openapi_server.models.login_request import LoginRequest
 from openapi_server.models.register_request import RegisterRequest
+
+logging.basicConfig(level=logging.INFO)
 
 def get_connection():
     """
     @brief Stellt eine Verbindung zur Neon-Datenbank her.
     """
+    logging.info("Stelle Verbindung zur Datenbank her.")
     # egal weil egal
     conn_str = (
         "postgresql://structure_owner:npg_cEPXthQ49IRm@"
@@ -22,6 +26,7 @@ def auth_check_email_post(body):
     @param body: EmailRequest-Objekt oder dict mit email
     @return: JSON mit Erfolgsmeldung
     """
+    logging.info("Prüfe ob E-Mail vorhanden ist.")
     email = body.get("email") if isinstance(body, dict) else body.email
 
     conn = get_connection()
@@ -32,8 +37,10 @@ def auth_check_email_post(body):
     conn.close()
 
     if found:
+        logging.info("E-Mail wurde gefunden.")
         return {"exists": True}, 200
     else:
+        logging.warning("E-Mail wurde nicht gefunden.")
         return {"error": "E-Mail nicht gefunden"}, 404
 
 def auth_login_post(body):
@@ -44,6 +51,7 @@ def auth_login_post(body):
     @param body: LoginRequest-Objekt oder dict mit email und password
     @return: JSON mit Benutzer und Projekten oder Fehlermeldung
     """
+    logging.info("Verarbeite Login-Anfrage.")
     email = body.get("email") if isinstance(body, dict) else body.email
     password = body.get("password") if isinstance(body, dict) else body.password
 
@@ -60,6 +68,7 @@ def auth_login_post(body):
     if not user_row:
         cur.close()
         conn.close()
+        logging.warning("Login fehlgeschlagen.")
         return {
             "success": False,
             "code": "LOGIN_FAILED",
@@ -67,6 +76,7 @@ def auth_login_post(body):
         }, 401
 
     uid, firstname, lastname, email, birthdate = user_row
+    logging.info(f"Login erfolgreich für Benutzer-ID {uid}.")
 
     cur.execute("""
         SELECT pid, name, description, color FROM projects
@@ -101,6 +111,7 @@ def auth_login_post(body):
 
     cur.close()
     conn.close()
+    logging.info("Benutzerdaten und Projekte erfolgreich geladen.")
 
     return {
         "success": True,
@@ -121,6 +132,7 @@ def auth_register_post(body):
     @param body: RegisterRequest-Objekt oder dict mit Vorname, Nachname, Email, Passwort, Geburtsdatum
     @return: JSON mit Benutzer oder Fehlermeldung
     """
+    logging.info("Verarbeite Registrierungsanfrage.")
     firstname = body.get("firstname") if isinstance(body, dict) else body.firstname
     lastname = body.get("lastname") if isinstance(body, dict) else body.lastname
     email = body.get("email") if isinstance(body, dict) else body.email
@@ -141,6 +153,7 @@ def auth_register_post(body):
         )
         uid = cur.fetchone()[0]
         conn.commit()
+        logging.info(f"Benutzer erfolgreich registriert mit ID {uid}.")
 
         return {
             "success": True,
@@ -155,6 +168,7 @@ def auth_register_post(body):
 
     except psycopg2.errors.UniqueViolation:
         conn.rollback()
+        logging.warning("Registrierung fehlgeschlagen: E-Mail existiert bereits.")
         return {
             "success": False,
             "code": "EMAIL_EXISTS",
@@ -164,3 +178,4 @@ def auth_register_post(body):
     finally:
         cur.close()
         conn.close()
+        logging.info("Verbindung geschlossen.")
