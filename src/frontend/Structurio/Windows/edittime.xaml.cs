@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -46,6 +47,7 @@ namespace Structurio
       
             Times =times;
             this.httpClient = httpClient;
+            Log.Information("EditTime.xaml: Window initialisiert");
 
         }
 
@@ -56,12 +58,14 @@ namespace Structurio
                 if (!datein.SelectedDate.HasValue || !dateout.SelectedDate.HasValue)
                 {
                     MessageBox.Show("Bitte für Ein- und Ausstempel-Datum ein Datum wählen.");
+                    Log.Warning("edittime.xaml: Kein Datum für Ein- oder Ausstempel ausgewählt.");
                     return;
                 }
 
                 if (hourin.SelectedItem == null || hourout.SelectedItem == null)
                 {
                     MessageBox.Show("Bitte mindestens die Stunden für Ein- und Ausstempel-Zeiten auswählen.");
+                    Log.Warning("edittime.xaml: Keine Stunden für Ein- oder Ausstempel ausgewählt.");
                     return;
                 }
 
@@ -103,12 +107,13 @@ namespace Structurio
                     checkIn,
                     checkOut,
                     $"{totalHours:D2}:{minutes:D2}");
-
+                Log.Information("edittime.xaml: Zeitdaten erfolgreich aktualisiert für ZID={Zid}", entries[Index].Zid);
                 Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Fehler beim Speichern der Zeitdaten: " + ex.Message);
+                Log.Error(ex, "edittime.xaml: Fehler beim Speichern der Zeitdaten für ZID={Zid}", entries[Index].Zid);
             }
 
         }
