@@ -287,17 +287,25 @@ paths:
           required: true
           schema:
             type: integer
+            minimum: 1
         - name: zid
           in: path
           required: true
           schema:
             type: integer
+            minimum: 1
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/TimestampUpdate'
+            example:
+              datum_in:  "2025-06-18"
+              checkin:   "08:30"
+              datum_out: "2025-06-18"
+              checkout:  "17:30"
+              duration:  "09:00"
       responses:
         '200':
           description: Zeitstempel erfolgreich aktualisiert
@@ -305,6 +313,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Timestamp'
+              example:
+                zid:        42
+                uid:        1
+                datum_in:   "2025-06-18"
+                checkin:    "08:30"
+                datum_out:  "2025-06-18"
+                checkout:   "17:30"
+                duration:   "09:00"
       x-openapi-router-controller: openapi_server.controllers.timestamp_controller
 
   /timestamps:
@@ -523,21 +539,23 @@ components:
 
     TimestampCreate:
       type: object
-      required: [uid, datum_in, checkin]
+      required:
+        - uid
+        - datum_in
+        - checkin
+        - datum_out
+        - checkout
+        - duration
       properties:
         uid:
           type: integer
+          minimum: 1
         datum_in:
           type: string
           format: date
         checkin:
           type: string
           format: time
-
-    TimestampUpdate:
-      type: object
-      required: [datum_out, checkout, duration]
-      properties:
         datum_out:
           type: string
           format: date
@@ -546,6 +564,48 @@ components:
           format: time
         duration:
           type: string
+      example:
+        uid:       1
+        datum_in:  "2025-06-18"
+        checkin:   "10:10"
+        datum_out: "2025-06-18"
+        checkout:  "10:20"
+        duration:  "00:10"
+
+    TimestampUpdate:
+      type: object
+      required:
+        - datum_in
+        - checkin
+        - datum_out
+        - checkout
+        - duration
+      properties:
+        datum_in:
+          type: string
+          format: date
+          description: "Datum des Check-ins"
+        checkin:
+          type: string
+          format: time
+          description: "Uhrzeit des Check-ins"
+        datum_out:
+          type: string
+          format: date
+          description: "Datum des Check-outs"
+        checkout:
+          type: string
+          format: time
+          description: "Uhrzeit des Check-outs"
+        duration:
+          type: string
+          description: "Dauer des Zeitstempels (HH:MM)"
+      example:
+        datum_in:  "2025-06-18"
+        checkin:   "08:30"
+        datum_out: "2025-06-18"
+        checkout:  "17:30"
+        duration:  "09:00"
 
     Timestamp:
       allOf:
@@ -619,12 +679,42 @@ components:
         - category
     AbrechnungCreate:
       type: object
-      required: [uid, pid, name, date, price, category, rechnung]
+      required:
+        - uid
+        - pid
+        - name
+        - date
+        - price
+        - category
+        - rechnung
       properties:
-        uid:       { type: integer }
-        pid:       { type: integer }
-        name:      { type: string }
-        date:      { type: string, format: date }
-        price:     { type: number, format: float }
-        category:  { type: string }
-        rechnung:  { type: string, nullable: true }
+        uid:
+          type: integer
+          minimum: 1
+          description: "Gültige Benutzer‐ID (≥ 1)"
+        pid:
+          type: integer
+          minimum: 1
+          description: "Gültige Projekt‐ID (≥ 1)"
+        name:
+          type: string
+        date:
+          type: string
+          format: date
+        price:
+          type: number
+          format: float
+          minimum: 0
+        category:
+          type: string
+        rechnung:
+          type: string
+          nullable: true
+      example:
+        uid:       1
+        pid:       1
+        name:      "Rechnung Test"
+        date:      "2025-06-18"
+        price:     123.45
+        category:  "Sonstiges"
+        rechnung:  null
