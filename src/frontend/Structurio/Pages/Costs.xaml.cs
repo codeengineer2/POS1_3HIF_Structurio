@@ -24,6 +24,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IOPath = System.IO.Path;
 using Structurio.Classes;
+using Serilog;
 
 namespace Structurio
 {
@@ -42,6 +43,7 @@ namespace Structurio
         public Costs(User user, Project project)
         {
             InitializeComponent();
+            Log.Information("Costs.xaml: Window initialisiert");
             uid = user.Id;
             pid = project.Id;
             httpClient = new HttpClient
@@ -56,6 +58,7 @@ namespace Structurio
         }
         private async void Load_Items()
         {
+            Log.Information("Costs.xaml: Lade die Abrechnungen für User={UserId} und Project={ProjectId}", uid, pid);
             try
             {
                 var items = await Get_Abrechnung.GetAsync(httpClient, uid, pid);
@@ -72,8 +75,10 @@ namespace Structurio
                         Rechnung = item.Rechnung
                     });
                 }
+                
                 CostsListView.Items.Refresh();
                 UpdatePieChart();
+                Log.Information("Costs.xaml: Die Abrechnungen wurden erfolgreich geladen, Anzahl Einträge: {Count}", finance.Count);
             }
             
             catch (Exception ex)
@@ -84,6 +89,7 @@ namespace Structurio
 
         private void Upload_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Costs.xaml: Upload Klick");
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
@@ -109,19 +115,23 @@ namespace Structurio
                     File.Copy(openFileDialog.FileName, zielPfad, overwrite: true);
                     rechnungspfad = relativePathWithFileName;
                     MessageBox.Show("Datei erfolgreich hochgeladen!", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Log.Information("Costs.xaml: Datei erfolgreich hochgeladen: {FilePath}", rechnungspfad);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fehler beim Hochladen:\n" + ex.ToString(), "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Log.Error(ex, "Costs.xaml: Fehler beim Hochladen der Datei: {FilePath}", openFileDialog.FileName);  
                 }
             }
         }
 
         private async void Save_Data_Click(object sender, RoutedEventArgs e)
         {
+            Log.Information("Costs: Save_Data Klick");
             if (string.IsNullOrWhiteSpace(costsName.Text) || string.IsNullOrWhiteSpace(costs.Text) || !DatePickerCosts.SelectedDate.HasValue || CostsCategory.SelectedItem == null || string.IsNullOrWhiteSpace(rechnungspfad))
             {
                 MessageBox.Show("Bitte füllern sie alle Felder aus!", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning("Costs.xaml: Speichern fehlgeschlagen, eines oder mehrere Felder sind leer.");
                 return;
             }
             
@@ -129,6 +139,7 @@ namespace Structurio
             if (!double.TryParse(costs.Text, out double preis))
             {
                 MessageBox.Show("Bitte geben Sie einen gültigen Preis ein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Warning("Costs.xaml: Speichern fehlgeschlagen, ungültiger Preis eingegeben: {Preis}", costs.Text);
                 return;
             }
             string name = costsName.Text;
@@ -147,11 +158,13 @@ namespace Structurio
                                 preis,
                                 kategorie,
                                 rechnungspfad);
+                Log.Information("Costs.xaml: Abrechnung Id={aid} gespeichert", json.Aid);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Speichern fehlgeschlagen:\n{ex.Message}",
                                 "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                Log.Error(ex, "Costs.xaml: Fehler beim Speichern der Abrechnung");
                 return;
             }
             finance.Add(new Finance
@@ -185,6 +198,7 @@ namespace Structurio
         }
         private void CostsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            Log.Information("Costs.xaml: Kosten Eintrag doppelt angeklickt");
             if (CostsListView.SelectedItem is Finance fin)
             {
                 var detailWindow = new Costs_Detail(fin);
@@ -193,7 +207,7 @@ namespace Structurio
         }
         private void UpdatePieChart()
         {
-            
+            Log.Information("Costs.xaml: Updaten des Chartes gestartet");
 
             var kategorien = new[] { "Lizenzen und Abos", "Meetings", "Hardware", "Arbeitsmittel" };
             var kategorienSummen = finance
@@ -218,6 +232,7 @@ namespace Structurio
                         DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Middle,
                         DataLabelsFormatter = point => $"{point.Label}: {point.Model} €"
                     });
+                    Log.Information("Costs.xaml: Kategorie {Kategorie} mit Betrag {Betrag} hinzugefügt", kategorie, betrag);
                 }
             }
 
@@ -246,6 +261,7 @@ namespace Structurio
             }
 
             PieChartCosts.Series = seriesList;
+            Log.Information("Costs.xaml: Chart erfolgreich aktualisiert; Gesamtausgaben: {Gesamtausgaben}, Verfügbares Budget: {VerfügbaresBudget}", gesamtausgaben, restBudget);
         }
     }
 }

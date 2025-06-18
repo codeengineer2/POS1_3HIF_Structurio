@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using IOPath = System.IO.Path;
 using System.IO;
+using Serilog;
 
 namespace Structurio
 {
@@ -47,6 +48,7 @@ namespace Structurio
 
             PdfView.CoreWebView2InitializationCompleted += WebViewReady;
             _ = PdfView.EnsureCoreWebView2Async();
+            Log.Information("Costs_Detail.xaml: Window initialisiert");
         }
 
         private void WebViewReady(object? sender, CoreWebView2InitializationCompletedEventArgs e)
@@ -55,6 +57,7 @@ namespace Structurio
             {
                 ErrorText.Text = $"PDF-Viewer konnte nicht gestartet werden";
                 ErrorText.Visibility = Visibility.Visible;
+                Log.Error("WebView2 konnte nicht gestartet werden");
                 return;
             }
 
@@ -65,11 +68,13 @@ namespace Structurio
             {
                 ErrorText.Text = "PDF nicht gefunden.";
                 ErrorText.Visibility = Visibility.Visible;
+                Log.Error("Kosten-Dokument nicht gefunden: {Path}", fullPath);
                 return;
             }
 
             PdfView.Visibility = Visibility.Visible;
             PdfView.CoreWebView2.Navigate(new Uri(fullPath).AbsoluteUri);
+            Log.Information("Kosten-Dokument geladen: {Path}", fullPath);
         }
 
 

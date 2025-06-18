@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -17,6 +18,8 @@ namespace Structurio
                                              DateTime checkOut,
                                              string duration)
         {
+            Log.Information("Put_timestamp: Update ZID={Zid} auf Checkin={Timein} und Checkout={Timeout} und die Dauer von {duration}", zid, checkIn, checkOut, duration);
+
             var payload = new
             {
                 datum_in = checkIn.ToString("yyyy-MM-dd"),

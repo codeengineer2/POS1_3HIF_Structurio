@@ -19,6 +19,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Security.Cryptography;
 using Structurio.Classes;
+using Serilog;
 
 namespace Structurio
 {
@@ -39,12 +40,15 @@ namespace Structurio
         public TimeStamp(User user)
         {
             InitializeComponent();
+            Log.Information("TimeStamp.xaml: Window initialisiert");
             uid = user.Id;
             times.ItemsSource = entries;
             LoadTimestamps();
         }
         public async void LoadTimestamps()
         {
+            Log.Information("TimeStamp: Lädt Timestamps");
+
             try
             {
                 var items = await Get_timestamp.GetAsync(httpClient, uid);
@@ -61,17 +65,20 @@ namespace Structurio
                         Duration = item.duration
                     });
                 }
+                Log.Information("TimeStamp: Timestamps geladen");
                 times.Items.Refresh();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Fehler beim Laden der Zeitstempel: {ex.Message}");
+                Log.Error(ex, "TimeStamp: Es gab Fehler beim Laden der Timestamps");
+               
             }
         }
         
 
         private async void Checking(object sender, RoutedEventArgs e)
         {
+            Log.Information("TimeStamp: CheckIn Klick");
             DateTime now = DateTime.Now;
             bool needsNew = entries.Count == 0 || entries.Last().CheckOUT != DateTime.MinValue;
             if (needsNew)
@@ -86,11 +93,13 @@ namespace Structurio
                         CheckOUT = DateTime.MinValue,
                         Duration = "00:00"
                     });
+                    Log.Information("TimeStamp: CheckIn Erfolgreich");
                     times.Items.Refresh();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Fehler beim Check-in: {ex.Message}");
+                    Log.Information("TimeStamp: CheckIn fehlgeschlagen");
                 }
             }
 
@@ -99,6 +108,7 @@ namespace Structurio
 
         private async void Checkout(object sender, RoutedEventArgs e)
         {
+            Log.Information("TimeStamp: CheckOut Klick");
             var entry = entries.LastOrDefault();
             if (entry != null && entry.CheckOUT == DateTime.MinValue)
             {
@@ -116,10 +126,12 @@ namespace Structurio
                         entry.CheckIN,
                         entry.CheckOUT,
                         entry.Duration);
+                    Log.Information("TimeStamp: CheckOut Erfolgreich");
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Fehler beim Check-out: {ex.Message}");
+                    Log.Error(ex, "TimeStamp: CheckOut fehlgeschlagen");
                 }
             }
 
@@ -129,11 +141,13 @@ namespace Structurio
 
         private void Dataaendern(object sender, RoutedEventArgs e)
         {
-            if(times.SelectedValue is not null)
+            Log.Information("TimeStamp: Aendern Klick");
+            if (times.SelectedValue is not null)
             {
                 Window aender = new edittime(uid, entries, timeindex, times, httpClient);
 
                 aender.ShowDialog();
+                Log.Information("TimeStamp: Aendern Fenster geöffnet");
             }
             
         }
