@@ -1,9 +1,18 @@
+## @file abrechnung_controller.py
+#  @brief API-Endpunkte für die Verwaltung von Abrechnungen.
+#  @details Enthält Funktionen zur Erstellung und Abfrage von Abrechnungsdatensätzen aus einer PostgreSQL-Datenbank.
+
+## @package abrechnung_controller
+#  @brief Modul zur Verwaltung von Abrechnungen in einem Projekt.
+
+
 import psycopg2
 import psycopg2.extras
 from flask import jsonify, request, abort
 from datetime import date, time
 
-
+## @brief Stellt eine Verbindung zur PostgreSQL-Datenbank her.
+#  @return psycopg2-Verbindung
 def get_connection():
     """
     Stellt eine Verbindung zur Neon-Postgres-Datenbank her.
@@ -15,7 +24,9 @@ def get_connection():
     )
     return psycopg2.connect(conn_str)
 
-
+## @brief Serialisiert ein Datenbank-Record-Dictionary.
+#  @param record Dictionary mit Datenbankwerten.
+#  @return Serialisiertes Dictionary mit Datum/Zeit als String.
 def _serialize_record(record: dict) -> dict:
    
     serialized = {}
@@ -28,7 +39,10 @@ def _serialize_record(record: dict) -> dict:
             serialized[key] = value
     return serialized
 
-
+## @brief Holt alle Abrechnungen für einen Benutzer und ein Projekt.
+#  @param uid Benutzer-ID.
+#  @param pid Projekt-ID.
+#  @return JSON-Antwort mit Abrechnungsdaten oder 404 bei Fehler.
 def get_abrechnungen(uid, pid):
     conn = get_connection()
     try:
@@ -50,6 +64,8 @@ def get_abrechnungen(uid, pid):
     serialized= [_serialize_record(r) for r in rows]
     return jsonify(serialized), 200
 
+## @brief Erstellt einen neuen Abrechnungseintrag.
+#  @return JSON-Antwort mit dem neu erstellten Abrechnungseintrag oder Fehlermeldung.
 def create_abrechnung():
 
     data = request.get_json(silent=True)

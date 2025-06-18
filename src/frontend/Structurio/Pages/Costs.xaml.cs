@@ -25,12 +25,17 @@ using System.Windows.Shapes;
 using IOPath = System.IO.Path;
 using Structurio.Classes;
 using Serilog;
+/// @file Costs.xaml.cs
+/// @brief Stellt die Benutzeroberfläche für die Kostenverwaltung bereit.
+/// @details Beinhaltet Logik zum Anzeigen, Hochladen und Speichern von Kosten inklusive Visualisierung.
 
 namespace Structurio
 {
     /// <summary>
     /// Interaction logic for Costs.xaml
     /// </summary>
+    /// @class Costs
+    /// @brief Interaktive Seite zur Kostenverwaltung eines Projekts.
     public partial class Costs : Page
     {
 
@@ -40,6 +45,10 @@ namespace Structurio
         private int uid = 1;
         private int pid = 1;
         private double gesamtBudget = 10000;
+        /// @brief Konstruktor, initialisiert die Seite mit Benutzer- und Projektinformationen.
+        /// @param user Der aktuell eingeloggte Benutzer.
+        /// @param project Das Projekt, für das Kosten angezeigt werden.
+        /// @return Kein Rückgabewert.
         public Costs(User user, Project project)
         {
             InitializeComponent();
@@ -56,6 +65,8 @@ namespace Structurio
             Load_Items();
           
         }
+        /// @brief Holt die Abrechnungen vom Backend, speichert sie in finance collection und zeigt sie an.
+        /// @return Kein Rückgabewert.
         private async void Load_Items()
         {
             Log.Information("Costs.xaml: Lade die Abrechnungen für User={UserId} und Project={ProjectId}", uid, pid);
@@ -86,7 +97,10 @@ namespace Structurio
                 MessageBox.Show($"Fehler beim Laden der Zeitstempel: {ex.Message}");
             }
         }
-
+        /// @brief Lässt den Benutzer eine Datei auswählen und speichert diese im lokalen Projektverzeichnis.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private void Upload_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Costs.xaml: Upload Klick");
@@ -124,7 +138,10 @@ namespace Structurio
                 }
             }
         }
-
+        /// @brief Validiert und speichert eine neue Abrechnung über die API.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private async void Save_Data_Click(object sender, RoutedEventArgs e)
         {
             Log.Information("Costs: Save_Data Klick");
@@ -183,6 +200,10 @@ namespace Structurio
             DatePickerCosts.SelectedDate = null;
             rechnungspfad = "";
         }
+        /// @brief Passt die GridView-Spaltenbreite bei Fensteränderung an.
+        /// @param Sender
+        /// @param e Event-Daten zur Größenänderung.
+        /// @return Kein Rückgabewert.
         private void Window_SizeChanged(object Sender, SizeChangedEventArgs e)
         {
             double totalWidth = CostsListView.ActualWidth - 35;
@@ -196,6 +217,10 @@ namespace Structurio
                 gridView.Columns[4].Width = totalWidth * 0.30;
             }
         }
+        /// @brief Zeigt Detailansicht bei Doppelklick auf eine Kostenposition.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private void CostsListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Log.Information("Costs.xaml: Kosten Eintrag doppelt angeklickt");
@@ -205,6 +230,8 @@ namespace Structurio
                 detailWindow.Show();
             }
         }
+        /// @brief Aktualisiert das Kreisdiagramm basierend auf den aktuellen Kosten.
+        /// @return Kein Rückgabewert.
         private void UpdatePieChart()
         {
             Log.Information("Costs.xaml: Updaten des Chartes gestartet");

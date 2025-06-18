@@ -6,11 +6,22 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+/// @file Get_Abrechnung.cs
+/// @brief HTTP-Client für GET-Abfragen von Abrechnungen.
 namespace Structurio
 {
+
+    /// @class Get_Abrechnung
+    /// @brief Stellt Funktionalität bereit, um Abrechnungsdaten per HTTP abzurufen.
     public class Get_Abrechnung
     {
         //prompt:  Wie kann man die daten als JSON empfangen.
+
+        /// @brief Holt Abrechnungen für einen Benutzer und ein Projekt.
+        /// @param httpClient Die HTTP-Verbindung.
+        /// @param uid Benutzer-ID.
+        /// @param pid Projekt-ID.
+        /// @return Liste von Abrechnungen.
         public static async Task<List<Abrechnung_JSON>> GetAsync(HttpClient httpClient, int uid, int pid)
         {
             Log.Information("Get Abrechnung: Start für User={UserId}, Projekt={ProjectId}", uid, pid);

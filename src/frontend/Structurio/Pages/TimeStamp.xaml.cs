@@ -21,11 +21,15 @@ using System.Security.Cryptography;
 using Structurio.Classes;
 using Serilog;
 
+/// @file TimeStamp.xaml.cs
+/// @brief Seite zur Zeiterfassung und Verwaltung.
 namespace Structurio
 {
     /// <summary>
     /// Interaction logic for TimeStamp.xaml
     /// </summary>
+    /// @class TimeStamp
+    /// @brief Ermöglicht Ein- und Ausstempeln, Datenbearbeitung und API-Kommunikation.
     public partial class TimeStamp : Page
     {
         private readonly HttpClient httpClient = new HttpClient
@@ -36,7 +40,10 @@ namespace Structurio
         private int uid = 1;
         private int pid = 1;
         public int timeindex = 0;
-     
+
+        /// @brief Konstruktor, initialisiert Zeitstempel-Ansicht für den Benutzer.
+        /// @param user Aktueller Benutzer.
+        /// @return Kein Rückgabewert.
         public TimeStamp(User user)
         {
             InitializeComponent();
@@ -45,6 +52,8 @@ namespace Structurio
             times.ItemsSource = entries;
             LoadTimestamps();
         }
+        /// @brief Holt vorhandene Zeitstempel von der API.
+        /// @return Kein Rückgabewert.
         public async void LoadTimestamps()
         {
             Log.Information("TimeStamp: Lädt Timestamps");
@@ -74,8 +83,11 @@ namespace Structurio
                
             }
         }
-        
 
+        /// @brief Erstellt neuen Check-in-Eintrag, falls notwendig.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private async void Checking(object sender, RoutedEventArgs e)
         {
             Log.Information("TimeStamp: CheckIn Klick");
@@ -105,7 +117,10 @@ namespace Structurio
 
 
         }
-
+        /// @brief Setzt den aktuellen Check-out-Zeitpunkt und aktualisiert die API.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private async void Checkout(object sender, RoutedEventArgs e)
         {
             Log.Information("TimeStamp: CheckOut Klick");
@@ -138,7 +153,10 @@ namespace Structurio
 
 
         }
-
+        /// @brief Öffnet das Fenster zur Bearbeitung des ausgewählten Eintrags.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private void Dataaendern(object sender, RoutedEventArgs e)
         {
             Log.Information("TimeStamp: Aendern Klick");
@@ -151,7 +169,10 @@ namespace Structurio
             }
             
         }
-            
+        /// @brief Speichert den aktuellen Index der ausgewählten Zeit.
+        /// @param sender Das auslösende UI-Element.
+        /// @param e Event-Argumente.
+        /// @return Kein Rückgabewert.
         private void changed_clicktime(object sender, SelectionChangedEventArgs e)
         {
             if (times.SelectedIndex <= entries.Count)

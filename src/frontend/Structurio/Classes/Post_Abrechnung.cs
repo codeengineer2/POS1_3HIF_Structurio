@@ -6,15 +6,29 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+/// @file Post_Abrechnung.cs
+/// @brief HTTP-Client für das Erstellen von Abrechnungen per POST.
 
 namespace Structurio
 {
+
+    /// @class Post_Abrechnung
+    /// @brief Sendet neue Abrechnungsdaten im JSON-Format an den Server.
     public class Post_Abrechnung
     {
         private static readonly JsonSerializerOptions _json =
             new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-
+        /// @brief Erstellt einen neuen Abrechnungseintrag auf dem Server.
+        /// @param httpClient Die HTTP-Verbindung.
+        /// @param uid Benutzer-ID.
+        /// @param pid Projekt-ID.
+        /// @param name Name der Abrechnung.
+        /// @param date Datum.
+        /// @param price Preis.
+        /// @param category Kategorie.
+        /// @param rechnungPath Pfad zur Rechnung.
+        /// @return Die erstellte Abrechnung.
         public static async Task<Abrechnung_JSON> CreateAsync(
             HttpClient httpClient,
             int uid,
