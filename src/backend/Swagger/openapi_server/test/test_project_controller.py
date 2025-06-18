@@ -1,70 +1,139 @@
-from . import BaseTestCase
-import json
+import unittest
+from unittest.mock import patch, MagicMock
+from openapi_server.controllers import project_controller
 
+class TestProjectController(unittest.TestCase):
 
-class TestProjectController(BaseTestCase):
-
-    def test_create_project_success(self):
-        payload = {
-            "name": "Testprojekt",
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    @patch('openapi_server.controllers.project_controller.jsonify')
+    def test_create_project_success(self, mock_jsonify, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.fetchone.side_effect = [(1,), (10,)]
+        mock_jsonify.return_value = "response"
+        body = {
+            "name": "Projekt",
             "description": "Beschreibung",
-            "color": "#123456",
-            "owner_uid": 1
+            "color": "#FFFFFF",
+            "owner_uid": 123
         }
-
-        response = self.client.post('/projects',
-                                    data=json.dumps(payload),
-                                    content_type='application/json')
-
-        self.assertIn(response.status_code, [201, 500])
-
-        if response.status_code ==   201:
-            data = response.get_json()
-            self.assertTrue(data["success"])
-            self.assertIn("pid", data)
-            self.assertIn("board", data)
+        result, code = project_controller.create_project(body)
+        self.assertEqual(result, "response")
+        self.assertEqual(code, 201)
 
     def test_create_project_missing_fields(self):
-        payload = {
+        body = {"name": "Projekt", "color": "#FFFFFF"}
+        with self.assertRaises(Exception):
+            project_controller.create_project(body)
+
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    def test_create_project_db_exception(self, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.execute.side_effect = Exception("Fehler")
+        body = {
+            "name": "Projekt",
             "description": "Beschreibung",
-            "color": "#123456"
-            # owner_uid fehlt
+            "color": "#FFFFFF",
+            "owner_uid": 123
         }
+        with self.assertRaises(Exception):
+            project_controller.create_project(body)
 
-        response = self.client.post('/projects',
-                                    data=json.dumps(payload),
-                                    content_type='application/json')
-
-        self.assertEqual(response.status_code, 400)
-
-    def test_update_project_success_or_not_found(self):
-        payload = {
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    @patch('openapi_server.controllers.project_controller.jsonify')
+    def test_update_project_success(self, mock_jsonify, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.fetchone.return_value = (1,)
+        mock_jsonify.return_value = "ok"
+        body = {
             "pid": 1,
-            "name": "Neuer Name",
-            "description": "Neue Beschreibung",
-            "color": "#abcdef"
+            "name": "Neu",
+            "description": "Neu",
+            "color": "#000000"
         }
-
-        response = self.client.put('/projects',
-                                   data=json.dumps(payload),
-                                   content_type='application/json')
-
-        self.assertIn(response.status_code, [200, 404, 500])
-        if response.status_code == 200:
-            self.assertTrue(response.get_json()["success"])
+        result, code = project_controller.update_project(body)
+        self.assertEqual(result, "ok")
+        self.assertEqual(code, 200)
 
     def test_update_project_missing_fields(self):
-        payload = {
+        body = {"pid": 1, "name": "A"}
+        with self.assertRaises(Exception):
+            project_controller.update_project(body)
+
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    def test_update_project_not_found(self, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.fetchone.return_value = None
+        body = {
             "pid": 1,
-            "description": "Fehlender Name und Color"
+            "name": "Neu",
+            "description": "Neu",
+            "color": "#000000"
         }
+        with self.assertRaises(Exception):
+            project_controller.update_project(body)
 
-        response = self.client.put('/projects',
-                                   data=json.dumps(payload),
-                                   content_type='application/json')
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    def test_update_project_exception(self, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.execute.side_effect = Exception("Fehler")
+        mock_cursor.fetchone.return_value = (1,)
+        body = {
+            "pid": 1,
+            "name": "Neu",
+            "description": "Neu",
+            "color": "#000000"
+        }
+        with self.assertRaises(Exception):
+            project_controller.update_project(body)
 
-        self.assertEqual(response.status_code, 400)
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    @patch('openapi_server.controllers.project_controller.jsonify')
+    def test_delete_project_success(self, mock_jsonify, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.fetchone.return_value = (1,)
+        mock_jsonify.return_value = "deleted"
+        result, code = project_controller.delete_project(1)
+        self.assertEqual(result, "deleted")
+        self.assertEqual(code, 200)
 
-    def test_delete_project_success_or_not_found(self):
-        response = self.client.delete('/projects/1')
-        self.assertIn(response.status_code, [200, 404, 500])
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    def test_delete_project_not_found(self, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.fetchone.return_value = None
+        with self.assertRaises(Exception):
+            project_controller.delete_project(1)
+
+    @patch('openapi_server.controllers.project_controller.psycopg2.connect')
+    def test_delete_project_exception(self, mock_connect):
+        mock_conn = MagicMock()
+        mock_cursor = MagicMock()
+        mock_connect.return_value = mock_conn
+        mock_conn.cursor.return_value = mock_cursor
+        mock_cursor.execute.side_effect = Exception("Fehler")
+        mock_cursor.fetchone.return_value = (1,)
+        with self.assertRaises(Exception):
+            project_controller.delete_project(1)
+
+if __name__ == '__main__':
+    unittest.main()
