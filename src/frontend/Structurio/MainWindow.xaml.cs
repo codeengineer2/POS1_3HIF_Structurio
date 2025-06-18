@@ -14,7 +14,8 @@ using System.Windows.Threading;
 using Structurio.Pages;
 using Structurio.Windows;
 using Structurio.Classes;
-
+using Serilog.Core;
+using Serilog;
 namespace Structurio
 {
     /// <summary>
@@ -27,7 +28,7 @@ namespace Structurio
         public Frame MainFramePublic;
         public User CurrentUser;
         public List<Project> UserProjects;
-
+        
         public MainWindow(User user, List<Project> projects)
         {
             InitializeComponent();
@@ -37,6 +38,10 @@ namespace Structurio
             this.projectsButton.IsChecked = true;
             CurrentUser = user;
             UserProjects = projects;
+            Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
         }
 
         // übergangs lösung
