@@ -80,7 +80,7 @@ python start_server.py
 | **Valentin**   | Projekte, Kanban, Logging, UniTest, Doxygen, Dateisystem, Projektverwaltung, (Frontend/Backend)            |
 | **Maximilian** | Timestamp, Kostenverwaltung, PDF-Viewer, Logging, UniTest,Doxygen, Diagramme (Frontend/Backend) |
 
-## Lizenz & Danksagung
+## Lizenz
 
 * Alle Icons, Emojis und Testdaten wurden mit ChatGPT generiert.
 * Keine externen Bildquellen verwendet.
