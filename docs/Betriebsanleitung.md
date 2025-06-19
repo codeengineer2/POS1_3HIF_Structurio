@@ -13,6 +13,12 @@
 
 ## Start Server
 * Stelle sicher, dass der Server läuft. Öffne Visual Studio Code und starte im Backend die start_server.py Datei.
+* Der Server sollte unter `http://localhost:8080` erreichbar sein.
+* Aktivieren sie mithilfe von "SELECT 1;" im Editor von unserem Datenbankserver die Datenbank auf den Sie aus authentifizierungsgründen leider keinen Zugriff haben. Jedoch können Sie, sollte die Datenbank nicht funktionieren, sich gerne an no-reply.structurio@outlook.com wenden.
+* Öffne die WPF-Anwendung Structurio in Visual Studio und starte sie.
+* Die Anwendung öffnet sich und verbindet sich automatisch mit dem Backend.
+* Sie sollten nun die Anmeldeseite sehen.
+
 
 
 ### 2.1 Anmeldung
