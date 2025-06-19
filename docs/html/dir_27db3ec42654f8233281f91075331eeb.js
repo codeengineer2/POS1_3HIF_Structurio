@@ -1,0 +1,25 @@
+var dir_27db3ec42654f8233281f91075331eeb =
+[
+    [ "Costs.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_costs_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_costs_8g_8cs" ],
+    [ "Costs.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_costs_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_costs_8g_8i_8cs" ],
+    [ "FilesPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_files_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_files_page_8g_8cs" ],
+    [ "FilesPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_files_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_files_page_8g_8i_8cs" ],
+    [ "KanbanPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8cs" ],
+    [ "KanbanPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8i_8cs" ],
+    [ "PasswordResetPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_password_reset_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_password_reset_page_8g_8cs" ],
+    [ "PasswordResetPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_password_reset_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_password_reset_page_8g_8i_8cs" ],
+    [ "ProjectDetailPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_project_detail_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_project_detail_page_8g_8cs" ],
+    [ "ProjectDetailPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_project_detail_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_project_detail_page_8g_8i_8cs" ],
+    [ "ProjectFoldersPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_project_folders_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_project_folders_page_8g_8cs" ],
+    [ "ProjectFoldersPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_project_folders_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_project_folders_page_8g_8i_8cs" ],
+    [ "ProjectSettingsPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_project_settings_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_project_settings_page_8g_8cs" ],
+    [ "ProjectSettingsPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_project_settings_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_project_settings_page_8g_8i_8cs" ],
+    [ "ProjectsPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_projects_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_projects_page_8g_8cs" ],
+    [ "ProjectsPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_projects_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_projects_page_8g_8i_8cs" ],
+    [ "SignInPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_in_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_in_page_8g_8cs" ],
+    [ "SignInPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_in_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_in_page_8g_8i_8cs" ],
+    [ "SignUpPage.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_up_page_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_up_page_8g_8cs" ],
+    [ "SignUpPage.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_up_page_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_sign_up_page_8g_8i_8cs" ],
+    [ "TimeStamp.g.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_time_stamp_8g_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_time_stamp_8g_8cs" ],
+    [ "TimeStamp.g.i.cs", "_release_2net8_80-windows_2win-x64_2_pages_2_time_stamp_8g_8i_8cs.html", "_release_2net8_80-windows_2win-x64_2_pages_2_time_stamp_8g_8i_8cs" ]
+];

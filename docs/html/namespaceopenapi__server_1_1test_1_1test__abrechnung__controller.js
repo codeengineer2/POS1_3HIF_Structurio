@@ -1,0 +1,4 @@
+var namespaceopenapi__server_1_1test_1_1test__abrechnung__controller =
+[
+    [ "TestAbrechnungController", "classopenapi__server_1_1test_1_1test__abrechnung__controller_1_1_test_abrechnung_controller.html", "classopenapi__server_1_1test_1_1test__abrechnung__controller_1_1_test_abrechnung_controller" ]
+];

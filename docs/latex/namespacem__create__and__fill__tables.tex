@@ -1,0 +1,75 @@
+\doxysection{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables Namespace Reference}
+\hypertarget{namespacem__create__and__fill__tables}{}\label{namespacem__create__and__fill__tables}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7}{conn\+\_\+str}}
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_af72c3ccf02db6047a338868e5e7a030d}{conn}} = psycopg2.\+connect(\mbox{\hyperlink{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7}{conn\+\_\+str}})
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a84979aa311cf32e99a1d30e055100f69}{cur}} = conn.\+cursor()
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a4176491ba294b79461facacad940f338}{checkin\+\_\+time}} = time(8 + (i \% 2), 30)
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a669ffd4648ca3d5e4e619cf2b8724dab}{checkout\+\_\+time}} = time(17, 30)
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a99537d2861aac413337aa3efb88d6a61}{duration}} = timedelta(hours=9 -\/ (i \% 3))
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_aea21c7a3afe15e62534169f53967e60a}{datum}} = date(2025, 6, 18)
+\end{DoxyCompactItemize}
+
+
+\label{doc-var-members}
+\Hypertarget{namespacem__create__and__fill__tables_doc-var-members}
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacem__create__and__fill__tables_a4176491ba294b79461facacad940f338}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!checkin\_time@{checkin\_time}}
+\index{checkin\_time@{checkin\_time}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{checkin\_time}{checkin\_time}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_a4176491ba294b79461facacad940f338} 
+m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+checkin\+\_\+time = time(8 + (i \% 2), 30)}
+
+\Hypertarget{namespacem__create__and__fill__tables_a669ffd4648ca3d5e4e619cf2b8724dab}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!checkout\_time@{checkout\_time}}
+\index{checkout\_time@{checkout\_time}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{checkout\_time}{checkout\_time}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_a669ffd4648ca3d5e4e619cf2b8724dab} 
+m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+checkout\+\_\+time = time(17, 30)}
+
+\Hypertarget{namespacem__create__and__fill__tables_af72c3ccf02db6047a338868e5e7a030d}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!conn@{conn}}
+\index{conn@{conn}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{conn}{conn}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_af72c3ccf02db6047a338868e5e7a030d} 
+m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+conn = psycopg2.\+connect(\mbox{\hyperlink{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7}{conn\+\_\+str}})}
+
+\Hypertarget{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!conn\_str@{conn\_str}}
+\index{conn\_str@{conn\_str}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{conn\_str}{conn\_str}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7} 
+tuple m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+conn\+\_\+str}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ (}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}postgresql://structure\_owner:npg\_cEPXthQ49IRm@"{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}ep-\/calm-\/grass-\/a272ihxj-\/pooler.eu-\/central-\/1.aws.neon.tech/"{}}}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}structure?sslmode=require"{}}}
+\DoxyCodeLine{00005\ )}
+
+\end{DoxyCode}
+\Hypertarget{namespacem__create__and__fill__tables_a84979aa311cf32e99a1d30e055100f69}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!cur@{cur}}
+\index{cur@{cur}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{cur}{cur}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_a84979aa311cf32e99a1d30e055100f69} 
+m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+cur = conn.\+cursor()}
+
+\Hypertarget{namespacem__create__and__fill__tables_aea21c7a3afe15e62534169f53967e60a}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!datum@{datum}}
+\index{datum@{datum}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{datum}{datum}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_aea21c7a3afe15e62534169f53967e60a} 
+m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+datum = date(2025, 6, 18)}
+
+\Hypertarget{namespacem__create__and__fill__tables_a99537d2861aac413337aa3efb88d6a61}\index{m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}!duration@{duration}}
+\index{duration@{duration}!m\_create\_and\_fill\_tables@{m\_create\_and\_fill\_tables}}
+\doxysubsubsection{\texorpdfstring{duration}{duration}}
+{\footnotesize\ttfamily \label{namespacem__create__and__fill__tables_a99537d2861aac413337aa3efb88d6a61} 
+m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+duration = timedelta(hours=9 -\/ (i \% 3))}
+

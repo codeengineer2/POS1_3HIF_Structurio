@@ -1,6 +1,24 @@
 var namespaces_dup =
 [
+    [ "a_create_and_fill_tables", "namespacea__create__and__fill__tables.html", [
+      [ "checkin_time", "namespacea__create__and__fill__tables.html#a69dc86435521ec0a9952e504a591ce02", null ],
+      [ "checkout_time", "namespacea__create__and__fill__tables.html#a4d5fc9e1ba0562a82db31d12c494c6eb", null ],
+      [ "conn", "namespacea__create__and__fill__tables.html#a12ec41b8564318c1798bb05b680ed665", null ],
+      [ "conn_str", "namespacea__create__and__fill__tables.html#aef1cc01a94a15766711d98675e861ae0", null ],
+      [ "cur", "namespacea__create__and__fill__tables.html#afc1b99b960074048118c2e32c3b6ee8c", null ],
+      [ "datum", "namespacea__create__and__fill__tables.html#aa3e064ca13649f1328fe08621e3fa6f3", null ],
+      [ "duration", "namespacea__create__and__fill__tables.html#a6ab0f7073ab230f054bbf41609e675cf", null ]
+    ] ],
     [ "abrechnung_controller", "namespaceabrechnung__controller.html", null ],
+    [ "m_create_and_fill_tables", "namespacem__create__and__fill__tables.html", [
+      [ "checkin_time", "namespacem__create__and__fill__tables.html#a4176491ba294b79461facacad940f338", null ],
+      [ "checkout_time", "namespacem__create__and__fill__tables.html#a669ffd4648ca3d5e4e619cf2b8724dab", null ],
+      [ "conn", "namespacem__create__and__fill__tables.html#af72c3ccf02db6047a338868e5e7a030d", null ],
+      [ "conn_str", "namespacem__create__and__fill__tables.html#aeb702462255b48e058b5c55f0d8fe8f7", null ],
+      [ "cur", "namespacem__create__and__fill__tables.html#a84979aa311cf32e99a1d30e055100f69", null ],
+      [ "datum", "namespacem__create__and__fill__tables.html#aea21c7a3afe15e62534169f53967e60a", null ],
+      [ "duration", "namespacem__create__and__fill__tables.html#a99537d2861aac413337aa3efb88d6a61", null ]
+    ] ],
     [ "openapi_server", "namespaceopenapi__server.html", "namespaceopenapi__server" ],
     [ "setup", "namespacesetup.html", [
       [ "author_email", "namespacesetup.html#a5b08034343aa2be607722a8b315f3625", null ],

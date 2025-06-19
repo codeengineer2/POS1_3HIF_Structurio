@@ -5,5 +5,10 @@ var class_structurio_1_1_controls_1_1_project_issue_control =
     [ "GetCursorPos", "class_structurio_1_1_controls_1_1_project_issue_control.html#ab010d770a98f4eb6b4b700a52ee6056d", null ],
     [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
     [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
+    [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
+    [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
+    [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
+    [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
+    [ "InitializeComponent", "class_structurio_1_1_controls_1_1_project_issue_control.html#ae31c20f265061a909c5f2298264fb424", null ],
     [ "Issue", "class_structurio_1_1_controls_1_1_project_issue_control.html#abca2247d10c47f2c0fd7490bd11736e5", null ]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['zid_0',['Zid',['../class_structurio_1_1_timecheckin.html#a710fc45a3d8db27ec69601eca53bfbbc',1,'Structurio::Timecheckin']]],
-  ['zid_1',['zid',['../class_structurio_1_1_timestamp___json.html#a80bb3625798b0150d7223a2807eaf1f1',1,'Structurio::Timestamp_Json']]]
+  ['y_0',['Y',['../struct_structurio_1_1_controls_1_1_project_issue_control_1_1_p_o_i_n_t.html#a4bce0f796c9609b8a22abc16eab81d24',1,'Structurio.Controls.ProjectIssueControl.POINT.Y'],['../struct_structurio_1_1_pages_1_1_kanban_page_1_1_p_o_i_n_t.html#a307e2214310fd60d4e3976613094081d',1,'Structurio.Pages.KanbanPage.POINT.Y']]]
 ];

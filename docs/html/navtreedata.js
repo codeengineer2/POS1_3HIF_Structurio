@@ -58,10 +58,13 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"class_structurio_1_1_classes_1_1_login_request.html#a3d0067209c5219ec1189c9152ddbdf16",
-"class_structurio_1_1_pages_1_1_sign_up_page.html#a16293e90c01674b5f9fcd7ee3169c78a",
-"class_tests_1_1_auth_service_tests.html#ac8790dc75e77509dc554aef1c312f03d",
-"interface_structurio_1_1_interfaces_1_1_i_api_service.html#a24870056eb1b1f690243309c35c4b1a9"
+"_release_2net8_80-windows_2win-x64_2_windows_2_ghost_window_8g_8cs.html",
+"class_structurio_1_1_controls_1_1_file_box_control.html#a06b5defb2befb60450aac826e0e0174c",
+"class_structurio_1_1_pages_1_1_project_detail_page.html#ab6bca8ee5f9d05294e9c51ab97082464",
+"class_structurio_1_1_windows_1_1_ghost_window.html",
+"class_xaml_generated_namespace_1_1_generated_internal_type_helper.html#afdc9fe15b56607d02082908d934480c6",
+"dir_9049f850836d9a43f5da8b57295cc9e4.html",
+"struct_structurio_1_1_pages_1_1_kanban_page_1_1_p_o_i_n_t.html#a4625351c8bb25e775ff5d02a645e367a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

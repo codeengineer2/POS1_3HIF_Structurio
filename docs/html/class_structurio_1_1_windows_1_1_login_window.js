@@ -6,5 +6,10 @@ var class_structurio_1_1_windows_1_1_login_window =
     [ "GoToSignInPage", "class_structurio_1_1_windows_1_1_login_window.html#a7335c478d19b61bfe82001d62cc56c58", null ],
     [ "GoToSignUpPage", "class_structurio_1_1_windows_1_1_login_window.html#ab7c1eefbf33acb9c38256102ba946715", null ],
     [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ],
+    [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ],
+    [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ],
+    [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ],
+    [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ],
+    [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ],
     [ "InitializeComponent", "class_structurio_1_1_windows_1_1_login_window.html#a52caf6c18511fc4930911e41a9437959", null ]
 ];

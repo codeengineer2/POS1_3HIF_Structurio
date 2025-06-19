@@ -86,4 +86,7 @@ python start_server.py
 * Keine externen Bildquellen verwendet.
 * Fachquellen: StackOverflow, offizielle Framework-Dokumentationen, ChatGPT und Gemini.
 
+## Achtung
+* Falls der Build nicht funktioniert dann einfach die relativen Pfade in der App.xaml.cs anpassen. Hinweise dazu sind bereits im Kommentarbereich dort enthalten.
+
 ---

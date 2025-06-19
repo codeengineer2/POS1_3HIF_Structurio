@@ -1,0 +1,24 @@
+\doxysection{backend/scripts/m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.py File Reference}
+\hypertarget{m__create__and__fill__tables_8py}{}\label{m__create__and__fill__tables_8py}\index{backend/scripts/m\_create\_and\_fill\_tables.py@{backend/scripts/m\_create\_and\_fill\_tables.py}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacem__create__and__fill__tables}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+conn\+\_\+str}}
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_af72c3ccf02db6047a338868e5e7a030d}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+conn}} = psycopg2.\+connect(\mbox{\hyperlink{namespacem__create__and__fill__tables_aeb702462255b48e058b5c55f0d8fe8f7}{conn\+\_\+str}})
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a84979aa311cf32e99a1d30e055100f69}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+cur}} = conn.\+cursor()
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a4176491ba294b79461facacad940f338}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+checkin\+\_\+time}} = time(8 + (i \% 2), 30)
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a669ffd4648ca3d5e4e619cf2b8724dab}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+checkout\+\_\+time}} = time(17, 30)
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_a99537d2861aac413337aa3efb88d6a61}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+duration}} = timedelta(hours=9 -\/ (i \% 3))
+\item 
+\mbox{\hyperlink{namespacem__create__and__fill__tables_aea21c7a3afe15e62534169f53967e60a}{m\+\_\+create\+\_\+and\+\_\+fill\+\_\+tables.\+datum}} = date(2025, 6, 18)
+\end{DoxyCompactItemize}

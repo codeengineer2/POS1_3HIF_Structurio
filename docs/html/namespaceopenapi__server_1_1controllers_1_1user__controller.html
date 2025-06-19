@@ -96,9 +96,14 @@ $(function(){initNavTree('namespaceopenapi__server_1_1controllers_1_1user__contr
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:acd95132d590d8b54f450f09b7db7cac8" id="r_acd95132d590d8b54f450f09b7db7cac8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acd95132d590d8b54f450f09b7db7cac8">get_connection</a> ()</td></tr>
+<tr class="memitem:a03f5678f92f3cbff19ecedaba3482844" id="r_a03f5678f92f3cbff19ecedaba3482844"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03f5678f92f3cbff19ecedaba3482844">hash_password</a> (password)</td></tr>
 <tr class="memitem:a79836b77b2cf76114a402b375bf24cff" id="r_a79836b77b2cf76114a402b375bf24cff"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79836b77b2cf76114a402b375bf24cff">auth_check_email_post</a> (body)</td></tr>
 <tr class="memitem:a38909af922d5387595f73b80770ad038" id="r_a38909af922d5387595f73b80770ad038"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a38909af922d5387595f73b80770ad038">auth_login_post</a> (body)</td></tr>
 <tr class="memitem:a659b8b6b663027294ef4c4a4f4ee863a" id="r_a659b8b6b663027294ef4c4a4f4ee863a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a659b8b6b663027294ef4c4a4f4ee863a">auth_register_post</a> (body)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:addf4da39dc556a05ad258bc663f77cca" id="r_addf4da39dc556a05ad258bc663f77cca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#addf4da39dc556a05ad258bc663f77cca">level</a></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a79836b77b2cf76114a402b375bf24cff" name="a79836b77b2cf76114a402b375bf24cff"></a>
@@ -181,6 +186,44 @@ Gibt bei Erfolg vollständige Benutzerdaten und Projektdaten zurück sonst Fehle
 </div><div class="memdoc">
 <pre class="fragment">@brief Stellt eine Verbindung zur Neon-Datenbank her.
 </pre> 
+</div>
+</div>
+<a id="a03f5678f92f3cbff19ecedaba3482844" name="a03f5678f92f3cbff19ecedaba3482844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f5678f92f3cbff19ecedaba3482844">&#9670;&#160;</a></span>hash_password()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">openapi_server.controllers.user_controller.hash_password </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>password</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">@brief Hasht ein Passwort mit SHA-256.
+
+@param password: Das zu hashende Passwort im Klartext.
+@type password: str
+@return: Der SHA-256 Hash des Passworts als hexadezimale Zeichenkette.
+@rtype: str
+</pre> 
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="addf4da39dc556a05ad258bc663f77cca" name="addf4da39dc556a05ad258bc663f77cca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addf4da39dc556a05ad258bc663f77cca">&#9670;&#160;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">openapi_server.controllers.user_controller.level</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

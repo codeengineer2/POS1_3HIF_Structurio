@@ -1,23 +1,9 @@
 var searchData=
 [
-  ['lastname_0',['Lastname',['../class_structurio_1_1_classes_1_1_register_request.html#a31d29f3385124429ddbddce2533e7405',1,'Structurio.Classes.RegisterRequest.Lastname'],['../class_structurio_1_1_classes_1_1_user.html#acc7408f7b9fb1a84e9874ecbdb0ac3e5',1,'Structurio.Classes.User.Lastname']]],
-  ['lastname_1',['lastname',['../classopenapi__server_1_1models_1_1register__request_1_1_register_request.html#a8cd1e3d369d5b224a8ce4693005f8a7a',1,'openapi_server::models::register_request::RegisterRequest']]],
-  ['loadinganimation_2ecs_2',['LoadingAnimation.cs',['../_loading_animation_8cs.html',1,'']]],
-  ['loadtimestamps_3',['LoadTimestamps',['../class_structurio_1_1_time_stamp.html#a8fe99d42809caff794ee20ec4c3e0165',1,'Structurio::TimeStamp']]],
-  ['login_5frequest_2epy_4',['login_request.py',['../login__request_8py.html',1,'']]],
-  ['loginasync_5',['LoginAsync',['../interface_structurio_1_1_interfaces_1_1_i_api_service.html#a1ac018eefecc75f40cfec9787c9a8d6b',1,'Structurio.Interfaces.IApiService.LoginAsync()'],['../class_structurio_1_1_services_1_1_api_service.html#a210fe938ae1efeb686006e97dc8af6e6',1,'Structurio.Services.ApiService.LoginAsync()']]],
-  ['loginasync_5fexception_6',['LoginAsync_Exception',['../class_tests_1_1_api_service_tests.html#a22de338c271a62b13ebafd5115f801b8',1,'Tests::ApiServiceTests']]],
-  ['loginasync_5finvalid_7',['LoginAsync_Invalid',['../class_tests_1_1_api_service_tests.html#a0ea54492c40a9e4970a1fd2bca01cc18',1,'Tests::ApiServiceTests']]],
-  ['loginasync_5fvalid_8',['LoginAsync_Valid',['../class_tests_1_1_api_service_tests.html#ab5d0aecce892dd9fb10a4f673b1cfded',1,'Tests::ApiServiceTests']]],
-  ['loginrequest_9',['LoginRequest',['../classopenapi__server_1_1models_1_1login__request_1_1_login_request.html',1,'openapi_server.models.login_request.LoginRequest'],['../class_structurio_1_1_classes_1_1_login_request.html',1,'Structurio.Classes.LoginRequest']]],
-  ['loginrequest_2ecs_10',['LoginRequest.cs',['../_login_request_8cs.html',1,'']]],
-  ['loginresponse_11',['LoginResponse',['../class_structurio_1_1_classes_1_1_login_response.html',1,'Structurio::Classes']]],
-  ['loginresponse_2ecs_12',['LoginResponse.cs',['../_login_response_8cs.html',1,'']]],
-  ['loginwindow_13',['LoginWindow',['../class_structurio_1_1_windows_1_1_login_window.html',1,'Structurio.Windows.LoginWindow'],['../class_structurio_1_1_windows_1_1_login_window.html#a948efbd037b55c6b5398605881b29357',1,'Structurio.Windows.LoginWindow.LoginWindow()']]],
-  ['loginwindow_2eg_2ecs_14',['LoginWindow.g.cs',['../_login_window_8g_8cs.html',1,'']]],
-  ['loginwindow_2eg_2ei_2ecs_15',['LoginWindow.g.i.cs',['../_login_window_8g_8i_8cs.html',1,'']]],
-  ['loginwindow_2examl_2ecs_16',['LoginWindow.xaml.cs',['../_login_window_8xaml_8cs.html',1,'']]],
-  ['logout_17',['Logout',['../interface_structurio_1_1_interfaces_1_1_i_auth_service.html#a7b8852b576c4845be1224083e09f62b0',1,'Structurio.Interfaces.IAuthService.Logout()'],['../class_structurio_1_1_services_1_1_auth_service.html#a073951ca22716740ad9cd78a858dda90',1,'Structurio.Services.AuthService.Logout()']]],
-  ['logout_5fuser_18',['Logout_User',['../class_tests_1_1_auth_service_tests.html#a02b490b509937cbce08eae3104374dcc',1,'Tests::AuthServiceTests']]],
-  ['long_5fdescription_19',['long_description',['../namespacesetup.html#a4cda9dbfb952875376a0749fe08a5bde',1,'setup']]]
+  ['kanbanpage_0',['KanbanPage',['../class_structurio_1_1_pages_1_1_kanban_page.html',1,'Structurio.Pages.KanbanPage'],['../class_structurio_1_1_pages_1_1_kanban_page.html#a2a0c2424a6fa1dcde652cc4fde0272d8',1,'Structurio.Pages.KanbanPage.KanbanPage()']]],
+  ['kanbanpage_2eg_2ecs_1',['KanbanPage.g.cs',['../_debug_2net8_80-windows_2_pages_2_kanban_page_8g_8cs.html',1,'(Global Namespace)'],['../_release_2net8_80-windows_2_pages_2_kanban_page_8g_8cs.html',1,'(Global Namespace)'],['../_release_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8cs.html',1,'(Global Namespace)']]],
+  ['kanbanpage_2eg_2ei_2ecs_2',['KanbanPage.g.i.cs',['../_debug_2net8_80-windows_2_pages_2_kanban_page_8g_8i_8cs.html',1,'(Global Namespace)'],['../_debug_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8i_8cs.html',1,'(Global Namespace)'],['../_release_2net8_80-windows_2_pages_2_kanban_page_8g_8i_8cs.html',1,'(Global Namespace)'],['../_release_2net8_80-windows_2win-x64_2_pages_2_kanban_page_8g_8i_8cs.html',1,'(Global Namespace)']]],
+  ['kanbanpage_2examl_2ecs_3',['KanbanPage.xaml.cs',['../_kanban_page_8xaml_8cs.html',1,'']]],
+  ['kategorie_4',['Kategorie',['../class_structurio_1_1_finance.html#a4bfa9a4dca7672402a98d2fa9aded4b5',1,'Structurio::Finance']]],
+  ['keywords_5',['keywords',['../namespacesetup.html#a73ae9ecb109f0dcab6f0b6a89043c5c3',1,'setup']]]
 ];

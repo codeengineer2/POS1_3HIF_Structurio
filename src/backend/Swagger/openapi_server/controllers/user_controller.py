@@ -22,23 +22,15 @@ def get_connection():
 
 def hash_password(password):
     """
-    @brief Hash das Passwort mit SHA-256.
-    
-    @details Diese Methode nimmt ein Passwort als Eingabe, hasht es mit dem SHA-256-Algorithmus
-    und gibt den Hashwert als hexadezimale Zeichenkette zurück. Der Hashing-Prozess wird im Log protokolliert.
+    @brief Hasht ein Passwort mit SHA-256.
 
-    @param password: Das zu hashende Passwort. (String)
+    @param password: Das zu hashende Passwort im Klartext.
     @type password: str
-    @return: Der gehashte Passwortwert als hexadezimale Zeichenkette.
+    @return: Der SHA-256 Hash des Passworts als hexadezimale Zeichenkette.
     @rtype: str
     """
-    logging.info("Starte Hashing des Passworts.")
-    
-    hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    
-    logging.info("Passwort wurde erfolgreich gehasht.")
-    
-    return hashed_password
+    logging.info("Hashing Passwort...")
+    return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
 def auth_check_email_post(body):
     """
@@ -75,18 +67,19 @@ def auth_login_post(body):
     logging.info("Verarbeite Login-Anfrage.")
     email = body.get("email") if isinstance(body, dict) else body.email
     password = body.get("password") if isinstance(body, dict) else body.password
+    password = hash_password(password)
 
     conn = get_connection()
     cur = conn.cursor()
 
     cur.execute("""
-        SELECT uid, firstname, lastname, email, password_hash, birthdate
+        SELECT uid, firstname, lastname, email, birthdate
         FROM users
-        WHERE email = %s
-    """, (email,))
+        WHERE email = %s AND password_hash = %s
+    """, (email, password))
     user_row = cur.fetchone()
 
-    if not user_row or user_row[4] != hash_password(password):
+    if not user_row:
         cur.close()
         conn.close()
         logging.warning("Login fehlgeschlagen.")
@@ -160,7 +153,7 @@ def auth_register_post(body):
     password = body.get("password") if isinstance(body, dict) else body.password
     birthdate = body.get("birthdate") if isinstance(body, dict) else body.birthdate
 
-    hashed_password = hash_password(password)
+    password = hash_password(password)
 
     conn = get_connection()
     cur = conn.cursor()
@@ -172,7 +165,7 @@ def auth_register_post(body):
             VALUES (%s, %s, %s, %s, %s)
             RETURNING uid
             """,
-            (firstname, lastname, email, hashed_password, birthdate)
+            (firstname, lastname, email, password, birthdate)
         )
         uid = cur.fetchone()[0]
         conn.commit()
