@@ -2,7 +2,7 @@
 
 **Structurio** ist eine modulare Projektmanagement-Anwendung, entwickelt mit .NET (WPF) und Python. Sie ermöglicht eine umfassende Verwaltung von Projekten mit Funktionen zur Aufgabenplanung (Kanban), Zeit- und Kostenverfolgung, Dateiorganisation sowie Projektkonfiguration – inklusive PDF-Vorschau und grafischer Auswertungen.
 
-## 🛠 Features
+## Features
 
 - **Login- und Registrierungssystem**
 - **Projektverwaltung**: Projekte erstellen, bearbeiten, löschen
